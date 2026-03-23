@@ -1,0 +1,47 @@
+/* ============================================================
+   PROFIL PAGE
+   ============================================================ */
+
+.profil-root {
+    -fx-background-color: #F0F2F8;
+}
+
+/* ── Champs formulaire ── */
+.profil-field-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A5568;
+}
+
+.profil-field {
+    -fx-background-color: #F7FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 9;
+    -fx-background-radius: 9;
+    -fx-padding: 10 14;
+    -fx-font-size: 13px;
+    -fx-pref-height: 40px;
+}
+.profil-field:focused {
+    -fx-border-color: #6C63FF;
+    -fx-background-color: white;
+    -fx-border-width: 1.5;
+}
+
+/* ComboBox hérite du style profil-field via styleClass */
+.profil-field.combo-box {
+    -fx-padding: 4 14;
+}
+
+/* ── Rows résumé ── */
+.summary-row {
+    -fx-padding: 10 0;
+    -fx-border-color: transparent transparent #F4F6FC transparent;
+}
+.summary-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #718096;
+}
+.summary-value-green  { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #27AE60; }
+.summary-value-red    { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #E74C3C; }
+.summary-value-purple { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #6C63FF; }
