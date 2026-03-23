@@ -1,0 +1,44 @@
+package com.project.utils;
+
+import java.io.IOException;
+
+import com.project.App;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+public class NavigationHelper {
+
+    // Navigation principale (remplace la scène courante)
+    public static void navigateTo(String fxmlPath) throws IOException {
+        App.navigateTo(fxmlPath);
+    }
+
+    // Ouvre une fenêtre modale (ex: ajout de transaction)
+    public static void openModal(String fxmlPath, String titre) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+            NavigationHelper.class.getResource(fxmlPath + ".fxml")
+        );
+        Parent root = loader.load();
+
+        Stage modal = new Stage();
+        modal.setTitle(titre);
+        modal.initModality(Modality.APPLICATION_MODAL);
+        modal.setScene(new Scene(root));
+        modal.setResizable(false);
+        modal.showAndWait();
+    }
+
+    // Chemins FXML centralisés (évite les typos)
+    public static final String LOGIN        = "/com/project/view/Login";
+    public static final String INSCRIPTION  = "/com/project/view/Inscription";
+    public static final String HOME         = "/com/project/view/Home";
+    public static final String TRANSACTION  = "/com/project/view/Transaction";
+    public static final String STATISTIQUE  = "/com/project/view/Statistique";
+    public static final String PROFIL       = "/com/project/view/Profil";
+    public static final String MODAL_TRANS  = "/com/project/view/TransactionModal";
+    public static final String ALERTES      = "/com/project/view/Alertes";
+}

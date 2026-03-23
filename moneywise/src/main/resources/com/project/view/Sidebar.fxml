@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.SidebarController"
+      fx:id="sidebarRoot"
+      styleClass="sidebar"
+      stylesheets="@../style/global.css, @../style/sidebar.css"
+      prefWidth="240" minWidth="240">
+
+    <!-- ═══════════════════ LOGO ═══════════════════ -->
+    <VBox styleClass="sidebar-logo-zone" spacing="2">
+        <Label text="💰 MoneyWise" styleClass="sidebar-logo-title"/>
+        <Label text="Votre finances. Votre contrôle." styleClass="sidebar-logo-sub"/>
+    </VBox>
+
+    <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+    <VBox VBox.vgrow="ALWAYS" spacing="2" style="-fx-padding: 10 0;">
+
+        <!-- MENU -->
+        <Label text="MENU" styleClass="sidebar-section-label"/>
+
+        <!-- Dashboard -->
+        <HBox fx:id="navHome" styleClass="nav-item" onMouseClicked="#goToHome">
+            <Label text="⌂" styleClass="nav-item-icon"/>
+            <Label text="Dashboard" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <!-- Transactions -->
+        <HBox fx:id="navTransaction" styleClass="nav-item" onMouseClicked="#goToTransaction">
+            <Label text="↕" styleClass="nav-item-icon"/>
+            <Label text="Transactions" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <!-- Statistiques -->
+        <HBox fx:id="navStatistique" styleClass="nav-item" onMouseClicked="#goToStatistique">
+            <Label text="▦" styleClass="nav-item-icon"/>
+            <Label text="Statistiques" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <!-- COMPTE -->
+        <Label text="COMPTE" styleClass="sidebar-section-label"/>
+
+        <!-- Profil -->
+        <HBox fx:id="navProfil" styleClass="nav-item" onMouseClicked="#goToProfil">
+            <Label text="◉" styleClass="nav-item-icon"/>
+            <Label text="Mon profil" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <!-- Alertes avec badge -->
+        <HBox fx:id="navAlertes" styleClass="nav-item" onMouseClicked="#goToAlertes">
+            <Label text="🔔" styleClass="nav-item-icon"/>
+            <Label text="Alertes" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+            <Label fx:id="alerteBadge" text="0"
+                   styleClass="nav-badge"
+                   visible="false" managed="false"/>
+        </HBox>
+
+    </VBox>
+
+    <!-- ═══════════════════ USER ZONE ═══════════════════ -->
+    <HBox styleClass="sidebar-user-zone" spacing="10" alignment="CENTER_LEFT">
+
+        <!-- Avatar initiales -->
+        <StackPane styleClass="sidebar-user-avatar">
+            <Label fx:id="avatarLabel" text="?" styleClass="sidebar-user-avatar-label"/>
+        </StackPane>
+
+        <!-- Infos user -->
+        <VBox spacing="2" HBox.hgrow="ALWAYS">
+            <Label fx:id="userNameLabel"  text="Utilisateur" styleClass="sidebar-user-name"/>
+            <Label fx:id="userEmailLabel" text="email@..."   styleClass="sidebar-user-email"/>
+        </VBox>
+
+        <!-- Déconnexion -->
+        <Button text="⏻" styleClass="btn-logout" onAction="#handleLogout"/>
+
+    </HBox>
+</VBox>

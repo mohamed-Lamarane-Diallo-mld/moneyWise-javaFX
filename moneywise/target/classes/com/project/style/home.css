@@ -1,0 +1,320 @@
+/* ============================================================
+   HOME — Dashboard expansif MoneyWise
+   ============================================================ */
+
+/* ── Root ── */
+.home-root {
+    -fx-background-color: #F0F2F8;
+}
+
+/* ── Header enrichi ── */
+.header {
+    -fx-background-color: white;
+    -fx-padding: 18 32;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, 2);
+    -fx-min-height: 76px;
+}
+.header-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A202C;
+}
+.header-date {
+    -fx-font-size: 13px;
+    -fx-text-fill: #718096;
+}
+.header-user {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3748;
+}
+
+/* Ligne décorative sous le header */
+.header-accent {
+    -fx-background-color: linear-gradient(to right, #6C63FF, #2ECC71, transparent);
+    -fx-opacity: 0.5;
+    -fx-pref-height: 2px;
+}
+
+/* ── Contenu scrollable ── */
+.home-content {
+    -fx-padding: 28 32;
+    -fx-spacing: 22;
+    -fx-background-color: #F0F2F8;
+}
+
+/* ── Section title ── */
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A202C;
+}
+.section-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #A0AEC0;
+}
+
+/* ══════════════════════════════════════════ */
+/* KPI CARDS                                  */
+/* ══════════════════════════════════════════ */
+
+.kpi-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 14, 0, 0, 4);
+    -fx-padding: 22 24;
+    -fx-spacing: 12;
+}
+.kpi-card-purple {
+    -fx-background-color: #6C63FF;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.4), 18, 0, 0, 6);
+    -fx-padding: 22 24;
+    -fx-spacing: 12;
+}
+
+/* Icône box */
+.kpi-icon-box {
+    -fx-min-width: 48px; -fx-min-height: 48px;
+    -fx-max-width: 48px; -fx-max-height: 48px;
+    -fx-background-radius: 13;
+    -fx-alignment: center;
+}
+.kpi-icon-box-green  { -fx-background-color: #E8F8F1; }
+.kpi-icon-box-red    { -fx-background-color: #FDECEA; }
+.kpi-icon-box-purple { -fx-background-color: rgba(255,255,255,0.25); }
+.kpi-icon-box-blue   { -fx-background-color: #EBF5FB; }
+
+.kpi-icon { -fx-font-size: 22px; }
+
+.kpi-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #A0AEC0;
+}
+.kpi-label-white {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(255,255,255,0.65);
+}
+.kpi-value {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A202C;
+}
+.kpi-value-green  { -fx-text-fill: #27AE60; }
+.kpi-value-red    { -fx-text-fill: #E74C3C; }
+.kpi-value-white  { -fx-text-fill: white; }
+
+.kpi-badge-green {
+    -fx-background-color: #E8F8F1;
+    -fx-text-fill: #27AE60;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 6;
+}
+.kpi-badge-red {
+    -fx-background-color: #FDECEA;
+    -fx-text-fill: #E74C3C;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 6;
+}
+.kpi-badge-white {
+    -fx-background-color: rgba(255,255,255,0.25);
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 6;
+}
+
+.kpi-evolution {
+    -fx-font-size: 12px;
+    -fx-text-fill: #A0AEC0;
+}
+.kpi-evolution-white {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255,255,255,0.6);
+}
+
+/* Barre décorative bas de card */
+.kpi-bar-green  { -fx-background-color: #2ECC71; -fx-background-radius: 2; -fx-pref-height: 3; }
+.kpi-bar-red    { -fx-background-color: #E74C3C; -fx-background-radius: 2; -fx-pref-height: 3; }
+.kpi-bar-white  { -fx-background-color: rgba(255,255,255,0.4); -fx-background-radius: 2; -fx-pref-height: 3; }
+
+/* ══════════════════════════════════════════ */
+/* TABLE TRANSACTIONS                         */
+/* ══════════════════════════════════════════ */
+
+.table-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 14, 0, 0, 4);
+    -fx-padding: 0;
+}
+.table-header-zone {
+    -fx-padding: 20 24 14 24;
+}
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+.table-view .column-header-background {
+    -fx-background-color: #F7FAFC;
+    -fx-padding: 0;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10 16;
+}
+.table-view .column-header .label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #A0AEC0;
+}
+.table-view .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #F4F6FC transparent;
+    -fx-padding: 4 0;
+}
+.table-view .table-row-cell:hover {
+    -fx-background-color: #FAFBFF;
+}
+.table-view .table-cell {
+    -fx-padding: 11 16;
+    -fx-font-size: 13px;
+    -fx-text-fill: #2D3748;
+    -fx-border-color: transparent;
+}
+
+/* ── Bouton voir tout ── */
+.btn-voir-tout {
+    -fx-background-color: #EAE8FF;
+    -fx-text-fill: #6C63FF;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 7 14;
+    -fx-background-radius: 8;
+}
+.btn-voir-tout:hover {
+    -fx-background-color: #6C63FF;
+    -fx-text-fill: white;
+}
+
+/* ══════════════════════════════════════════ */
+/* PANEL DROIT                                */
+/* ══════════════════════════════════════════ */
+
+.side-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 14, 0, 0, 4);
+    -fx-padding: 20;
+}
+
+.side-card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A202C;
+}
+
+/* Boutons accès rapide */
+.quick-btn-primary {
+    -fx-background-color: #6C63FF;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 0;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+.quick-btn-primary:hover { -fx-background-color: #574FD6; }
+
+.quick-btn-secondary {
+    -fx-background-color: #EAE8FF;
+    -fx-text-fill: #6C63FF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 0;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+.quick-btn-secondary:hover { -fx-background-color: #D4D0FF; }
+
+.quick-btn-warning {
+    -fx-background-color: #FFF8E7;
+    -fx-text-fill: #D97706;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 0;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+.quick-btn-warning:hover { -fx-background-color: #FEF3C7; }
+
+/* Résumé mensuel lignes */
+.summary-row {
+    -fx-padding: 10 0;
+    -fx-border-color: transparent transparent #F4F6FC transparent;
+}
+.summary-icon-box {
+    -fx-min-width: 34px; -fx-min-height: 34px;
+    -fx-max-width: 34px; -fx-max-height: 34px;
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+}
+.summary-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #718096;
+}
+.summary-value-green  { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #27AE60; }
+.summary-value-red    { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #E74C3C; }
+.summary-value-purple { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #6C63FF; }
+
+/* Carte conseil dégradé */
+.conseil-card {
+    -fx-background-color: linear-gradient(to bottom right, #6C63FF, #574FD6);
+    -fx-background-radius: 14;
+    -fx-padding: 18;
+    -fx-spacing: 10;
+}
+.conseil-badge {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(255,255,255,0.65);
+}
+.conseil-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255,255,255,0.9);
+    -fx-wrap-text: true;
+}
+
+/* ── Alerte widget ── */
+.alerte-widget {
+    -fx-background-color: #FFFBEB;
+    -fx-border-color: #F59E0B;
+    -fx-border-width: 0 0 0 4;
+    -fx-background-radius: 0 10 10 0;
+    -fx-padding: 14 20;
+    -fx-spacing: 12;
+}
+.alerte-widget-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #92400E;
+}
+.alerte-widget-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #B45309;
+}
+.header-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A202C;
+}

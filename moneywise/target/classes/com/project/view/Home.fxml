@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.HomeController"
+      styleClass="home-root"
+      stylesheets="@../style/global.css, @../style/sidebar.css, @../style/home.css"
+      maxWidth="Infinity" maxHeight="Infinity">
+
+    <fx:include fx:id="sidebar" source="Sidebar.fxml"/>
+
+    <VBox HBox.hgrow="ALWAYS">
+
+        <!-- HEADER -->
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="0">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label fx:id="headerUser" text="Bonjour !"
+                       styleClass="header-title"/>
+                <Label fx:id="headerDate" text=""
+                       styleClass="header-date"/>
+            </VBox>
+
+            <HBox spacing="14" alignment="CENTER">
+                <VBox alignment="CENTER" spacing="2"
+                      style="-fx-background-color:#F0FFF4;
+                             -fx-background-radius:10;
+                             -fx-padding:8 18;">
+                    <Label text="SOLDE"
+                           style="-fx-font-size:9px; -fx-font-weight:bold;
+                                  -fx-text-fill:#38A169;"/>
+                    <Label fx:id="headerSolde" text="— FCFA"
+                           style="-fx-font-size:15px; -fx-font-weight:bold;
+                                  -fx-text-fill:#276749;"/>
+                </VBox>
+
+                <Button text="＋  Transaction"
+                        onAction="#goToTransactions"
+                        style="-fx-background-color:#6C63FF;
+                               -fx-text-fill:white;
+                               -fx-font-size:13px;
+                               -fx-font-weight:bold;
+                               -fx-padding:10 20;
+                               -fx-background-radius:9;
+                               -fx-cursor:hand;"/>
+            </HBox>
+        </HBox>
+
+        <!-- Ligne décorative -->
+        <Region prefHeight="2"
+                style="-fx-background-color:linear-gradient(to right,
+                       #6C63FF 0%, #2ECC71 50%, transparent 100%);
+                       -fx-opacity:0.5;"/>
+
+        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true"
+                    styleClass="scroll-pane">
+            <VBox styleClass="home-content" spacing="22">
+
+                <!-- ALERTE -->
+                <HBox fx:id="alerteWidget"
+                      styleClass="alerte-widget"
+                      spacing="14" alignment="CENTER_LEFT"
+                      visible="false" managed="false">
+                    <Label text="⚠"
+                           style="-fx-font-size:20px; -fx-text-fill:#D97706;"/>
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label text="Seuil budgétaire atteint"
+                               styleClass="alerte-widget-title"/>
+                        <Label fx:id="alerteWidgetText" text=""
+                               styleClass="alerte-widget-text"/>
+                    </VBox>
+                    <Button text="Voir →"
+                            style="-fx-background-color:#F59E0B;
+                                   -fx-text-fill:white;
+                                   -fx-font-size:12px;
+                                   -fx-font-weight:bold;
+                                   -fx-padding:7 14;
+                                   -fx-background-radius:7;
+                                   -fx-cursor:hand;"/>
+                </HBox>
+
+                <!-- TITRE -->
+                <VBox spacing="2">
+                    <Label text="Vue d'ensemble" styleClass="section-title"/>
+                    <Label text="Indicateurs financiers du mois en cours"
+                           styleClass="section-subtitle"/>
+                </VBox>
+
+                <!-- KPI CARDS -->
+                <HBox spacing="16">
+
+                    <!-- REVENUS -->
+                    <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="↑" styleClass="kpi-badge-green"/>
+                                    <Label text="REVENUS DU MOIS"
+                                           styleClass="kpi-label"/>
+                                </HBox>
+                                <!-- ✅ fx:id unique -->
+                                <Label fx:id="kpiRevenus" text="0 FCFA"
+                                       styleClass="kpi-value, kpi-value-green"/>
+                                <Label fx:id="kpiRevenusEvol" text=""
+                                       styleClass="kpi-evolution"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
+                                <Label text="💰" styleClass="kpi-icon"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region styleClass="kpi-bar-green" maxWidth="56"/>
+                    </VBox>
+
+                    <!-- DÉPENSES -->
+                    <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="↓" styleClass="kpi-badge-red"/>
+                                    <Label text="DÉPENSES DU MOIS"
+                                           styleClass="kpi-label"/>
+                                </HBox>
+                                <!-- ✅ fx:id unique -->
+                                <Label fx:id="kpiDepenses" text="0 FCFA"
+                                       styleClass="kpi-value, kpi-value-red"/>
+                                <Label fx:id="kpiDepensesEvol" text=""
+                                       styleClass="kpi-evolution"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
+                                <Label text="💸" styleClass="kpi-icon"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region styleClass="kpi-bar-red" maxWidth="56"/>
+                    </VBox>
+
+                    <!-- SOLDE card violette -->
+                    <VBox styleClass="kpi-card-purple" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="◈" styleClass="kpi-badge-white"/>
+                                    <Label text="SOLDE TOTAL"
+                                           styleClass="kpi-label-white"/>
+                                </HBox>
+                                <!-- ✅ fx:id unique -->
+                                <Label fx:id="kpiSolde" text="0 FCFA"
+                                       styleClass="kpi-value, kpi-value-white"/>
+                                <Label fx:id="kpiSoldeEvol" text=""
+                                       styleClass="kpi-evolution-white"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
+                                <Label text="🏦" styleClass="kpi-icon"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region styleClass="kpi-bar-white" maxWidth="56"/>
+                    </VBox>
+
+                </HBox>
+
+                <!-- LIGNE 2 : TABLE + PANEL DROIT -->
+                <HBox spacing="20" alignment="TOP_LEFT">
+
+                    <!-- TRANSACTIONS RÉCENTES -->
+                    <VBox styleClass="table-card" HBox.hgrow="ALWAYS">
+
+                        <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
+                            <VBox HBox.hgrow="ALWAYS" spacing="2">
+                                <Label text="Transactions récentes"
+                                       styleClass="section-title"/>
+                                <Label text="Dernières opérations enregistrées"
+                                       styleClass="section-subtitle"/>
+                            </VBox>
+                            <Button text="Voir tout →"
+                                    styleClass="btn-voir-tout"
+                                    onAction="#goToTransactions"/>
+                        </HBox>
+
+                        <Separator style="-fx-opacity:0.5;"/>
+
+                        <TableView fx:id="transactionsTable"
+                                   styleClass="table-view"
+                                   prefHeight="300"
+                                   VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colDate"
+                                             text="DATE" prefWidth="110"/>
+                                <TableColumn fx:id="colDescription"
+                                             text="DESCRIPTION" prefWidth="200"/>
+                                <TableColumn fx:id="colCategorie"
+                                             text="CATÉGORIE" prefWidth="130"/>
+                                <TableColumn fx:id="colType"
+                                             text="TYPE" prefWidth="90"/>
+                                <TableColumn fx:id="colMontant"
+                                             text="MONTANT" prefWidth="120"/>
+                            </columns>
+                        </TableView>
+
+                    </VBox>
+
+                    <!-- PANEL DROIT -->
+                    <VBox spacing="14" prefWidth="280" minWidth="280" maxWidth="280">
+
+                        <!-- ACCÈS RAPIDES -->
+                        <VBox styleClass="side-card" spacing="10">
+                            <Label text="Accès rapides"
+                                   styleClass="side-card-title"
+                                   style="-fx-padding:0 0 4 0;"/>
+                            <Button text="＋  Nouvelle transaction"
+                                    styleClass="quick-btn-primary"
+                                    maxWidth="Infinity"
+                                    onAction="#goToTransactions"/>
+                            <Button text="📊  Statistiques"
+                                    styleClass="quick-btn-secondary"
+                                    maxWidth="Infinity"
+                                    onAction="#goToStatistiques"/>
+                            <Button text="🔔  Alertes budgétaires"
+                                    styleClass="quick-btn-warning"
+                                    maxWidth="Infinity"
+                                    onAction="#goToAlertes"/>
+                        </VBox>
+
+                        <!-- RÉSUMÉ MENSUEL — ✅ fx:id différents -->
+                        <VBox styleClass="side-card" spacing="0">
+                            <Label text="Résumé mensuel"
+                                   styleClass="side-card-title"
+                                   style="-fx-padding:0 0 12 0;"/>
+
+                            <HBox styleClass="summary-row"
+                                  alignment="CENTER_LEFT" spacing="12">
+                                <StackPane styleClass="summary-icon-box"
+                                           style="-fx-background-color:#E8F8F1;">
+                                    <Label text="↑"
+                                           style="-fx-text-fill:#27AE60;
+                                                  -fx-font-weight:bold;
+                                                  -fx-font-size:14px;"/>
+                                </StackPane>
+                                <VBox spacing="1" HBox.hgrow="ALWAYS">
+                                    <Label text="Revenus" styleClass="summary-label"/>
+                                    <!-- ✅ sideRevenus -->
+                                    <Label fx:id="sideRevenus" text="0 FCFA"
+                                           styleClass="summary-value-green"/>
+                                </VBox>
+                            </HBox>
+
+                            <HBox styleClass="summary-row"
+                                  alignment="CENTER_LEFT" spacing="12">
+                                <StackPane styleClass="summary-icon-box"
+                                           style="-fx-background-color:#FDECEA;">
+                                    <Label text="↓"
+                                           style="-fx-text-fill:#E74C3C;
+                                                  -fx-font-weight:bold;
+                                                  -fx-font-size:14px;"/>
+                                </StackPane>
+                                <VBox spacing="1" HBox.hgrow="ALWAYS">
+                                    <Label text="Dépenses" styleClass="summary-label"/>
+                                    <!-- ✅ sideDepenses -->
+                                    <Label fx:id="sideDepenses" text="0 FCFA"
+                                           styleClass="summary-value-red"/>
+                                </VBox>
+                            </HBox>
+
+                            <HBox style="-fx-padding:10 0 0 0;"
+                                  alignment="CENTER_LEFT" spacing="12">
+                                <StackPane styleClass="summary-icon-box"
+                                           style="-fx-background-color:#EAE8FF;">
+                                    <Label text="◈"
+                                           style="-fx-text-fill:#6C63FF;
+                                                  -fx-font-weight:bold;
+                                                  -fx-font-size:13px;"/>
+                                </StackPane>
+                                <VBox spacing="1" HBox.hgrow="ALWAYS">
+                                    <Label text="Épargne nette"
+                                           styleClass="summary-label"/>
+                                    <!-- ✅ sideEpargne -->
+                                    <Label fx:id="sideEpargne" text="0 FCFA"
+                                           styleClass="summary-value-purple"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+
+                        <!-- CONSEIL -->
+                        <VBox styleClass="conseil-card" spacing="8">
+                            <Label text="💡  Conseil du mois"
+                                   styleClass="conseil-badge"/>
+                            <Label text="Suivez vos dépenses chaque semaine pour mieux maîtriser votre budget et identifier les postes à optimiser."
+                                   styleClass="conseil-text"
+                                   wrapText="true"/>
+                        </VBox>
+
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</HBox>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.TransactionModalController"
+      styleClass="modal-root"
+      stylesheets="@../style/global.css, @../style/transaction.css">
+
+    <!-- Titre -->
+    <HBox alignment="CENTER_LEFT" spacing="0">
+        <Label fx:id="modalTitle" text="Nouvelle transaction"
+               styleClass="modal-title" HBox.hgrow="ALWAYS"/> 
+    </HBox>
+
+    <Separator/>
+
+    <!-- ── Toggle ENTREE / SORTIE ── -->
+    <VBox spacing="6">
+        <Label text="Type de transaction" styleClass="modal-field-label"/>
+        <HBox>
+            <Button fx:id="btnEntree" text="↑  Entrée (Revenu)"
+                    styleClass="toggle-entree, toggle-entree-active"
+                    onAction="#selectEntree"/>
+            <Button fx:id="btnSortie" text="↓  Sortie (Dépense)"
+                    styleClass="toggle-sortie"
+                    onAction="#selectSortie"/>
+        </HBox>
+    </VBox>
+
+    <!-- ── Montant ── -->
+    <VBox spacing="6">
+        <Label text="Montant (FCFA)" styleClass="modal-field-label"/>
+        <TextField fx:id="montantField"
+                   promptText="Ex: 25000"
+                   styleClass="modal-field"/>
+    </VBox>
+
+    <!-- ── Catégorie ── -->
+    <VBox spacing="6">
+        <Label text="Catégorie" styleClass="modal-field-label"/>
+        <ComboBox fx:id="categorieCombo"
+                  promptText="Choisir une catégorie"
+                  styleClass="modal-combo"/>
+    </VBox>
+
+    <!-- ── Date ── -->
+    <VBox spacing="6">
+        <Label text="Date" styleClass="modal-field-label"/>
+        <DatePicker fx:id="datePicker"
+                    styleClass="modal-field"
+                    prefWidth="416"/>
+    </VBox>
+
+    <!-- ── Description ── -->
+    <VBox spacing="6">
+        <Label text="Description (optionnel)" styleClass="modal-field-label"/>
+        <TextField fx:id="descriptionField"
+                   promptText="Ex: Courses supermarché"
+                   styleClass="modal-field"/>
+    </VBox>
+
+    <!-- ── Erreur ── -->
+    <Label fx:id="errorLabel" text=""
+           styleClass="modal-error"
+           visible="false" managed="false"
+           wrapText="true" maxWidth="416"/>
+
+    <Separator/>
+
+    <!-- ── Boutons ── -->
+    <Button fx:id="saveBtn" text="Enregistrer"
+            styleClass="modal-btn-save"
+            onAction="#handleSave"
+            defaultButton="true"/>
+
+    <Button text="Annuler"
+            styleClass="modal-btn-cancel"
+            onAction="#handleCancel"/>
+
+</VBox>

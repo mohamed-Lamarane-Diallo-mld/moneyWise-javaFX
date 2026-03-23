@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.AlertesController"
+      styleClass="home-root"
+      stylesheets="@../style/global.css, @../style/sidebar.css,
+                   @../style/home.css, @../style/alertes.css"
+      maxWidth="Infinity" maxHeight="Infinity">
+
+    <!-- SIDEBAR -->
+    <fx:include fx:id="sidebar" source="Sidebar.fxml"/>
+
+    <!-- CONTENU -->
+    <VBox HBox.hgrow="ALWAYS">
+
+        <!-- Header -->
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="0">
+            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                <Label text="Alertes &amp; Budgets" styleClass="header-title"/>
+                <Label fx:id="headerDate" text="" styleClass="header-date"/>
+            </VBox>
+            <HBox spacing="12" alignment="CENTER_RIGHT">
+                <Button text="✓ Tout marquer comme lu"
+                        styleClass="btn-marquer-lu"
+                        onAction="#handleMarquerToutLu"/>
+                <Label fx:id="headerUser" text="" styleClass="header-user"/>
+            </HBox>
+        </HBox>
+
+        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true"
+                    styleClass="scroll-pane">
+            <VBox style="-fx-padding: 28 32; -fx-spacing: 24;
+                         -fx-background-color: #F4F6FC;">
+
+                <!-- ═══ RÉSUMÉ BUDGETS ═══ -->
+                <VBox styleClass="card" spacing="16">
+
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Suivi des budgets du mois"
+                               styleClass="section-title"
+                               HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="moisLabel" text=""
+                               style="-fx-font-size:13px;
+                                      -fx-text-fill:#718096;"/>
+                    </HBox>
+                    <Separator/>
+
+                    <!-- Liste budgets avec barres de progression -->
+                    <VBox fx:id="budgetListContainer" spacing="14"/>
+
+                    <!-- Message si aucun budget -->
+                    <Label fx:id="noBudgetLabel"
+                           text="Aucun budget défini pour ce mois.
+Créez des budgets depuis la page Transactions."
+                           style="-fx-text-fill:#A0AEC0;
+                                  -fx-font-size:13px;
+                                  -fx-text-alignment:center;"
+                           textAlignment="CENTER"
+                           wrapText="true"
+                           visible="false" managed="false"/>
+                </VBox>
+
+                <!-- ═══ FILTRES ALERTES ═══ -->
+                <HBox styleClass="filter-bar" spacing="12"
+                      alignment="CENTER_LEFT">
+                    <Label text="Filtrer :"
+                           style="-fx-font-size:13px;
+                                  -fx-font-weight:bold;
+                                  -fx-text-fill:#4A5568;"/>
+                    <Button fx:id="btnTous"
+                            text="Toutes"
+                            styleClass="alerte-filter-btn,
+                                        alerte-filter-btn-active"
+                            onAction="#filterTous"/>
+                    <Button fx:id="btnNonLues"
+                            text="Non lues"
+                            styleClass="alerte-filter-btn"
+                            onAction="#filterNonLues"/>
+                    <Button fx:id="btnSeuil80"
+                            text="⚠ Seuil 80%"
+                            styleClass="alerte-filter-btn"
+                            onAction="#filterSeuil80"/>
+                    <Button fx:id="btnSeuil100"
+                            text="🚨 Seuil 100%"
+                            styleClass="alerte-filter-btn"
+                            onAction="#filterSeuil100"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="countAlertes" text="0 alerte(s)"
+                           style="-fx-font-size:13px;
+                                  -fx-text-fill:#718096;"/>
+                </HBox>
+
+                <!-- ═══ LISTE ALERTES ═══ -->
+                <VBox fx:id="alertesContainer" spacing="10"/>
+
+                <!-- Message si aucune alerte -->
+                <VBox fx:id="noAlerteContainer"
+                      alignment="CENTER" spacing="12"
+                      style="-fx-padding: 40 0;"
+                      visible="false" managed="false">
+                    <Label text="✓"
+                           style="-fx-font-size:48px;
+                                  -fx-text-fill:#2ECC71;"/>
+                    <Label text="Aucune alerte !"
+                           style="-fx-font-size:18px;
+                                  -fx-font-weight:bold;
+                                  -fx-text-fill:#2D3748;"/>
+                    <Label text="Tous vos budgets sont sous contrôle."
+                           style="-fx-font-size:14px;
+                                  -fx-text-fill:#718096;"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</HBox>

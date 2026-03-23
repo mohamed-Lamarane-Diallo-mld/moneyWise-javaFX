@@ -1,0 +1,187 @@
+/* CSS style placeholder for global */
+/* ============================================================
+   GLOBAL — Variables et styles de base MoneyWise
+   ============================================================ */
+
+* {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* ── Palette de couleurs ── */
+.root {
+    /* Primaires */
+    -color-primary:       #6C63FF;
+    -color-primary-dark:  #574FD6;
+    -color-primary-light: #EAE8FF;
+
+    /* Statuts */
+    -color-success:       #2ECC71;
+    -color-danger:        #E74C3C;
+    -color-warning:       #F39C12;
+    -color-info:          #3498DB;
+
+    /* Neutres */
+    -color-bg:            #F4F6FC;
+    -color-surface:       #FFFFFF;
+    -color-border:        #E0E0E0;
+    -color-text-primary:  #2D3748;
+    -color-text-secondary:#718096;
+    -color-text-muted:    #A0AEC0;
+
+    /* Entrées / Sorties */
+    -color-entree:        #2ECC71;
+    -color-sortie:        #E74C3C;
+
+    -fx-background-color: -color-bg;
+}
+
+/* ── Bouton primaire ── */
+.btn-primary {
+    -fx-background-color: -color-primary;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 24;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-primary:hover {
+    -fx-background-color: -color-primary-dark;
+}
+
+/* ── Bouton secondaire ── */
+.btn-secondary {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-primary;
+    -fx-font-size: 14px;
+    -fx-border-color: -color-primary;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 11 24;
+    -fx-cursor: hand;
+}
+.btn-secondary:hover {
+    -fx-background-color: -color-primary-light;
+}
+
+/* ── Bouton danger ── */
+.btn-danger {
+    -fx-background-color: -color-danger;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-danger:hover {
+    -fx-background-color: #C0392B;
+}
+
+/* ── Champs de saisie ── */
+.input-field {
+    -fx-background-color: -color-surface;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 14;
+    -fx-font-size: 14px;
+    -fx-text-fill: -color-text-primary;
+}
+.input-field:focused {
+    -fx-border-color: -color-primary;
+    -fx-border-width: 1.5;
+}
+
+/* ── Labels ── */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text-primary;
+}
+.label-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: -color-text-secondary;
+}
+.label-error {
+    -fx-font-size: 12px;
+    -fx-text-fill: -color-danger;
+}
+.label-success {
+    -fx-font-size: 12px;
+    -fx-text-fill: -color-success;
+}
+.label-link {
+    -fx-text-fill: -color-primary;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.label-link:hover {
+    -fx-underline: true;
+}
+
+/* ── Cards ── */
+.card {
+    -fx-background-color: -color-surface;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);
+    -fx-padding: 24;
+}
+
+/* ── Séparateur ── */
+.separator {
+    -fx-background-color: -color-border;
+}
+
+/* ── ScrollPane propre ── */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ============================================================
+   RESPONSIVE — Adaptations dynamiques
+   ============================================================ */
+
+/* Tous les conteneurs principaux s'étirent */
+.home-root,
+.auth-root {
+    -fx-pref-width:  -1;   /* laisse JavaFX calculer */
+    -fx-pref-height: -1;
+}
+
+/* HBox et VBox principaux grandissent avec la fenêtre */
+.main-layout {
+    -fx-pref-width:  -1;
+    -fx-pref-height: -1;
+}
+
+/* Le contenu scrollable prend tout l'espace disponible */
+.scroll-pane > .viewport > * {
+    -fx-pref-width: -1;
+}
+
+/* Les cards KPI s'adaptent en largeur */
+.kpi-card {
+    -fx-min-width:  160px;
+    -fx-max-width:  -1;       /* illimité */
+    -fx-pref-width: -1;
+}
+
+/* La table prend toute la largeur disponible */
+.table-view {
+    -fx-pref-width:  -1;
+    -fx-pref-height: -1;
+}
+
+/* Auth : panneau droit a une largeur fixe, gauche s'étire */
+.auth-right {
+    -fx-min-width:  420px;
+    -fx-max-width:  520px;
+    -fx-pref-width: 460px;
+}
+.auth-left {
+    -fx-min-width: 300px;
+}

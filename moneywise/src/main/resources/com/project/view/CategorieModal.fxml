@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.CategorieModalController"
+      styleClass="modal-budget-root"
+      stylesheets="@../style/global.css, @../style/transaction.css">
+
+    <Label fx:id="modalTitle" text="Nouvelle catégorie"
+           styleClass="modal-title"/>
+    <Separator/>
+
+    <!-- Nom -->
+    <VBox spacing="6">
+        <Label text="Nom de la catégorie" styleClass="modal-field-label"/>
+        <TextField fx:id="nomField"
+                   styleClass="modal-field"
+                   promptText="Ex: Voyages"/>
+    </VBox>
+
+    <!-- Icône -->
+    <VBox spacing="6">
+        <Label text="Icône (optionnel)" styleClass="modal-field-label"/>
+        <TextField fx:id="iconeField"
+                   styleClass="modal-field"
+                   promptText="Ex: plane"/>
+    </VBox>
+
+    <!-- Erreur -->
+    <Label fx:id="errorLabel" text=""
+           styleClass="modal-error"
+           visible="false" managed="false"/>
+
+    <Separator/>
+
+    <Button fx:id="saveBtn" text="Enregistrer"
+            styleClass="modal-btn-save"
+            onAction="#handleSave"
+            defaultButton="true"/>
+    <Button text="Annuler"
+            styleClass="modal-btn-cancel"
+            onAction="#handleCancel"/>
+</VBox>

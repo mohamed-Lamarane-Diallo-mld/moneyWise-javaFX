@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.ProfilController"
+      styleClass="profil-root"
+      stylesheets="@../style/global.css, @../style/sidebar.css,
+                   @../style/home.css, @../style/modal.css"
+      maxWidth="Infinity" maxHeight="Infinity">
+
+    <!-- SIDEBAR -->
+    <fx:include fx:id="sidebar" source="Sidebar.fxml"/>
+
+    <!-- CONTENU -->
+    <VBox HBox.hgrow="ALWAYS">
+
+        <!-- Header -->
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="0">
+            <VBox spacing="2" HBox.hgrow="ALWAYS">
+                <Label text="Mon profil" styleClass="header-title"/>
+                <Label fx:id="headerDate" text="" styleClass="header-date"/>
+            </VBox>
+            <Label fx:id="headerUser" text="" styleClass="header-user"/>
+        </HBox>
+
+        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" styleClass="scroll-pane">
+            <VBox styleClass="profil-content" spacing="20">
+
+                <!-- ═══ LIGNE 1 : Avatar identité ═══ -->
+                <VBox styleClass="profil-card" spacing="14">
+                    <HBox spacing="20" alignment="CENTER_LEFT">
+                        <StackPane styleClass="profil-avatar-big">
+                            <Label fx:id="avatarBig" text="?"
+                                   styleClass="profil-avatar-label-big"/>
+                        </StackPane>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label fx:id="profilNomBig" text=""
+                                   styleClass="profil-name-big"/>
+                            <Label fx:id="profilEmailBig" text=""
+                                   styleClass="profil-email-big"/>
+                            <HBox spacing="8">
+                                <Label fx:id="badgeAdmin" text="Administrateur"
+                                       styleClass="profil-badge-admin"
+                                       visible="false" managed="false"/>
+                                <Label fx:id="badgeInscription" text=""
+                                       style="-fx-font-size:11px;
+                                              -fx-text-fill:#A0AEC0;"/>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- ═══ LIGNE 2 : Infos perso + Mot de passe (côte à côte) ═══ -->
+                <HBox spacing="20" alignment="TOP_LEFT">
+
+                    <!-- ── Informations personnelles ── -->
+                    <VBox styleClass="profil-card" spacing="14"
+                          HBox.hgrow="ALWAYS">
+
+                        <Label text="Informations personnelles"
+                               styleClass="profil-section-title"/>
+                        <Separator/>
+
+                        <VBox spacing="6">
+                            <Label text="Nom complet"
+                                   styleClass="profil-field-label"/>
+                            <TextField fx:id="nomField"
+                                       styleClass="profil-field"
+                                       maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="6">
+                            <Label text="Adresse email"
+                                   styleClass="profil-field-label"/>
+                            <TextField fx:id="emailField"
+                                       styleClass="profil-field"
+                                       maxWidth="Infinity"/>
+                        </VBox>
+
+                        <Label fx:id="infoMessage" text=""
+                               visible="false" managed="false"
+                               wrapText="true"/>
+
+                        <Button text="Enregistrer les modifications"
+                                styleClass="profil-btn-save"
+                                onAction="#handleModifierInfos"
+                                maxWidth="Infinity"/>
+                    </VBox>
+
+                    <!-- ── Changer mot de passe ── -->
+                    <VBox styleClass="profil-card" spacing="14"
+                          HBox.hgrow="ALWAYS">
+
+                        <Label text="Changer le mot de passe"
+                               styleClass="profil-section-title"/>
+                        <Separator/>
+
+                        <VBox spacing="6">
+                            <Label text="Mot de passe actuel"
+                                   styleClass="profil-field-label"/>
+                            <PasswordField fx:id="ancienMdpField"
+                                           styleClass="profil-field"
+                                           promptText="••••••••"
+                                           maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="6">
+                            <Label text="Nouveau mot de passe"
+                                   styleClass="profil-field-label"/>
+                            <PasswordField fx:id="nouveauMdpField"
+                                           styleClass="profil-field"
+                                           promptText="Minimum 6 caractères"
+                                           maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="6">
+                            <Label text="Confirmer le mot de passe"
+                                   styleClass="profil-field-label"/>
+                            <PasswordField fx:id="confirmMdpField"
+                                           styleClass="profil-field"
+                                           promptText="••••••••"
+                                           maxWidth="Infinity"/>
+                        </VBox>
+
+                        <Label fx:id="mdpMessage" text=""
+                               visible="false" managed="false"
+                               wrapText="true"/>
+
+                        <Button text="Changer le mot de passe"
+                                styleClass="profil-btn-save"
+                                onAction="#handleChangerMdp"
+                                maxWidth="Infinity"/>
+                    </VBox>
+
+                </HBox>
+
+                <!-- ═══ LIGNE 3 : Préférences système ═══ -->
+                <VBox styleClass="profil-card" spacing="14">
+
+                    <Label text="Préférences système"
+                           styleClass="profil-section-title"/>
+                    <Separator/>
+
+                    <HBox spacing="40" alignment="TOP_LEFT">
+
+                        <!-- Colonne 1 : Apparence -->
+                        <VBox spacing="14" HBox.hgrow="ALWAYS">
+                            <Label text="APPARENCE"
+                                   style="-fx-font-size:11px;
+                                          -fx-font-weight:bold;
+                                          -fx-text-fill:#A0AEC0;"/>
+
+                            <!-- Langue -->
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Langue"
+                                           styleClass="profil-field-label"/>
+                                    <Label text="Langue de l'interface"
+                                           style="-fx-font-size:11px;
+                                                  -fx-text-fill:#A0AEC0;"/>
+                                </VBox>
+                                <ComboBox fx:id="langueCombo"
+                                          prefWidth="160"
+                                          styleClass="filter-combo"/>
+                            </HBox>
+
+                            <!-- Devise -->
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Devise"
+                                           styleClass="profil-field-label"/>
+                                    <Label text="Unité monétaire affichée"
+                                           style="-fx-font-size:11px;
+                                                  -fx-text-fill:#A0AEC0;"/>
+                                </VBox>
+                                <ComboBox fx:id="deviseCombo"
+                                          prefWidth="160"
+                                          styleClass="filter-combo"/>
+                            </HBox>
+
+                            <!-- Thème -->
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Thème"
+                                           styleClass="profil-field-label"/>
+                                    <Label text="Apparence de l'application"
+                                           style="-fx-font-size:11px;
+                                                  -fx-text-fill:#A0AEC0;"/>
+                                </VBox>
+                                <ComboBox fx:id="themeCombo"
+                                          prefWidth="160"
+                                          styleClass="filter-combo"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Séparateur vertical -->
+                        <Separator orientation="VERTICAL"/>
+
+                        <!-- Colonne 2 : Notifications -->
+                        <VBox spacing="14" HBox.hgrow="ALWAYS">
+                            <Label text="NOTIFICATIONS"
+                                   style="-fx-font-size:11px;
+                                          -fx-font-weight:bold;
+                                          -fx-text-fill:#A0AEC0;"/>
+
+                            <!-- Alertes budget -->
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Alertes budget"
+                                           styleClass="profil-field-label"/>
+                                    <Label text="Notifier à 80% et 100%"
+                                           style="-fx-font-size:11px;
+                                                  -fx-text-fill:#A0AEC0;"/>
+                                </VBox>
+                                <CheckBox fx:id="checkAlertesBudget"
+                                          selected="true"/>
+                            </HBox>
+
+                            <!-- Son -->
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Son des notifications"
+                                           styleClass="profil-field-label"/>
+                                    <Label text="Jouer un son à chaque alerte"
+                                           style="-fx-font-size:11px;
+                                                  -fx-text-fill:#A0AEC0;"/>
+                                </VBox>
+                                <CheckBox fx:id="checkSon" selected="false"/>
+                            </HBox>
+
+                            <!-- Résumé hebdo -->
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Résumé hebdomadaire"
+                                           styleClass="profil-field-label"/>
+                                    <Label text="Récap chaque lundi au démarrage"
+                                           style="-fx-font-size:11px;
+                                                  -fx-text-fill:#A0AEC0;"/>
+                                </VBox>
+                                <CheckBox fx:id="checkResumeHebdo"
+                                          selected="true"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Séparateur vertical -->
+                        <Separator orientation="VERTICAL"/>
+
+                        <!-- Colonne 3 : Données -->
+                        <VBox spacing="14" HBox.hgrow="ALWAYS">
+                            <Label text="DONNÉES"
+                                   style="-fx-font-size:11px;
+                                          -fx-font-weight:bold;
+                                          -fx-text-fill:#A0AEC0;"/>
+
+                            <!-- Sauvegarde auto -->
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Sauvegarde automatique"
+                                           styleClass="profil-field-label"/>
+                                    <Label text="Toutes les 24h"
+                                           style="-fx-font-size:11px;
+                                                  -fx-text-fill:#A0AEC0;"/>
+                                </VBox>
+                                <CheckBox fx:id="checkSauvegarde"
+                                          selected="true"/>
+                            </HBox>
+
+                            <!-- Format date -->
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Format de date"
+                                           styleClass="profil-field-label"/>
+                                    <Label text="Affichage des dates"
+                                           style="-fx-font-size:11px;
+                                                  -fx-text-fill:#A0AEC0;"/>
+                                </VBox>
+                                <ComboBox fx:id="formatDateCombo"
+                                          prefWidth="160"
+                                          styleClass="filter-combo"/>
+                            </HBox>
+
+                            <!-- Nb transactions dashboard -->
+                            <HBox alignment="CENTER_LEFT" spacing="12">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Transactions récentes"
+                                           styleClass="profil-field-label"/>
+                                    <Label text="Nombre affiché sur le dashboard"
+                                           style="-fx-font-size:11px;
+                                                  -fx-text-fill:#A0AEC0;"/>
+                                </VBox>
+                                <ComboBox fx:id="nbTransCombo"
+                                          prefWidth="80"
+                                          styleClass="filter-combo"/>
+                            </HBox>
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- Bouton sauvegarder préférences -->
+                    <HBox alignment="CENTER_RIGHT" spacing="12">
+                        <Label fx:id="prefMessage" text=""
+                               visible="false" managed="false"
+                               style="-fx-font-size:13px;"/>
+                        <Button text="Sauvegarder les préférences"
+                                styleClass="profil-btn-save"
+                                onAction="#handleSauvegarderPrefs"/>
+                    </HBox>
+
+                </VBox>
+
+                <!-- ═══ LIGNE 4 : Statistiques rapides ═══ -->
+                <VBox styleClass="profil-card" spacing="14">
+
+                    <Label text="Mes statistiques"
+                           styleClass="profil-section-title"/>
+                    <Separator/>
+
+                    <HBox spacing="0" alignment="CENTER">
+
+                        <VBox alignment="CENTER" spacing="4"
+                              HBox.hgrow="ALWAYS">
+                            <Label fx:id="statNbTransactions" text="0"
+                                   styleClass="profil-stat-value"/>
+                            <Label text="Transactions"
+                                   styleClass="profil-stat-label"/>
+                        </VBox>
+
+                        <Separator orientation="VERTICAL" prefHeight="50"/>
+
+                        <VBox alignment="CENTER" spacing="4"
+                              HBox.hgrow="ALWAYS">
+                            <Label fx:id="statSolde" text="0 FCFA"
+                                   styleClass="profil-stat-value"/>
+                            <Label text="Solde total"
+                                   styleClass="profil-stat-label"/>
+                        </VBox>
+
+                        <Separator orientation="VERTICAL" prefHeight="50"/>
+
+                        <VBox alignment="CENTER" spacing="4"
+                              HBox.hgrow="ALWAYS">
+                            <Label fx:id="statNbCategories" text="0"
+                                   styleClass="profil-stat-value"/>
+                            <Label text="Catégories"
+                                   styleClass="profil-stat-label"/>
+                        </VBox>
+
+                        <Separator orientation="VERTICAL" prefHeight="50"/>
+
+                        <VBox alignment="CENTER" spacing="4"
+                              HBox.hgrow="ALWAYS">
+                            <Label fx:id="statDepensesMois" text="0 FCFA"
+                                   styleClass="profil-stat-value"
+                                   style="-fx-text-fill:#E74C3C;
+                                          -fx-font-size:22px;
+                                          -fx-font-weight:bold;"/>
+                            <Label text="Dépenses ce mois"
+                                   styleClass="profil-stat-label"/>
+                        </VBox>
+
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</HBox>

@@ -1,0 +1,170 @@
+/* ============================================================
+   STATISTIQUE PAGE
+   ============================================================ */
+
+.statistique-root {
+    -fx-background-color: #F0F2F8;
+}
+
+.statistique-content {
+    -fx-padding: 28 32;
+    -fx-spacing: 22;
+    -fx-background-color: #F0F2F8;
+}
+
+/* ── Boutons période ── */
+.periode-btn {
+    -fx-background-color: #F7FAFC;
+    -fx-text-fill: #718096;
+    -fx-font-size: 13px;
+    -fx-padding: 9 18;
+    -fx-background-radius: 9;
+    -fx-cursor: hand;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 9;
+}
+.periode-btn:hover {
+    -fx-background-color: #EAE8FF;
+    -fx-text-fill: #6C63FF;
+    -fx-border-color: #6C63FF;
+}
+.periode-btn-active {
+    -fx-background-color: #6C63FF;
+    -fx-text-fill: white;
+    -fx-border-color: #6C63FF;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.3), 8, 0, 0, 2);
+}
+
+/* ── Chart cards ── */
+.chart-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 14, 0, 0, 4);
+    -fx-padding: 22 24;
+    -fx-spacing: 0;
+}
+.chart-card-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A202C;
+}
+.chart-card-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #A0AEC0;
+}
+
+/* ── Graphiques ── */
+.chart {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: #F4F6FC;
+    -fx-stroke-width: 1;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #F4F6FC;
+    -fx-stroke-width: 1;
+}
+.chart-title { -fx-font-size: 0; }
+.axis {
+    -fx-tick-label-font-size: 11px;
+    -fx-tick-label-fill: #A0AEC0;
+}
+.axis-label { -fx-font-size: 0; }
+
+/* Camembert */
+.default-color0.chart-pie { -fx-pie-color: #6C63FF; }
+.default-color1.chart-pie { -fx-pie-color: #2ECC71; }
+.default-color2.chart-pie { -fx-pie-color: #E74C3C; }
+.default-color3.chart-pie { -fx-pie-color: #F39C12; }
+.default-color4.chart-pie { -fx-pie-color: #3498DB; }
+.default-color5.chart-pie { -fx-pie-color: #9B59B6; }
+.default-color6.chart-pie { -fx-pie-color: #1ABC9C; }
+.default-color7.chart-pie { -fx-pie-color: #E67E22; }
+
+/* Labels camembert */
+.chart-pie-label {
+    -fx-font-size: 11px;
+    -fx-fill: #4A5568;
+}
+.chart-pie-label-line { -fx-stroke: #A0AEC0; }
+
+/* Barres */
+.default-color0.chart-bar {
+    -fx-bar-fill: #6C63FF;
+}
+.default-color1.chart-bar {
+    -fx-bar-fill: #2ECC71;
+}
+.chart-bar:hover { -fx-opacity: 0.85; }
+
+/* Légende */
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-padding: 8 0 0 0;
+}
+.chart-legend-item-symbol {
+    -fx-background-radius: 4;
+}
+.chart-legend-item {
+    -fx-font-size: 12px;
+    -fx-text-fill: #718096;
+}
+
+/* ── Summary cards (ligne 3) ── */
+.summary-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 14, 0, 0, 4);
+    -fx-padding: 22 24;
+    -fx-spacing: 12;
+}
+.summary-row {
+    -fx-padding: 10 0;
+    -fx-border-color: transparent transparent #F4F6FC transparent;
+}
+.summary-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #718096;
+}
+.summary-value {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A202C;
+}
+.summary-value-green  { -fx-text-fill: #27AE60; }
+.summary-value-red    { -fx-text-fill: #E74C3C; }
+.summary-value-purple { -fx-text-fill: #6C63FF; }
+
+/* ── Export ── */
+.btn-export-pdf {
+    -fx-background-color: #E74C3C;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 11 20;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+.btn-export-pdf:hover {
+    -fx-background-color: #C0392B;
+    -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.3), 8, 0, 0, 2);
+}
+.btn-export-excel {
+    -fx-background-color: #27AE60;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 11 20;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+.btn-export-excel:hover {
+    -fx-background-color: #219A52;
+    -fx-effect: dropshadow(gaussian, rgba(39,174,96,0.3), 8, 0, 0, 2);
+}

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.InscriptionController"
+      styleClass="auth-root"
+      stylesheets="@../style/global.css, @../style/auth.css"
+      maxWidth="Infinity" maxHeight="Infinity">
+
+    <!-- ═══════════════════════════════ -->
+    <!--   PANNEAU GAUCHE — Branding     -->
+    <!-- ═══════════════════════════════ -->
+    <VBox styleClass="auth-left"
+          alignment="CENTER" spacing="20"
+          HBox.hgrow="ALWAYS">
+
+        <Label text="💰" style="-fx-font-size: 64px;"/>
+        <Label text="MoneyWise" styleClass="auth-brand-title"/>
+        <Label text="Votre finances. Votre contrôle."
+               styleClass="auth-brand-tagline"/>
+        <Label text="Rejoignez MoneyWise et prenez&#10;le contrôle de vos finances dès aujourd'hui."
+               styleClass="auth-brand-subtitle"
+               textAlignment="CENTER" wrapText="true"
+               maxWidth="300"/>
+        <Region prefHeight="20"/>
+        <VBox spacing="12" alignment="CENTER_LEFT" maxWidth="260">
+            <Label text="✓  Gratuit et hors-ligne"    style="-fx-text-fill: rgba(255,255,255,0.85); -fx-font-size: 14px;"/>
+            <Label text="✓  Données 100% privées"     style="-fx-text-fill: rgba(255,255,255,0.85); -fx-font-size: 14px;"/>
+            <Label text="✓  Rapports personnalisés"   style="-fx-text-fill: rgba(255,255,255,0.85); -fx-font-size: 14px;"/>
+        </VBox>
+    </VBox>
+
+    <!-- ═══════════════════════════════ -->
+    <!--   PANNEAU DROIT — Formulaire    -->
+    <!-- ═══════════════════════════════ -->
+    <VBox styleClass="auth-right"
+          alignment="CENTER" spacing="16"
+          prefWidth="480" HBox.hgrow="NEVER">
+
+        <!-- Titre -->
+        <Label text="Créer un compte" styleClass="auth-form-title"/>
+        <Label text="Rejoignez MoneyWise en quelques secondes"
+               styleClass="auth-form-subtitle"/>
+
+        <Region prefHeight="6"/>
+
+        <!-- ─── Nom complet ─── -->
+        <VBox spacing="6">
+            <Label text="Nom complet" styleClass="auth-field-label"/>
+            <TextField fx:id="nomField"
+                       promptText="Jean Dupont"
+                       styleClass="auth-field"/>
+        </VBox>
+
+        <!-- ─── Email ─── -->
+        <VBox spacing="6">
+            <Label text="Adresse email" styleClass="auth-field-label"/>
+            <TextField fx:id="emailField"
+                       promptText="exemple@email.com"
+                       styleClass="auth-field"/>
+        </VBox>
+
+        <!-- ─── Mot de passe ─── -->
+        <VBox spacing="6">
+            <Label text="Mot de passe" styleClass="auth-field-label"/>
+            <PasswordField fx:id="passwordField"
+                           promptText="Minimum 6 caractères"
+                           styleClass="auth-field"/>
+        </VBox>
+
+        <!-- ─── Confirmer mot de passe ─── -->
+        <VBox spacing="6">
+            <Label text="Confirmer le mot de passe" styleClass="auth-field-label"/>
+            <PasswordField fx:id="confirmPasswordField"
+                           promptText="••••••••"
+                           styleClass="auth-field"/>
+        </VBox>
+
+        <!-- ─── Message erreur / succès ─── -->
+        <Label fx:id="errorLabel" text=""
+               styleClass="auth-error"
+               wrapText="true" maxWidth="340"
+               visible="false" managed="false"/>
+        <Label fx:id="successLabel" text=""
+               styleClass="auth-success"
+               visible="false" managed="false"/>
+
+        <!-- ─── Bouton inscription ─── -->
+        <Button fx:id="inscriptionBtn"
+                text="Créer mon compte"
+                styleClass="auth-btn"
+                onAction="#handleInscription"
+                defaultButton="true"/>
+
+        <!-- ─── Lien retour login ─── -->
+        <HBox alignment="CENTER" spacing="6">
+            <Label text="Déjà un compte ?"
+                   style="-fx-text-fill: #718096; -fx-font-size: 13px;"/>
+            <Label text="Se connecter"
+                   styleClass="auth-link"
+                   onMouseClicked="#goToLogin"/>
+        </HBox>
+
+    </VBox>
+</HBox>

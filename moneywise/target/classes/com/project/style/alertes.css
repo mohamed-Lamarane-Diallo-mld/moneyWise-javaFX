@@ -1,0 +1,129 @@
+/* ============================================================
+   ALERTES PAGE
+   ============================================================ */
+
+/* ── Bouton marquer lu ── */
+.btn-marquer-lu {
+    -fx-background-color: #EAE8FF;
+    -fx-text-fill: #6C63FF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.btn-marquer-lu:hover {
+    -fx-background-color: #6C63FF;
+    -fx-text-fill: white;
+}
+
+/* ── Filtres ── */
+.alerte-filter-btn {
+    -fx-background-color: #F7FAFC;
+    -fx-text-fill: #718096;
+    -fx-font-size: 13px;
+    -fx-padding: 7 16;
+    -fx-background-radius: 8;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.alerte-filter-btn:hover {
+    -fx-background-color: #EAE8FF;
+    -fx-text-fill: #6C63FF;
+    -fx-border-color: #6C63FF;
+}
+.alerte-filter-btn-active {
+    -fx-background-color: #6C63FF;
+    -fx-text-fill: white;
+    -fx-border-color: #6C63FF;
+    -fx-font-weight: bold;
+}
+
+/* ── Carte alerte individuelle ── */
+.alerte-item {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+    -fx-padding: 16 20;
+    -fx-spacing: 6;
+}
+.alerte-item-non-lue {
+    -fx-border-color: #6C63FF;
+    -fx-border-width: 0 0 0 4;
+    -fx-background-radius: 0 12 12 0;
+}
+.alerte-item-seuil100 {
+    -fx-border-color: #E74C3C;
+    -fx-border-width: 0 0 0 4;
+    -fx-background-radius: 0 12 12 0;
+}
+.alerte-item-seuil80 {
+    -fx-border-color: #F39C12;
+    -fx-border-width: 0 0 0 4;
+    -fx-background-radius: 0 12 12 0;
+}
+.alerte-item-lue {
+    -fx-opacity: 0.65;
+}
+
+.alerte-msg {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3748;
+    -fx-wrap-text: true;
+}
+.alerte-date {
+    -fx-font-size: 12px;
+    -fx-text-fill: #A0AEC0;
+}
+.alerte-badge-80 {
+    -fx-background-color: #FFF8E7;
+    -fx-text-fill: #F39C12;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 10;
+    -fx-background-radius: 20;
+}
+.alerte-badge-100 {
+    -fx-background-color: #FDECEA;
+    -fx-text-fill: #E74C3C;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 10;
+    -fx-background-radius: 20;
+}
+
+/* ── Barre de progression budget ── */
+.budget-item {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 4 0;
+    -fx-spacing: 8;
+}
+.budget-cat-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3748;
+}
+.budget-montant-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #718096;
+}
+.budget-pct-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-min-width: 42px;
+    -fx-text-alignment: right;
+}
+.progress-bar {
+    -fx-pref-height: 10px;
+    -fx-background-radius: 5;
+    -fx-accent: #2ECC71;
+}
+.progress-bar-warning > .bar { -fx-background-color: #F39C12; }
+.progress-bar-danger  > .bar { -fx-background-color: #E74C3C; }
+.progress-bar > .track {
+    -fx-background-color: #F0F0F0;
+    -fx-background-radius: 5;
+}

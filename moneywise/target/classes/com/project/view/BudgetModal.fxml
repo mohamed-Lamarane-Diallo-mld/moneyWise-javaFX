@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.BudgetModalController"
+      styleClass="modal-budget-root"
+      stylesheets="@../style/global.css, @../style/transaction.css">
+
+    <Label fx:id="modalTitle" text="Nouveau budget"
+           styleClass="modal-title"/>
+    <Separator/>
+
+    <!-- Catégorie -->
+    <VBox spacing="6">
+        <Label text="Catégorie" styleClass="modal-field-label"/>
+        <ComboBox fx:id="categorieCombo"
+                  styleClass="modal-combo"
+                  promptText="Choisir une catégorie"/>
+    </VBox>
+
+    <!-- Montant max -->
+    <VBox spacing="6">
+        <Label text="Plafond (FCFA)" styleClass="modal-field-label"/>
+        <TextField fx:id="montantField"
+                   styleClass="modal-field"
+                   promptText="Ex: 50000"/>
+    </VBox>
+
+    <!-- Mois -->
+    <VBox spacing="6">
+        <Label text="Mois" styleClass="modal-field-label"/>
+        <ComboBox fx:id="moisCombo"
+                  styleClass="modal-combo"/>
+    </VBox>
+
+    <!-- Année -->
+    <VBox spacing="6">
+        <Label text="Année" styleClass="modal-field-label"/>
+        <TextField fx:id="anneeField"
+                   styleClass="modal-field"
+                   promptText="Ex: 2026"/>
+    </VBox>
+
+    <!-- Erreur -->
+    <Label fx:id="errorLabel" text=""
+           styleClass="modal-error"
+           visible="false" managed="false"/>
+
+    <Separator/>
+
+    <Button fx:id="saveBtn" text="Enregistrer"
+            styleClass="modal-btn-save"
+            onAction="#handleSave"
+            defaultButton="true"/>
+    <Button text="Annuler"
+            styleClass="modal-btn-cancel"
+            onAction="#handleCancel"/>
+</VBox>
