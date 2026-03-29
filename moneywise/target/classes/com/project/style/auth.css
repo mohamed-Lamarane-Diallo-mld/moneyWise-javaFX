@@ -1,75 +1,117 @@
-/* CSS style placeholder for auth */
 /* ============================================================
-   AUTH — Login & Inscription
+   AUTH — Login & Inscription — Motion UI
    ============================================================ */
 
-/* ── Conteneur principal ── */
+/* ── Root ── */
 .auth-root {
-    -fx-background-color: linear-gradient(to bottom right, #6C63FF, #574FD6);
+    -fx-background-color: linear-gradient(
+        to bottom right, #5A54D4, #6C63FF, #7B74FF);
 }
 
-/* ── Panneau gauche (branding) ── */
+/* ── Panneau gauche ── */
 .auth-left {
     -fx-background-color: transparent;
     -fx-padding: 60 40;
     -fx-alignment: center;
 }
 
-.auth-brand-title {
-    -fx-font-size: 42px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
-.auth-brand-subtitle {
-    -fx-font-size: 16px;
-    -fx-text-fill: rgba(255,255,255,0.80);
-    -fx-wrap-text: true;
-    -fx-text-alignment: center;
-}
-
-.auth-brand-tagline {
-    -fx-font-size: 13px;
-    -fx-text-fill: rgba(255,255,255,0.60);
-    -fx-font-style: italic;
-}
-
-/* ── Panneau droit (formulaire) ── */
+/* ── Panneau droit ── */
 .auth-right {
     -fx-background-color: white;
-    -fx-background-radius: 20 0 0 20;
+    -fx-background-radius: 24 0 0 24;
     -fx-padding: 50 50;
     -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 40, 0, -10, 0);
 }
 
-/* ── Titre du formulaire ── */
-.auth-form-title {
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2D3748;
+/* ── Card formulaire ── */
+.auth-form-card {
+    -fx-alignment: top-left;
+    -fx-spacing: 0;
 }
 
-.auth-form-subtitle {
-    -fx-font-size: 14px;
-    -fx-text-fill: #718096;
-}
-
-/* ── Labels de champs ── */
+/* ── Labels champs ── */
 .auth-field-label {
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: #4A5568;
 }
 
-/* ── Champs ── */
+/* ── Wrapper input avec icône ── */
+.auth-input-wrapper {
+    -fx-background-color: #F7FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 4 14 4 10;
+    -fx-pref-height: 46px;
+}
+.auth-input-wrapper:focused-within {
+    -fx-border-color: #6C63FF;
+    -fx-border-width: 1.5;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.15), 8, 0, 0, 2);
+}
+
+/* ── Champ texte sans bordure (dans le wrapper) ── */
+.auth-input-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2D3748;
+    -fx-padding: 8 0;
+}
+.auth-input-field:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* ── Bouton principal ── */
+.auth-btn {
+    -fx-background-color: linear-gradient(to right, #6C63FF, #574FD6);
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 14 0;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.4), 12, 0, 0, 4);
+}
+.auth-btn:hover {
+    -fx-background-color: linear-gradient(to right, #574FD6, #4840C0);
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.6), 16, 0, 0, 6);
+}
+.auth-btn:pressed {
+    -fx-background-color: #4840C0;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.2), 4, 0, 0, 1);
+}
+.auth-btn:disabled {
+    -fx-background-color: #A0AEC0;
+    -fx-effect: none;
+    -fx-opacity: 0.7;
+}
+
+/* ── Lien ── */
+.auth-link {
+    -fx-text-fill: #6C63FF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.auth-link:hover {
+    -fx-underline: true;
+    -fx-text-fill: #574FD6;
+}
+
+/* ── Champs anciens (compatibilité) ── */
 .auth-field {
     -fx-background-color: #F7FAFC;
     -fx-border-color: #E2E8F0;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
     -fx-padding: 12 14;
     -fx-font-size: 14px;
-    -fx-pref-width: 340;
+    -fx-pref-width: 340px;
 }
 .auth-field:focused {
     -fx-border-color: #6C63FF;
@@ -77,51 +119,10 @@
     -fx-background-color: white;
 }
 
-/* ── Bouton principal auth ── */
-.auth-btn {
-    -fx-background-color: #6C63FF;
-    -fx-text-fill: white;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-padding: 13 0;
-    -fx-background-radius: 8;
-    -fx-pref-width: 340;
-    -fx-cursor: hand;
+/* ── ScrollPane transparent ── */
+.auth-right .scroll-pane {
+    -fx-background-color: transparent;
 }
-.auth-btn:hover {
-    -fx-background-color: #574FD6;
-}
-.auth-btn:pressed {
-    -fx-background-color: #4840C0;
-}
-
-/* ── Message d'erreur ── */
-.auth-error {
-    -fx-text-fill: #E74C3C;
-    -fx-font-size: 12px;
-    -fx-wrap-text: true;
-    -fx-max-width: 340;
-}
-
-/* ── Message de succès ── */
-.auth-success {
-    -fx-text-fill: #2ECC71;
-    -fx-font-size: 12px;
-}
-
-/* ── Lien navigation ── */
-.auth-link {
-    -fx-text-fill: #6C63FF;
-    -fx-font-size: 13px;
-    -fx-cursor: hand;
-}
-.auth-link:hover {
-    -fx-underline: true;
-}
-
-/* ── Divider "ou" ── */
-.auth-divider-label {
-    -fx-text-fill: #A0AEC0;
-    -fx-font-size: 13px;
-    -fx-padding: 0 10;
+.auth-right .scroll-pane > .viewport {
+    -fx-background-color: transparent;
 }
