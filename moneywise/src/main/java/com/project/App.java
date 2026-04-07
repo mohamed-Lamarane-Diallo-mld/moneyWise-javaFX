@@ -1,16 +1,17 @@
 package com.project;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.project.dao.DatabaseConnection;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import com.project.dao.DatabaseConnection;
 
 public class App extends Application {
 
@@ -37,7 +38,7 @@ public class App extends Application {
             getClass().getResource("/com/project/style/global.css")
                       .toExternalForm());
 
-        stage.setTitle("MoneyWise — Votre finances. Votre contrôle.");
+        stage.setTitle("MoneyWise");
         stage.setScene(scene);
         stage.setMinWidth(MIN_WIDTH);
         stage.setMinHeight(MIN_HEIGHT);

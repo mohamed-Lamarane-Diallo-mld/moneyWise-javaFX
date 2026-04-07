@@ -89,7 +89,7 @@
                                 <Label text="" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
-                                <Label text="💰" styleClass="kpi-icon"/>
+                                <Label text="" styleClass="kpi-icon"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -361,7 +361,7 @@
 
                     <HBox alignment="CENTER_LEFT"
                           style="-fx-padding:14 18 12 18;">
-                        <Label text="🔍  Filtrer les transactions"
+                        <Label text="Filtrer les transactions"
                                styleClass="section-title"
                                HBox.hgrow="ALWAYS"/>
                         <Button text="✕ Réinitialiser"

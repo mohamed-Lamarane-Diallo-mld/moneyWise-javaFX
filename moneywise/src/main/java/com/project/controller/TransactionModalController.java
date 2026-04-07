@@ -154,8 +154,7 @@ public class TransactionModalController implements Initializable {
 
         Utilisateur user = SessionManager.getUtilisateur();
         if (user == null) return;
-
-        // ✅ VÉRIFICATION SOLDE — AlerteHelper.soldeInsuffisant
+        
         if (typeSelectionne == TypeTransaction.SORTIE) {
             double soldeActuel    = transactionDAO.getSoldeTotal(user.getId());
             double soldeDisponible = soldeActuel;

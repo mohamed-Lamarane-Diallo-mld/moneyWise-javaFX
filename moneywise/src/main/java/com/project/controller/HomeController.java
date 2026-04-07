@@ -28,8 +28,7 @@ public class HomeController implements Initializable {
     // ── Header ──
     @FXML private Label headerDate;
     @FXML private Label headerUser;
-    @FXML private Label headerSolde;      // ✅ solde dans le header
-
+    @FXML private Label headerSolde;      
     // ── KPI cards ──
     @FXML private Label kpiRevenus;
     @FXML private Label kpiDepenses;
@@ -39,9 +38,9 @@ public class HomeController implements Initializable {
     @FXML private Label kpiSoldeEvol;
 
     // ── Panel droit — fx:id distincts ──
-    @FXML private Label sideRevenus;      // ✅ renommé
-    @FXML private Label sideDepenses;     // ✅ renommé
-    @FXML private Label sideEpargne;      // ✅ renommé
+    @FXML private Label sideRevenus;      
+    @FXML private Label sideDepenses; 
+    @FXML private Label sideEpargne;     
 
     // ── Alertes ──
     @FXML private HBox  alerteWidget;
@@ -87,7 +86,7 @@ public class HomeController implements Initializable {
         headerDate.setText(DateHelper.formaterComplet(LocalDate.now()));
         if (uid != -1)
             headerUser.setText("Bonjour, "
-                + SessionManager.getUtilisateur().getNom().split(" ")[0] + " 👋");
+                + SessionManager.getUtilisateur().getNom().split(" ")[0]);
     }
 
     // ─────────────────────────────────────────

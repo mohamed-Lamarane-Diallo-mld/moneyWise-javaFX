@@ -1,15 +1,18 @@
 package com.project.controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.project.dao.CategorieDAO;
 import com.project.model.Categorie;
 import com.project.utils.SessionManager;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class CategorieModalController implements Initializable {
 
@@ -48,7 +51,6 @@ public class CategorieModalController implements Initializable {
         if (nom.isEmpty()) { showError("Le nom est obligatoire."); return; }
         if (nom.length() < 2) { showError("Nom trop court."); return; }
 
-        // ✅ getUserId()
         int uid = SessionManager.getUserId();
         if (uid == -1) return;
 
@@ -56,7 +58,6 @@ public class CategorieModalController implements Initializable {
         saveBtn.setDisable(true);
 
         if (categorieAModifier == null) {
-            // ✅ uid directement au lieu de user.getId()
             Categorie c = new Categorie(nom,
                 icone.isEmpty() ? null : icone, false, uid);
             boolean ok = categorieDAO.ajouter(c);

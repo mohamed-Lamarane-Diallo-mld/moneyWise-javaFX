@@ -94,7 +94,7 @@ public class LoginController implements Initializable {
         fade.setDelay(Duration.millis(200));
 
         TranslateTransition slide = new TranslateTransition(
-            Duration.millis(600), formCard);
+            Duration.millis(300), formCard);
         slide.setFromY(30); slide.setToY(0);
         slide.setInterpolator(Interpolator.EASE_OUT);
         slide.setDelay(Duration.millis(200));
@@ -130,13 +130,13 @@ public class LoginController implements Initializable {
 
         FadeTransition fade = new FadeTransition(Duration.millis(600), featuresBox);
         fade.setFromValue(0); fade.setToValue(1);
-        fade.setDelay(Duration.millis(500));
+        fade.setDelay(Duration.millis(200));
 
         TranslateTransition slide = new TranslateTransition(
             Duration.millis(600), featuresBox);
         slide.setFromY(20); slide.setToY(0);
         slide.setInterpolator(Interpolator.EASE_OUT);
-        slide.setDelay(Duration.millis(500));
+        slide.setDelay(Duration.millis(200));
 
         new ParallelTransition(fade, slide).play();
     }
@@ -165,6 +165,7 @@ public class LoginController implements Initializable {
         scale.setCycleCount(2);
         scale.play();
     }
+    
 
     // ─────────────────────────────────────────
     // CONNEXION
@@ -178,7 +179,8 @@ public class LoginController implements Initializable {
 
         if (email.isEmpty() || mdp.isEmpty()) {
             showError("Veuillez remplir tous les champs.");
-            animerErreur(); return;
+            animerErreur(); 
+            return;
         }
         if (!email.contains("@")) {
             showError("Adresse email invalide.");

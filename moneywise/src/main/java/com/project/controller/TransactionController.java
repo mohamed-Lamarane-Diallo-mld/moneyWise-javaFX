@@ -1,5 +1,13 @@
 package com.project.controller;
 
+import java.net.URL;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import com.project.dao.BudgetDAO;
 import com.project.dao.CategorieDAO;
 import com.project.dao.TransactionDAO;
@@ -11,6 +19,7 @@ import com.project.utils.AlerteHelper;
 import com.project.utils.DateHelper;
 import com.project.utils.ResponsiveHelper;
 import com.project.utils.SessionManager;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,18 +29,22 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class TransactionController implements Initializable {
 
@@ -477,8 +490,9 @@ public class TransactionController implements Initializable {
         nom.getStyleClass().add("categorie-nom");
         HBox.setHgrow(nom, Priority.ALWAYS);
 
-        Button btnEdit = new Button("✎");
+        Button btnEdit = new Button("✎ Modifier");
         btnEdit.getStyleClass().add("btn-action-icon");
+        btnEdit.getStyleClass().add("btn-action-edit");
         btnEdit.setStyle("-fx-text-fill:#6C63FF;");
         btnEdit.setOnAction(e -> openModalModifierCategorie(cat));
 
