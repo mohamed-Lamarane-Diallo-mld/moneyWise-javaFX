@@ -28,7 +28,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-
         // Connexion DB en arrière-plan au démarrage
         new Thread(DatabaseConnection::getConnection).start();
 
@@ -94,7 +93,7 @@ public class App extends Application {
     private static Parent loadFXML(String path) throws IOException {
         var url = App.class.getResource(path + ".fxml");
         if (url == null) {
-            throw new IOException("❌ FXML introuvable : " + path + ".fxml");
+            throw new IOException(" FXML introuvable : " + path + ".fxml");
         }
         return new FXMLLoader(url).load();
     }

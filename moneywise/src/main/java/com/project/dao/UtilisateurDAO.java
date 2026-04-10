@@ -156,4 +156,41 @@ public class UtilisateurDAO {
             ? rs.getInt("niveau_acces") : null);
         return u;
     }
+
+    // Trouver l'ID d'un utilisateur par email - CORRIGÉ
+    public int findIdByEmail(String email) {
+        String sql = "SELECT id FROM utilisateur WHERE email = ?";
+        try (PreparedStatement stmt = getConn().prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                System.out.println("✅ Email trouvé : " + email + " -> ID: " + id);
+                return id;
+            } else {
+                System.out.println("⚠️ Email non trouvé : " + email);
+                return -1;
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Erreur findIdByEmail : " + e.getMessage());
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    // Mettre à jour le mot de passe - CORRIGÉ
+    public boolean mettreAJourMotDePasse(int userId, String newPassword) {
+        String sql = "UPDATE utilisateur SET mot_de_passe = ? WHERE id = ?";
+        try (PreparedStatement stmt = getConn().prepareStatement(sql)) {
+            stmt.setString(1, BCrypt.hashpw(newPassword, BCrypt.gensalt(12)));
+            stmt.setInt(2, userId);
+            int result = stmt.executeUpdate();
+            System.out.println("✅ Mise à jour mot de passe : " + (result > 0));
+            return result > 0;
+        } catch (SQLException e) {
+            System.err.println("❌ Erreur mettreAJourMotDePasse : " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

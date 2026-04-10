@@ -13,10 +13,12 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
-import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -25,21 +27,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class LoginController implements Initializable {
 
-    @FXML private VBox   leftPane;
-    @FXML private VBox   rightPane;
-    @FXML private VBox   brandContent;
+    @FXML private VBox   rootPane;
     @FXML private VBox   formCard;
-    @FXML private VBox   featuresBox;
-
-    // Cercles décoratifs
-    @FXML private Circle circle1;
-    @FXML private Circle circle2;
-    @FXML private Circle circle3;
-    @FXML private Circle circle4;
+    @FXML private Circle bubble1, bubble2, bubble3, bubble4, bubble5, bubble6, bubble7;
 
     @FXML private TextField     emailField;
     @FXML private PasswordField passwordField;
@@ -52,7 +47,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Lancer les animations au démarrage
         javafx.application.Platform.runLater(this::lancerAnimations);
     }
 
@@ -60,112 +54,54 @@ public class LoginController implements Initializable {
     // ANIMATIONS
     // ─────────────────────────────────────────
     private void lancerAnimations() {
-        animerEntreeGauche();
-        animerEntreeDroite();
-        animerCercles();
-        animerFeaturesBox();
+        animerFormCard();
+        animerBulle(bubble1, -40, 40, 3800);
+        animerBulle(bubble2, -60, 60, 4500);
+        animerBulle(bubble3, -30, 35, 3200);
+        animerBulle(bubble4, -50, 45, 4000);
+        animerBulle(bubble5, -40, 40, 3800);
+        animerBulle(bubble6, -60, 60, 4500);
+        animerBulle(bubble7, -30, 35, 3200);    
     }
 
-    /** Panneau gauche glisse depuis la gauche */
-    private void animerEntreeGauche() {
-        if (brandContent == null) return;
-        brandContent.setOpacity(0);
-        brandContent.setTranslateX(-40);
-
-        FadeTransition fade = new FadeTransition(Duration.millis(700), brandContent);
-        fade.setFromValue(0); fade.setToValue(1);
-
-        TranslateTransition slide = new TranslateTransition(
-            Duration.millis(700), brandContent);
-        slide.setFromX(-40); slide.setToX(0);
-        slide.setInterpolator(Interpolator.EASE_OUT);
-
-        new ParallelTransition(fade, slide).play();
-    }
-
-    /** Formulaire glisse depuis la droite avec léger rebond */
-    private void animerEntreeDroite() {
+    private void animerFormCard() {
         if (formCard == null) return;
         formCard.setOpacity(0);
-        formCard.setTranslateY(30);
-
+        formCard.setTranslateY(20);
         FadeTransition fade = new FadeTransition(Duration.millis(600), formCard);
         fade.setFromValue(0); fade.setToValue(1);
-        fade.setDelay(Duration.millis(200));
-
-        TranslateTransition slide = new TranslateTransition(
-            Duration.millis(300), formCard);
-        slide.setFromY(30); slide.setToY(0);
+        TranslateTransition slide = new TranslateTransition(Duration.millis(600), formCard);
+        slide.setFromY(20); slide.setToY(0);
         slide.setInterpolator(Interpolator.EASE_OUT);
-        slide.setDelay(Duration.millis(200));
-
         new ParallelTransition(fade, slide).play();
     }
 
-    /** Cercles décoratifs — mouvement flottant en boucle */
-    private void animerCercles() {
-        animerCercle(circle1, 8, 12, 3200);
-        animerCercle(circle2, -10, 8, 4100);
-        animerCercle(circle3, 6, -10, 3700);
-        animerCercle(circle4, -8, 6, 2900);
-    }
-
-    private void animerCercle(Circle cercle, double dx, double dy, int dureeMs) {
-        if (cercle == null) return;
-
-        TranslateTransition t = new TranslateTransition(
-            Duration.millis(dureeMs), cercle);
-        t.setByX(dx); t.setByY(dy);
-        t.setAutoReverse(true);
+    private void animerBulle(Circle c, double fromY, double toY, double ms) {
+        if (c == null) return;
+        TranslateTransition t = new TranslateTransition(Duration.millis(ms), c);
+        t.setFromY(fromY); t.setToY(toY);
         t.setCycleCount(Animation.INDEFINITE);
+        t.setAutoReverse(true);
         t.setInterpolator(Interpolator.EASE_BOTH);
         t.play();
     }
 
-    /** Features box apparaît en cascade avec délai */
-    private void animerFeaturesBox() {
-        if (featuresBox == null) return;
-        featuresBox.setOpacity(0);
-        featuresBox.setTranslateY(20);
-
-        FadeTransition fade = new FadeTransition(Duration.millis(600), featuresBox);
-        fade.setFromValue(0); fade.setToValue(1);
-        fade.setDelay(Duration.millis(200));
-
-        TranslateTransition slide = new TranslateTransition(
-            Duration.millis(600), featuresBox);
-        slide.setFromY(20); slide.setToY(0);
-        slide.setInterpolator(Interpolator.EASE_OUT);
-        slide.setDelay(Duration.millis(200));
-
-        new ParallelTransition(fade, slide).play();
-    }
-
-    /** Shake animation en cas d'erreur */
     private void animerErreur() {
         if (formCard == null) return;
-
-        TranslateTransition shake = new TranslateTransition(
-            Duration.millis(60), formCard);
-        shake.setFromX(0); shake.setByX(10);
-        shake.setCycleCount(6);
-        shake.setAutoReverse(true);
+        TranslateTransition shake = new TranslateTransition(Duration.millis(60), formCard);
+        shake.setFromX(0); shake.setByX(8);
+        shake.setCycleCount(6); shake.setAutoReverse(true);
         shake.setInterpolator(Interpolator.LINEAR);
         shake.play();
     }
 
-    /** Animation bouton cliqué */
-    private void animerBoutonSuccess() {
-        if (loginBtn == null) return;
-
-        ScaleTransition scale = new ScaleTransition(Duration.millis(150), loginBtn);
-        scale.setFromX(1); scale.setFromY(1);
-        scale.setToX(0.96); scale.setToY(0.96);
-        scale.setAutoReverse(true);
-        scale.setCycleCount(2);
-        scale.play();
+    private void animerSortie(Runnable onFinish) {
+        if (rootPane == null) { onFinish.run(); return; }
+        FadeTransition fade = new FadeTransition(Duration.millis(280), rootPane);
+        fade.setFromValue(1); fade.setToValue(0);
+        fade.setOnFinished(e -> onFinish.run());
+        fade.play();
     }
-    
 
     // ─────────────────────────────────────────
     // CONNEXION
@@ -174,22 +110,19 @@ public class LoginController implements Initializable {
     private void handleLogin() {
         String email = emailField.getText().trim();
         String mdp   = passwordField.getText();
-
         hideError();
 
         if (email.isEmpty() || mdp.isEmpty()) {
             showError("Veuillez remplir tous les champs.");
-            animerErreur(); 
-            return;
+            animerErreur(); return;
         }
         if (!email.contains("@")) {
             showError("Adresse email invalide.");
             animerErreur(); return;
         }
 
-        animerBoutonSuccess();
         loginBtn.setDisable(true);
-        loginBtn.setText("Connexion en cours...");
+        loginBtn.setText("Connexion en cours…");
 
         new Thread(() -> {
             Utilisateur user = utilisateurDAO.connecter(email, mdp);
@@ -198,8 +131,6 @@ public class LoginController implements Initializable {
                     SessionManager.setUtilisateur(user);
                     journalDAO.log(user.getId(),
                         JournalDAO.ACTION_CONNEXION, "Connexion");
-
-                    // Animation de sortie avant navigation
                     animerSortie(() -> {
                         try { NavigationHelper.navigateTo(NavigationHelper.HOME); }
                         catch (Exception e) { e.printStackTrace(); }
@@ -215,16 +146,29 @@ public class LoginController implements Initializable {
         }).start();
     }
 
-    /** Animation de sortie avant de naviguer */
-    private void animerSortie(Runnable onFinish) {
-        if (rightPane == null) { onFinish.run(); return; }
-
-        FadeTransition fade = new FadeTransition(Duration.millis(300), rightPane);
-        fade.setFromValue(1); fade.setToValue(0);
-        fade.setOnFinished(e -> onFinish.run());
-        fade.play();
+    // ─────────────────────────────────────────
+    // MOT DE PASSE OUBLIÉ
+    // ─────────────────────────────────────────
+   @FXML
+    private void handleMotDePasseOublie() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/project/view/RecuperationCompte.fxml"));
+            Parent root = loader.load();
+            Stage modal = new Stage();
+            modal.setTitle("Récupération de compte");
+            modal.setScene(new Scene(root, 800, 800));
+            modal.setResizable(false);
+            modal.centerOnScreen();
+            modal.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    // ─────────────────────────────────────────
+    // NAVIGATION
+    // ─────────────────────────────────────────
     @FXML
     private void goToInscription(MouseEvent event) {
         animerSortie(() -> {
@@ -233,19 +177,19 @@ public class LoginController implements Initializable {
         });
     }
 
+    // ─────────────────────────────────────────
+    // MESSAGES
+    // ─────────────────────────────────────────
     private void showError(String msg) {
         errorLabel.setText(msg);
-        errorBox.setVisible(true);
-        errorBox.setManaged(true);
-        // Animation apparition erreur
+        errorBox.setVisible(true); errorBox.setManaged(true);
         errorBox.setOpacity(0);
-        FadeTransition fade = new FadeTransition(Duration.millis(300), errorBox);
+        FadeTransition fade = new FadeTransition(Duration.millis(280), errorBox);
         fade.setFromValue(0); fade.setToValue(1);
         fade.play();
     }
 
     private void hideError() {
-        errorBox.setVisible(false);
-        errorBox.setManaged(false);
+        errorBox.setVisible(false); errorBox.setManaged(false);
     }
 }

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.RecuperationCompteController"
+      fx:id="rootPane"
+      styleClass="auth-root"
+      stylesheets="@../style/global.css, @../style/auth.css"
+      alignment="CENTER"
+      spacing="0"
+      prefWidth="600"
+      maxWidth="Infinity" maxHeight="Infinity">
+
+    <!-- ══ BULLES DÉCORATIVES ══ -->
+    <Circle fx:id="bubble1" styleClass="bubble-1"
+            radius="70" layoutX="60" layoutY="80" managed="false"/>
+    <Circle fx:id="bubble2" styleClass="bubble-2"
+            radius="100" layoutX="550" layoutY="550" managed="false"/>
+    <Circle fx:id="bubble3" styleClass="bubble-3"
+            radius="55" layoutX="500" layoutY="150" managed="false"/>
+    <Circle fx:id="bubble4" styleClass="bubble-1"
+            radius="40" layoutX="100" layoutY="650" managed="false"/>
+
+    <!-- ══ LOGO ══ -->
+    <HBox styleClass="auth-header-logo" alignment="CENTER" style="-fx-padding: 20 0 30 0;">
+        <Label text="MoneyWise"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #6C63FF;"/>
+    </HBox>
+
+    <!-- ══ FORMULAIRE CENTRÉ ══ -->
+    <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true"
+                styleClass="auth-scroll">
+        <StackPane alignment="CENTER" minHeight="650">
+            <VBox fx:id="formCard" styleClass="auth-form-card"
+                  spacing="20" prefWidth="500">
+
+                <!-- Badge étape -->
+                <HBox alignment="CENTER">
+                    <Label fx:id="stepIndicator" text="Étape 1 / 3"
+                           styleClass="auth-step-badge"/>
+                </HBox>
+
+                <!-- Titre dynamique -->
+                <VBox spacing="8" alignment="CENTER">
+                    <Label fx:id="stepTitle" text="Récupérer votre compte"
+                           styleClass="auth-title"/>
+                    <Label fx:id="stepSubtitle" text="Entrez votre adresse email"
+                           styleClass="auth-subtitle" wrapText="true" textAlignment="CENTER"/>
+                </VBox>
+
+                <!-- Ligne décorative -->
+                <Region style="-fx-background-color: linear-gradient(to right, #6C63FF, transparent);
+                               -fx-pref-height: 2px; -fx-background-radius: 1;"
+                        maxWidth="80"/>
+
+                <!-- ═════════════════════════════════════════ -->
+                <!-- ÉTAPE 1 : Email -->
+                <!-- ═════════════════════════════════════════ -->
+                <VBox fx:id="step1Pane" spacing="20" style="-fx-padding: 10 0 0 0;">
+                    
+                    <VBox spacing="8">
+                        <Label text="Adresse email" styleClass="auth-field-label"/>
+                        <HBox styleClass="auth-input-wrapper"
+                              alignment="CENTER_LEFT" spacing="10">
+                            <Label text="✉" style="-fx-font-size: 16px; -fx-text-fill: #A0AEC0;"/>
+                            <TextField fx:id="emailField"
+                                       promptText="exemple@email.com"
+                                       styleClass="auth-input-field"
+                                       HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+                    
+                    <Label text="Nous allons vérifier votre identité en vous posant quelques questions de sécurité."
+                           wrapText="true"
+                           styleClass="auth-info-box"
+                           style="-fx-padding: 12 14; -fx-font-size: 12px;"/>
+
+                </VBox>
+
+                <!-- ═════════════════════════════════════════ -->
+                <!-- ÉTAPE 2 : Questions de sécurité -->
+                <!-- ═════════════════════════════════════════ -->
+                <VBox fx:id="step2Pane" spacing="16"
+                      visible="false" managed="false"
+                      style="-fx-padding: 10 0 0 0;">
+
+                    <Label text="Répondez aux questions ci-dessous pour vérifier votre identité"
+                           wrapText="true"
+                           styleClass="auth-info-box"
+                           style="-fx-padding: 12 14; -fx-font-size: 12px;"/>
+
+                    <!-- Question 1 -->
+                    <VBox spacing="8">
+                        <Label fx:id="question1Label" text="Question 1"
+                               wrapText="true"
+                               styleClass="auth-field-label"/>
+                        <HBox styleClass="auth-input-wrapper"
+                              alignment="CENTER_LEFT" spacing="10">
+                            <Label text="💬" style="-fx-font-size: 16px; -fx-text-fill: #A0AEC0;"/>
+                            <TextField fx:id="reponse1Field"
+                                       promptText="Votre réponse…"
+                                       styleClass="auth-input-field"
+                                       HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Question 2 -->
+                    <VBox spacing="8">
+                        <Label fx:id="question2Label" text="Question 2"
+                               wrapText="true"
+                               styleClass="auth-field-label"/>
+                        <HBox styleClass="auth-input-wrapper"
+                              alignment="CENTER_LEFT" spacing="10">
+                            <Label text="💬" style="-fx-font-size: 16px; -fx-text-fill: #A0AEC0;"/>
+                            <TextField fx:id="reponse2Field"
+                                       promptText="Votre réponse…"
+                                       styleClass="auth-input-field"
+                                       HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Question 3 -->
+                    <VBox spacing="8">
+                        <Label fx:id="question3Label" text="Question 3"
+                               wrapText="true"
+                               styleClass="auth-field-label"/>
+                        <HBox styleClass="auth-input-wrapper"
+                              alignment="CENTER_LEFT" spacing="10">
+                            <Label text="💬" style="-fx-font-size: 16px; -fx-text-fill: #A0AEC0;"/>
+                            <TextField fx:id="reponse3Field"
+                                       promptText="Votre réponse…"
+                                       styleClass="auth-input-field"
+                                       HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                </VBox>
+
+                <!-- ═════════════════════════════════════════ -->
+                <!-- ÉTAPE 3 : Nouveau mot de passe -->
+                <!-- ═════════════════════════════════════════ -->
+                <VBox fx:id="step3Pane" spacing="16"
+                      visible="false" managed="false"
+                      style="-fx-padding: 10 0 0 0;">
+
+                    <Label text="✓ Identité vérifiée ! Choisissez un nouveau mot de passe"
+                           wrapText="true"
+                           style="-fx-background-color: #F0FFF4;
+                                  -fx-border-color: #C6F6D5;
+                                  -fx-border-radius: 10;
+                                  -fx-background-radius: 10;
+                                  -fx-padding: 12 14;
+                                  -fx-text-fill: #276749;
+                                  -fx-font-size: 13px;
+                                  -fx-border-width: 1;"/>
+
+                    <VBox spacing="8">
+                        <Label text="Nouveau mot de passe" styleClass="auth-field-label"/>
+                        <HBox styleClass="auth-input-wrapper"
+                              alignment="CENTER_LEFT" spacing="10">
+                            <Label text="🔒" style="-fx-font-size: 16px; -fx-text-fill: #A0AEC0;"/>
+                            <PasswordField fx:id="nouveauMdpField"
+                                           promptText="Minimum 6 caractères"
+                                           styleClass="auth-input-field"
+                                           HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <Label text="Confirmer le mot de passe" styleClass="auth-field-label"/>
+                        <HBox styleClass="auth-input-wrapper"
+                              alignment="CENTER_LEFT" spacing="10">
+                            <Label text="✓" style="-fx-font-size: 16px; -fx-text-fill: #A0AEC0; -fx-font-weight: bold;"/>
+                            <PasswordField fx:id="confirmMdpField"
+                                           promptText="••••••••"
+                                           styleClass="auth-input-field"
+                                           HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+
+                </VBox>
+
+                <!-- Messages d'erreur/succès -->
+                <HBox fx:id="errorBox" spacing="8" alignment="TOP_LEFT"
+                      styleClass="auth-error-box"
+                      visible="false" managed="false">
+                    <Label text="⚠" style="-fx-font-size: 14px; -fx-text-fill: #E74C3C;"/>
+                    <Label fx:id="errorLabel" text=""
+                           style="-fx-text-fill: #C53030; -fx-font-size: 12px;"
+                           wrapText="true" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <HBox fx:id="successBox" spacing="8" alignment="TOP_LEFT"
+                      styleClass="auth-success-box"
+                      visible="false" managed="false">
+                    <Label text="✓" style="-fx-font-size: 14px; -fx-text-fill: #2ECC71; -fx-font-weight: bold;"/>
+                    <Label fx:id="successLabel" text=""
+                           style="-fx-text-fill: #276749; -fx-font-size: 12px;"
+                           wrapText="true" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <!-- Boutons -->
+                <HBox spacing="12" style="-fx-padding: 10 0 0 0;">
+                    <Button fx:id="btnRetour"
+                            text="Retour"
+                            onAction="#handleRetour"
+                            style="-fx-background-color: #F7FAFC;
+                                   -fx-text-fill: #4A5568;
+                                   -fx-font-size: 13px;
+                                   -fx-font-weight: bold;
+                                   -fx-padding: 14 0;
+                                   -fx-background-radius: 12;
+                                   -fx-cursor: hand;
+                                   -fx-border-color: #E2E8F0;
+                                   -fx-border-radius: 12;
+                                   -fx-border-width: 1;"
+                            prefWidth="100"
+                            visible="false" managed="false"/>
+                    <Button fx:id="btnAction"
+                            text="Continuer →"
+                            styleClass="auth-btn"
+                            onAction="#handleAction"
+                            defaultButton="true"
+                            HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</VBox>
