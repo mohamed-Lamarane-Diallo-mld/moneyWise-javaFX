@@ -24,16 +24,28 @@
                        styleClass="header-date"/>
             </VBox>
             <HBox spacing="14" alignment="CENTER">
-                <Button text="⬇  PDF"
-                        styleClass="btn-export-pdf"
+                <Button text="PDF"
+                        style="-fx-background-color:#EF4444;
+                               -fx-text-fill:white;
+                               -fx-font-size:13px;
+                               -fx-font-weight:bold;
+                               -fx-padding:10 20;
+                               -fx-background-radius:9;
+                               -fx-cursor:hand;"
                         onAction="#exportPDF"/>
-                <Button text="⬇  Excel"
-                        styleClass="btn-export-excel"
+                <Button text="Excel"
+                        style="-fx-background-color:#10B981;
+                               -fx-text-fill:white;
+                               -fx-font-size:13px;
+                               -fx-font-weight:bold;
+                               -fx-padding:10 20;
+                               -fx-background-radius:9;
+                               -fx-cursor:hand;"
                         onAction="#exportExcel"/>
             </HBox>
         </HBox>
 
-        <!-- Ligne décorative -->
+        <!-- Ligne decoratives -->
         <Region prefHeight="2"
                 style="-fx-background-color:linear-gradient(to right,
                        #6C63FF 0%, #2ECC71 50%, transparent 100%);
@@ -43,34 +55,64 @@
                     styleClass="scroll-pane">
             <VBox styleClass="home-content" spacing="22">
 
-                <!-- TITRE + PÉRIODE -->
+                <!-- TITRE + PERIODE -->
                 <HBox alignment="CENTER_LEFT" spacing="0">
                     <VBox HBox.hgrow="ALWAYS" spacing="2">
-                        <Label text="Analyse financière"
+                        <Label text="Analyse financiere"
                                styleClass="section-title"/>
-                        <Label text="Visualisez l'évolution de vos finances"
+                        <Label text="Visualisez l'evolution de vos finances sur la periode choisie"
                                styleClass="section-subtitle"/>
                     </VBox>
                     <HBox spacing="8" alignment="CENTER">
-                        <Label text="Période :"
+                        <Label text="Periode :"
                                style="-fx-font-size:12px;
                                       -fx-font-weight:bold;
                                       -fx-text-fill:#718096;"/>
                         <Button fx:id="btnMois" text="Ce mois"
-                                styleClass="periode-btn, periode-btn-active"
+                                style="-fx-background-color:#6C63FF;
+                                       -fx-text-fill:white;
+                                       -fx-font-size:12px;
+                                       -fx-font-weight:bold;
+                                       -fx-padding:7 16;
+                                       -fx-background-radius:8;
+                                       -fx-cursor:hand;"
                                 onAction="#setPeriodeMois"/>
                         <Button fx:id="btnTrimestre" text="Trimestre"
-                                styleClass="periode-btn"
+                                style="-fx-background-color:#F1F5F9;
+                                       -fx-text-fill:#64748B;
+                                       -fx-font-size:12px;
+                                       -fx-font-weight:bold;
+                                       -fx-padding:7 16;
+                                       -fx-background-radius:8;
+                                       -fx-cursor:hand;
+                                       -fx-border-color:#E2E8F0;
+                                       -fx-border-radius:8;"
                                 onAction="#setPeriodeTrimestre"/>
-                        <Button fx:id="btnAnnee" text="Cette année"
-                                styleClass="periode-btn"
+                        <Button fx:id="btnAnnee" text="Cette annee"
+                                style="-fx-background-color:#F1F5F9;
+                                       -fx-text-fill:#64748B;
+                                       -fx-font-size:12px;
+                                       -fx-font-weight:bold;
+                                       -fx-padding:7 16;
+                                       -fx-background-radius:8;
+                                       -fx-cursor:hand;
+                                       -fx-border-color:#E2E8F0;
+                                       -fx-border-radius:8;"
                                 onAction="#setPeriodeAnnee"/>
+                        <!-- Admin only -->
+                        <ComboBox fx:id="filterUtilisateur"
+                                  promptText="Tous les utilisateurs"
+                                  style="-fx-background-color:#F7FAFC;
+                                         -fx-border-color:#E2E8F0;
+                                         -fx-border-radius:8;
+                                         -fx-background-radius:8;
+                                         -fx-font-size:12px;"
+                                  prefWidth="200"
+                                  visible="false" managed="false"/>
                     </HBox>
                 </HBox>
 
-                <!-- ══════════════════════════════════ -->
-                <!-- KPI CARDS — fx:id UNIQUES          -->
-                <!-- ══════════════════════════════════ -->
+                <!-- KPI CARDS -->
                 <HBox spacing="16">
 
                     <!-- REVENUS -->
@@ -81,72 +123,79 @@
                                     <Label text="↑" styleClass="kpi-badge-green"/>
                                     <Label text="REVENUS" styleClass="kpi-label"/>
                                 </HBox>
-                                <!-- ✅ fx:id unique -->
                                 <Label fx:id="summaryRevenus" text="0 FCFA"
                                        styleClass="kpi-value, kpi-value-green"/>
-                                <Label fx:id="pieSubtitle" text=""
+                                <Label fx:id="pieSubtitle" text="periode selectionnee"
                                        styleClass="kpi-evolution"/>
                             </VBox>
-                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
-                                <Label text="💰" styleClass="kpi-icon"/>
+                            <StackPane styleClass="kpi-icon-box kpi-icon-box-green">
+                                <Label text=" " styleClass="kpi-icon"
+                                       style="    -fx-font-weight:bold;
+                                                  -fx-text-fill:#6C63FF;
+                                                  -fx-font-size:11px;
+                                                  -fx-font-weight:bold;
+                                                  -fx-padding:3 8;
+                                                  -fx-background-radius:6;"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-green" maxWidth="56"/>
                     </VBox>
 
-                    <!-- DÉPENSES -->
+                    <!-- DEPENSES -->
                     <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <Label text="↓" styleClass="kpi-badge-red"/>
-                                    <Label text="DÉPENSES" styleClass="kpi-label"/>
+                                    <Label text="DEPENSES" styleClass="kpi-label"/>
                                 </HBox>
-                                <!-- ✅ fx:id unique -->
                                 <Label fx:id="summaryDepenses" text="0 FCFA"
                                        styleClass="kpi-value, kpi-value-red"/>
-                                <Label text="période sélectionnée"
+                                <Label text="periode selectionnee"
                                        styleClass="kpi-evolution"/>
                             </VBox>
-                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
-                                <Label text="💸" styleClass="kpi-icon"/>
+                            <StackPane styleClass="kpi-icon-box kpi-icon-box-red">
+                                <Label text=" " styleClass="kpi-icon"
+                                       style="-fx-text-fill:#EF4444;
+                                              -fx-font-weight:bold;"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-red" maxWidth="56"/>
                     </VBox>
 
-                    <!-- ÉPARGNE -->
+                    <!-- EPARGNE -->
                     <VBox styleClass="kpi-card-purple" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <Label text="◈" styleClass="kpi-badge-white"/>
-                                    <Label text="ÉPARGNE" styleClass="kpi-label-white"/>
+                                    <Label text="EPARGNE" styleClass="kpi-label-white"/>
                                 </HBox>
-                                <!-- ✅ fx:id unique -->
                                 <Label fx:id="summaryEpargne" text="0 FCFA"
-                                       styleClass="kpi-value, kpi-value-white"/>
-                                <Label text="revenus - dépenses"
+                                       styleClass="kpi-value kpi-value-white"/>
+                                <Label text="revenus - depenses"
                                        styleClass="kpi-evolution-white"/>
                             </VBox>
-                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
-                                <Label text="🏦" styleClass="kpi-icon"/>
+                            <StackPane styleClass="kpi-icon-box kpi-icon-box-purple">
+                                <Label text=" " styleClass="kpi-icon"
+                                       style="-fx-text-fill:white;
+                                              -fx-font-weight:bold;"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-white" maxWidth="56"/>
                     </VBox>
 
-                    <!-- NB TRANSACTIONS -->
+                    <!-- TRANSACTIONS -->
                     <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <Label text="#"
-                                           style="-fx-background-color:#E8F8F1;
-                                                  -fx-text-fill:#27AE60;
+                                           style="-fx-background-color:#EAE8FF;
+                                                  -fx-text-fill:#6C63FF;
                                                   -fx-font-size:11px;
                                                   -fx-font-weight:bold;
                                                   -fx-padding:3 8;
@@ -154,19 +203,25 @@
                                     <Label text="TRANSACTIONS" styleClass="kpi-label"/>
                                 </HBox>
                                 <Label fx:id="summaryNbTransactions" text="0"
-                                       styleClass="kpi-value"/>
-                                <Label fx:id="barSubtitle" text=""
+                                       styleClass="kpi-value"
+                                       style="-fx-text-fill:#6C63FF;
+                                              -fx-font-weight:bold;
+                                              -fx-font-size:22px;"/>
+                                <Label fx:id="barSubtitle" text="sur la periode"
                                        styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box"
-                                       style="-fx-background-color:#E8F8F1;">
-                                <Label text="📋" styleClass="kpi-icon"/>
+                                       style="-fx-background-color:#EAE8FF;">
+                                <Label text=" " styleClass="kpi-icon"
+                                       style="-fx-text-fill:#6C63FF;
+                                              -fx-font-weight:bold;"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
-                        <Region style="-fx-background-color:#27AE60;
+                        <Region style="-fx-background-color:#6C63FF;
                                        -fx-background-radius:2;
-                                       -fx-pref-height:3;" maxWidth="56"/>
+                                       -fx-pref-height:3;"
+                                maxWidth="56"/>
                     </VBox>
 
                 </HBox>
@@ -175,44 +230,44 @@
                 <HBox spacing="20">
 
                     <!-- CAMEMBERT -->
-                    <VBox styleClass="chart-card" HBox.hgrow="ALWAYS" spacing="0">
-                        <HBox alignment="CENTER_LEFT" style="-fx-padding:0 0 12 0;">
+                    <VBox styleClass="table-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT"
+                              style="-fx-padding:16 20 12 20;">
                             <VBox HBox.hgrow="ALWAYS" spacing="3">
-                                <Label text="Dépenses par catégorie"
-                                       styleClass="chart-card-title"/>
-                                <Label text="Répartition des sorties sur la période"
-                                       styleClass="chart-card-subtitle"/>
+                                <Label text="Depenses par categorie"
+                                       styleClass="section-title"/>
+                                <Label text="Repartition des sorties sur la periode"
+                                       styleClass="section-subtitle"/>
                             </VBox>
-                            <Label text="🍩"
-                                   style="-fx-font-size:20px; -fx-opacity:0.5;"/>
+                            <Label text="P"
+                                   style="-fx-font-size:18px; -fx-opacity:0.7;"/>
                         </HBox>
                         <Separator style="-fx-opacity:0.4;"/>
                         <PieChart fx:id="pieChart"
-                                  styleClass="chart"
-                                  prefHeight="320"
+                                  prefHeight="300"
                                   labelsVisible="true"
                                   legendVisible="true"
-                                  style="-fx-padding:10 0 0 0;"/>
+                                  style="-fx-padding:10 0 10 0;"/>
                     </VBox>
 
                     <!-- BARRES -->
-                    <VBox styleClass="chart-card" HBox.hgrow="ALWAYS" spacing="0">
-                        <HBox alignment="CENTER_LEFT" style="-fx-padding:0 0 12 0;">
+                    <VBox styleClass="table-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT"
+                              style="-fx-padding:16 20 12 20;">
                             <VBox HBox.hgrow="ALWAYS" spacing="3">
-                                <Label text="Entrées vs Sorties par mois"
-                                       styleClass="chart-card-title"/>
-                                <Label text="Comparaison mensuelle sur l'année"
-                                       styleClass="chart-card-subtitle"/>
+                                <Label text="Entrees vs Sorties par mois"
+                                       styleClass="section-title"/>
+                                <Label text="Comparaison mensuelle sur l'annee"
+                                       styleClass="section-subtitle"/>
                             </VBox>
-                            <Label text="📊"
-                                   style="-fx-font-size:20px; -fx-opacity:0.5;"/>
+                            <Label text="B"
+                                   style="-fx-font-size:18px; -fx-opacity:0.7;"/>
                         </HBox>
                         <Separator style="-fx-opacity:0.4;"/>
                         <BarChart fx:id="barChart"
-                                  styleClass="chart"
-                                  prefHeight="320"
+                                  prefHeight="300"
                                   animated="false"
-                                  style="-fx-padding:10 0 0 0;">
+                                  style="-fx-padding:10 0 10 0;">
                             <xAxis><CategoryAxis fx:id="xAxis"/></xAxis>
                             <yAxis><NumberAxis fx:id="yAxis"/></yAxis>
                         </BarChart>
@@ -220,10 +275,7 @@
 
                 </HBox>
 
-                <!-- ══════════════════════════════════════════ -->
-                <!-- LIGNE 3 : ANALYSE + PANEL DROIT            -->
-                <!-- fx:id DISTINCTS dans la section analyse    -->
-                <!-- ══════════════════════════════════════════ -->
+                <!-- ANALYSE RAPIDE + PANEL DROIT -->
                 <HBox spacing="20" alignment="TOP_LEFT">
 
                     <!-- ANALYSE RAPIDE -->
@@ -234,7 +286,7 @@
                             <VBox HBox.hgrow="ALWAYS" spacing="2">
                                 <Label text="Analyse rapide"
                                        styleClass="section-title"/>
-                                <Label text="Indicateurs clés de la période"
+                                <Label text="Indicateurs cles de la periode"
                                        styleClass="section-subtitle"/>
                             </VBox>
                         </HBox>
@@ -248,67 +300,80 @@
                                   alignment="CENTER_LEFT" spacing="14">
                                 <StackPane style="-fx-background-color:#E8F8F1;
                                                   -fx-background-radius:8;
-                                                  -fx-min-width:36px;
-                                                  -fx-min-height:36px;
-                                                  -fx-max-width:36px;
-                                                  -fx-max-height:36px;">
+                                                  -fx-min-width:40px; -fx-min-height:40px;
+                                                  -fx-max-width:40px; -fx-max-height:40px;">
                                     <Label text="↑"
                                            style="-fx-text-fill:#27AE60;
                                                   -fx-font-weight:bold;
-                                                  -fx-font-size:16px;"/>
+                                                  -fx-font-size:18px;"/>
                                 </StackPane>
-                                <VBox spacing="1" HBox.hgrow="ALWAYS">
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
                                     <Label text="Total revenus"
                                            styleClass="summary-label"/>
-                                    <!-- ✅ analyseRevenus — pas de doublon -->
                                     <Label fx:id="analyseRevenus" text="0 FCFA"
-                                           styleClass="summary-value, summary-value-green"/>
+                                           styleClass="summary-value summary-value-green"/>
                                 </VBox>
                             </HBox>
 
-                            <!-- Dépenses -->
+                            <!-- Depenses -->
                             <HBox styleClass="summary-row"
                                   alignment="CENTER_LEFT" spacing="14">
                                 <StackPane style="-fx-background-color:#FDECEA;
                                                   -fx-background-radius:8;
-                                                  -fx-min-width:36px;
-                                                  -fx-min-height:36px;
-                                                  -fx-max-width:36px;
-                                                  -fx-max-height:36px;">
+                                                  -fx-min-width:40px; -fx-min-height:40px;
+                                                  -fx-max-width:40px; -fx-max-height:40px;">
                                     <Label text="↓"
                                            style="-fx-text-fill:#E74C3C;
                                                   -fx-font-weight:bold;
-                                                  -fx-font-size:16px;"/>
+                                                  -fx-font-size:18px;"/>
                                 </StackPane>
-                                <VBox spacing="1" HBox.hgrow="ALWAYS">
-                                    <Label text="Total dépenses"
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Total depenses"
                                            styleClass="summary-label"/>
-                                    <!-- ✅ analyseDepenses — pas de doublon -->
                                     <Label fx:id="analyseDepenses" text="0 FCFA"
-                                           styleClass="summary-value, summary-value-red"/>
+                                           styleClass="summary-value summary-value-red"/>
                                 </VBox>
                             </HBox>
 
-                            <!-- Épargne -->
-                            <HBox style="-fx-padding:10 0 0 0;"
+                            <!-- Epargne nette -->
+                            <HBox styleClass="summary-row"
                                   alignment="CENTER_LEFT" spacing="14">
                                 <StackPane style="-fx-background-color:#EAE8FF;
                                                   -fx-background-radius:8;
-                                                  -fx-min-width:36px;
-                                                  -fx-min-height:36px;
-                                                  -fx-max-width:36px;
-                                                  -fx-max-height:36px;">
+                                                  -fx-min-width:40px; -fx-min-height:40px;
+                                                  -fx-max-width:40px; -fx-max-height:40px;">
                                     <Label text="◈"
                                            style="-fx-text-fill:#6C63FF;
                                                   -fx-font-weight:bold;
-                                                  -fx-font-size:14px;"/>
+                                                  -fx-font-size:16px;"/>
                                 </StackPane>
-                                <VBox spacing="1" HBox.hgrow="ALWAYS">
-                                    <Label text="Épargne nette"
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Epargne nette"
                                            styleClass="summary-label"/>
-                                    <!-- ✅ analyseEpargne — pas de doublon -->
                                     <Label fx:id="analyseEpargne" text="0 FCFA"
-                                           styleClass="summary-value, summary-value-purple"/>
+                                           styleClass="summary-value summary-value-purple"/>
+                                </VBox>
+                            </HBox>
+
+                            <!-- Taux d'epargne -->
+                            <HBox style="-fx-padding:6 0 0 0;"
+                                  alignment="CENTER_LEFT" spacing="14">
+                                <StackPane style="-fx-background-color:#FEF3C7;
+                                                  -fx-background-radius:8;
+                                                  -fx-min-width:40px; -fx-min-height:40px;
+                                                  -fx-max-width:40px; -fx-max-height:40px;">
+                                    <Label text="P"
+                                           style="-fx-text-fill:#D97706;
+                                                  -fx-font-weight:bold;
+                                                  -fx-font-size:15px;"/>
+                                </StackPane>
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Taux d'epargne"
+                                           styleClass="summary-label"/>
+                                    <Label fx:id="analyseTauxEpargne" text="0,0"
+                                           style="-fx-font-size:13px;
+                                                  -fx-font-weight:bold;
+                                                  -fx-text-fill:#D97706;"/>
                                 </VBox>
                             </HBox>
 
@@ -320,58 +385,107 @@
 
                         <!-- EXPORTS -->
                         <VBox styleClass="side-card" spacing="10">
-                            <Label text="Exporter les données"
+                            <Label text="Exporter les donnees"
                                    styleClass="side-card-title"
-                                   style="-fx-padding:0 0 4 0;"/>
-                            <Button text="⬇  Exporter en PDF"
-                                    styleClass="btn-export-pdf"
+                                   style="-fx-padding:0 0 6 0;"/>
+                            <Button text="Exporter en PDF"
                                     maxWidth="Infinity"
+                                    style="-fx-background-color:#EF4444;
+                                           -fx-text-fill:white;
+                                           -fx-font-size:12px;
+                                           -fx-font-weight:bold;
+                                           -fx-padding:10 0;
+                                           -fx-background-radius:8;
+                                           -fx-cursor:hand;"
                                     onAction="#exportPDF"/>
-                            <Button text="⬇  Exporter en Excel"
-                                    styleClass="btn-export-excel"
+                            <Button text="Exporter en Excel"
                                     maxWidth="Infinity"
+                                    style="-fx-background-color:#10B981;
+                                           -fx-text-fill:white;
+                                           -fx-font-size:12px;
+                                           -fx-font-weight:bold;
+                                           -fx-padding:10 0;
+                                           -fx-background-radius:8;
+                                           -fx-cursor:hand;"
                                     onAction="#exportExcel"/>
                         </VBox>
 
                         <!-- CONSEIL -->
                         <VBox styleClass="conseil-card" spacing="8">
-                            <Label text="📈  Analyse" styleClass="conseil-badge"/>
-                            <Label text="Comparez vos entrées et sorties chaque mois pour identifier les périodes où vos dépenses dépassent vos revenus."
-                                   styleClass="conseil-text" wrapText="true"/>
+                            <Label text="Conseil"
+                                   styleClass="conseil-badge"/>
+                            <Label text="Comparez vos entrees et sorties chaque mois pour identifier les periodes ou vos depenses depassent vos revenus et ajustez vos habitudes."
+                                   styleClass="conseil-text"
+                                   wrapText="true"/>
                         </VBox>
 
-                        <!-- LÉGENDE -->
+                        <!-- LEGENDE -->
                         <VBox styleClass="side-card" spacing="12">
-                            <Label text="Légende graphique"
+                            <Label text="Legende des graphiques"
                                    styleClass="side-card-title"
-                                   style="-fx-padding:0 0 4 0;"/>
+                                   style="-fx-padding:0 0 6 0;"/>
 
                             <HBox spacing="10" alignment="CENTER_LEFT">
                                 <Region style="-fx-background-color:#6C63FF;
                                                -fx-background-radius:3;
-                                               -fx-min-width:16px; -fx-min-height:16px;
-                                               -fx-max-width:16px; -fx-max-height:16px;"/>
-                                <Label text="Entrées du mois"
-                                       styleClass="summary-label"/>
+                                               -fx-min-width:14px; -fx-min-height:14px;
+                                               -fx-max-width:14px; -fx-max-height:14px;"/>
+                                <VBox spacing="1">
+                                    <Label text="Entrees du mois"
+                                           style="-fx-font-size:12px;
+                                                  -fx-font-weight:bold;
+                                                  -fx-text-fill:#334155;"/>
+                                </VBox>
                             </HBox>
 
                             <HBox spacing="10" alignment="CENTER_LEFT">
-                                <Region style="-fx-background-color:#2ECC71;
+                                <Region style="-fx-background-color:#10B981;
                                                -fx-background-radius:3;
-                                               -fx-min-width:16px; -fx-min-height:16px;
-                                               -fx-max-width:16px; -fx-max-height:16px;"/>
-                                <Label text="Sorties du mois"
-                                       styleClass="summary-label"/>
+                                               -fx-min-width:14px; -fx-min-height:14px;
+                                               -fx-max-width:14px; -fx-max-height:14px;"/>
+                                <VBox spacing="1">
+                                    <Label text="Sorties du mois"
+                                           style="-fx-font-size:12px;
+                                                  -fx-font-weight:bold;
+                                                  -fx-text-fill:#334155;"/>
+                                </VBox>
                             </HBox>
 
                             <HBox spacing="10" alignment="CENTER_LEFT">
-                                <Region style="-fx-background-color:#E74C3C;
+                                <Region style="-fx-background-color:#EF4444;
                                                -fx-background-radius:3;
-                                               -fx-min-width:16px; -fx-min-height:16px;
-                                               -fx-max-width:16px; -fx-max-height:16px;"/>
-                                <Label text="Dépenses par catégorie"
-                                       styleClass="summary-label"/>
+                                               -fx-min-width:14px; -fx-min-height:14px;
+                                               -fx-max-width:14px; -fx-max-height:14px;"/>
+                                <VBox spacing="1">
+                                    <Label text="Depenses par categorie"
+                                           style="-fx-font-size:12px;
+                                                  -fx-font-weight:bold;
+                                                  -fx-text-fill:#334155;"/>
+                                </VBox>
                             </HBox>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Region style="-fx-background-color:#D97706;
+                                               -fx-background-radius:3;
+                                               -fx-min-width:14px; -fx-min-height:14px;
+                                               -fx-max-width:14px; -fx-max-height:14px;"/>
+                                <VBox spacing="1">
+                                    <Label text="Taux d'epargne eleve"
+                                           style="-fx-font-size:12px;
+                                                  -fx-font-weight:bold;
+                                                  -fx-text-fill:#334155;"/>
+                                </VBox>
+                            </HBox>
+
+                        </VBox>
+
+                        <!-- RAPPEL -->
+                        <VBox styleClass="alerte-widget" spacing="6">
+                            <Label text="Le saviez-vous ?"
+                                   styleClass="alerte-widget-title"/>
+                            <Label text="Un taux d'epargne superieur a 20 pourcent est considere comme sain. En dessous de 10 pourcent, pensez a revoir vos depenses."
+                                   styleClass="alerte-widget-text"
+                                   wrapText="true"/>
                         </VBox>
 
                     </VBox>

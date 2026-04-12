@@ -11,6 +11,8 @@ import com.project.utils.SessionManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -18,36 +20,55 @@ import javafx.scene.layout.VBox;
 
 public class SidebarController implements Initializable {
 
-    @FXML
-    private HBox navHome;
-    @FXML
-    private HBox navTransaction;
-    @FXML
-    private HBox navStatistique;
-    @FXML
-    private HBox navProfil;
-    @FXML
-    private HBox navAlertes;
-    @FXML
-    private Label alerteBadge;
-    @FXML
-    private Label avatarLabel;
-    @FXML
-    private Label userNameLabel;
-    @FXML
-    private Label userEmailLabel;
+    // Navigation items standards
+    @FXML private HBox navHome;
+    @FXML private HBox navTransaction;
+    @FXML private HBox navStatistique;
+    @FXML private HBox navProfil;
+    @FXML private HBox navAlertes;
+    
+    // Navigation items admin
+    @FXML private Label adminSectionLabel;
+    @FXML private HBox navAdminUtilisateurs;
+    @FXML private HBox navAdminCategories;
+    @FXML private HBox navAdminLogs;
+    
+    // User info
+    @FXML private Label alerteBadge;
+    @FXML private Label avatarLabel;
+    @FXML private Label userNameLabel;
+    @FXML private Label userEmailLabel;
 
     private final AlerteDAO alerteDAO = new AlerteDAO();
     private final JournalDAO journalDAO = new JournalDAO();
+    private boolean isAdmin = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        isAdmin = SessionManager.isAdmin();
+        
         chargerInfosUser();
         chargerBadgeAlertes();
+        afficherMenusSelonRole();
+    }
+    
+    /**
+     * Affiche ou masque les menus admin selon le rôle de l'utilisateur
+     */
+    private void afficherMenusSelonRole() {
+        boolean visible = isAdmin;
+        
+        adminSectionLabel.setVisible(visible);
+        adminSectionLabel.setManaged(visible);
+        navAdminUtilisateurs.setVisible(visible);
+        navAdminUtilisateurs.setManaged(visible);
+        navAdminCategories.setVisible(visible);
+        navAdminCategories.setManaged(visible);
+        navAdminLogs.setVisible(visible);
+        navAdminLogs.setManaged(visible);
     }
 
     private void chargerInfosUser() {
-        // ✅ getUserId() pour vérification rapide
         if (SessionManager.getUserId() == -1) {
             return;
         }
@@ -69,7 +90,6 @@ public class SidebarController implements Initializable {
             return;
         }
 
-        // ✅ En arrière-plan pour ne pas ralentir la sidebar
         new Thread(() -> {
             int count = alerteDAO.countNonLues(uid);
             javafx.application.Platform.runLater(() -> {
@@ -86,23 +106,27 @@ public class SidebarController implements Initializable {
     }
 
     public void setActiveItem(String page) {
+        // Reset tous les menus standards
         navHome.getStyleClass().removeAll("nav-item-active");
         navTransaction.getStyleClass().removeAll("nav-item-active");
         navStatistique.getStyleClass().removeAll("nav-item-active");
         navProfil.getStyleClass().removeAll("nav-item-active");
         navAlertes.getStyleClass().removeAll("nav-item-active");
+        
+        // Reset menus admin
+        navAdminUtilisateurs.getStyleClass().removeAll("nav-item-active");
+        navAdminCategories.getStyleClass().removeAll("nav-item-active");
+        navAdminLogs.getStyleClass().removeAll("nav-item-active");
 
         switch (page) {
-            case "home" ->
-                navHome.getStyleClass().add("nav-item-active");
-            case "transaction" ->
-                navTransaction.getStyleClass().add("nav-item-active");
-            case "statistique" ->
-                navStatistique.getStyleClass().add("nav-item-active");
-            case "profil" ->
-                navProfil.getStyleClass().add("nav-item-active");
-            case "alertes" ->
-                navAlertes.getStyleClass().add("nav-item-active");
+            case "home" -> navHome.getStyleClass().add("nav-item-active");
+            case "transaction" -> navTransaction.getStyleClass().add("nav-item-active");
+            case "statistique" -> navStatistique.getStyleClass().add("nav-item-active");
+            case "profil" -> navProfil.getStyleClass().add("nav-item-active");
+            case "alertes" -> navAlertes.getStyleClass().add("nav-item-active");
+            case "adminUtilisateurs" -> navAdminUtilisateurs.getStyleClass().add("nav-item-active");
+            case "adminCategories" -> navAdminCategories.getStyleClass().add("nav-item-active");
+            case "adminLogs" -> navAdminLogs.getStyleClass().add("nav-item-active");
         }
     }
 
@@ -112,6 +136,7 @@ public class SidebarController implements Initializable {
         root.setManaged(visible);
     }
 
+    // Navigation standards
     @FXML
     private void goToHome(MouseEvent e) {
         try {
@@ -134,7 +159,7 @@ public class SidebarController implements Initializable {
     private void goToStatistique(MouseEvent e) {
         try {
             NavigationHelper.navigateTo(NavigationHelper.STATISTIQUE);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -157,13 +182,47 @@ public class SidebarController implements Initializable {
         }
     }
 
+    // Navigation admin
+    @FXML
+    private void goToAdminUtilisateurs(MouseEvent e) {
+        try {
+            NavigationHelper.navigateTo(NavigationHelper.ADMIN_UTILISATEURS);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToAdminCategories(MouseEvent e) {
+        try {
+            NavigationHelper.navigateTo(NavigationHelper.ADMIN_CATEGORIES);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToAdminLogs(MouseEvent e) {
+        try {
+            NavigationHelper.navigateTo(NavigationHelper.ADMIN_LOGS);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @FXML
     private void handleLogout() {
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Confirmation de déconnexion");
+        confirmation.setHeaderText("Êtes-vous sûr de vouloir vous déconnecter ?");
+        if (confirmation.showAndWait().orElse(null) != ButtonType.OK) {
+            return;
+        }
+
         int uid = SessionManager.getUserId();
         if (uid != -1) {
             journalDAO.log(uid, JournalDAO.ACTION_DECONNEXION, "Déconnexion");
         }
-        // SessionManager.clear() appelle App.clearViewCache() automatiquement
         SessionManager.clear();
         try {
             NavigationHelper.navigateTo(NavigationHelper.LOGIN);

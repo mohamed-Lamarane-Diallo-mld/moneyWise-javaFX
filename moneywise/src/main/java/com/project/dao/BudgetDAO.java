@@ -51,7 +51,7 @@ public class BudgetDAO {
             ps.setInt(5, b.getUtilisateurId());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur modifier budget : " + e.getMessage());
+            System.err.println("Erreur modifier budget : " + e.getMessage());
             return false;
         }
     }
@@ -63,7 +63,7 @@ public class BudgetDAO {
             ps.setInt(2, utilisateurId);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur supprimer budget : " + e.getMessage());
+            System.err.println("Erreur supprimer budget : " + e.getMessage());
             return false;
         }
     }
@@ -75,7 +75,7 @@ public class BudgetDAO {
             ps.setInt(2, id);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur changerStatut budget : " + e.getMessage());
+            System.err.println("Erreur changerStatut budget : " + e.getMessage());
             return false;
         }
     }
@@ -92,7 +92,7 @@ public class BudgetDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findByUtilisateur budget : " + e.getMessage());
+            System.err.println("Erreur findByUtilisateur budget : " + e.getMessage());
         }
         return liste;
     }
@@ -110,7 +110,7 @@ public class BudgetDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findActifsMoisCourant : " + e.getMessage());
+            System.err.println("Erreur findActifsMoisCourant : " + e.getMessage());
         }
         return liste;
     }
@@ -125,7 +125,7 @@ public class BudgetDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return mapResultSet(rs);
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findById budget : " + e.getMessage());
+            System.err.println("Erreur findById budget : " + e.getMessage());
         }
         return null;
     }
@@ -149,7 +149,7 @@ public class BudgetDAO {
                 if (max > 0) return (depenses / max) * 100;
             }
         } catch (SQLException e) {
-            System.err.println("❌ Erreur getConsommation : " + e.getMessage());
+            System.err.println("Erreur getConsommation : " + e.getMessage());
         }
         return 0.0;
     }

@@ -60,13 +60,13 @@ public class AlertesController implements Initializable {
     }
 
     private void chargerHeader() {
-        // ✅ DateHelper + getUserId
+        // DateHelper + getUserId
         headerDate.setText(DateHelper.formaterComplet(LocalDate.now()));
         moisLabel.setText(DateHelper.nomMoisCourant() + " " + DateHelper.anneeCourante());
         int uid = SessionManager.getUserId();
         if (uid != -1)
             headerUser.setText("Bonjour, "
-                + SessionManager.getUtilisateur().getNom().split(" ")[0] + " 👋");
+                + SessionManager.getUtilisateur().getNom().split(" ")[0] + " !");
     }
 
     private void chargerBudgets() {
@@ -155,7 +155,7 @@ public class AlertesController implements Initializable {
         }
 
         Label emoji = new Label(alerte.getTypeAlerte().name().equals("SEUIL_100")
-            ? "🚨" : "⚠️");
+            ? "alert" : "warning");
         emoji.setStyle("-fx-font-size:22px;");
 
         VBox content = new VBox(4);
@@ -170,7 +170,7 @@ public class AlertesController implements Initializable {
         msg.getStyleClass().add("alerte-msg");
         msg.setWrapText(true);
 
-        // ✅ DateHelper.formaterAvecHeure
+        // DateHelper.formaterAvecHeure
         Label date = new Label(DateHelper.formaterAvecHeure(alerte.getDateAlerte()));
         date.getStyleClass().add("alerte-date");
 
@@ -237,7 +237,7 @@ public class AlertesController implements Initializable {
 
         if (AlerteHelper.confirmer("Marquer tout comme lu",
                 "Marquer toutes les alertes comme lues ?")) {
-            // ✅ AlerteHelper.marquerToutesLues
+            // AlerteHelper.marquerToutesLues
             AlerteHelper.marquerToutesLues(uid);
             chargerAlertes(); chargerBudgets();
             if (sidebarController != null) sidebarController.chargerBadgeAlertes();

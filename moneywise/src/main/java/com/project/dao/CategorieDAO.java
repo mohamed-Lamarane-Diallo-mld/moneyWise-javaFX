@@ -30,7 +30,7 @@ public class CategorieDAO {
             if (keys.next()) c.setId(keys.getInt(1));
             return true;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur ajouter catégorie : " + e.getMessage());
+            System.err.println("Erreur ajouter catégorie : " + e.getMessage());
             return false;
         }
     }
@@ -44,7 +44,7 @@ public class CategorieDAO {
             ps.setInt(3, c.getId());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur modifier catégorie : " + e.getMessage());
+            System.err.println("Erreur modifier catégorie : " + e.getMessage());
             return false;
         }
     }
@@ -55,13 +55,13 @@ public class CategorieDAO {
             ps.setInt(1, id);
             int rows = ps.executeUpdate();
             if (rows == 0)
-                System.err.println("⚠️ Suppression impossible : catégorie système ou introuvable.");
+                System.err.println("Suppression impossible : catégorie système ou introuvable.");
             return rows > 0;
         } catch (SQLIntegrityConstraintViolationException e) {
-            System.err.println("⚠️ Catégorie utilisée par des transactions.");
+            System.err.println("Catégorie utilisée par des transactions.");
             return false;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur supprimer catégorie : " + e.getMessage());
+            System.err.println("Erreur supprimer catégorie : " + e.getMessage());
             return false;
         }
     }
@@ -76,7 +76,7 @@ public class CategorieDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findByUtilisateur : " + e.getMessage());
+            System.err.println("Erreur findByUtilisateur : " + e.getMessage());
         }
         return liste;
     }
@@ -88,7 +88,7 @@ public class CategorieDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findSysteme : " + e.getMessage());
+            System.err.println("Erreur findSysteme : " + e.getMessage());
         }
         return liste;
     }
@@ -100,7 +100,7 @@ public class CategorieDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return mapResultSet(rs);
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findById catégorie : " + e.getMessage());
+            System.err.println("Erreur findById catégorie : " + e.getMessage());
         }
         return null;
     }

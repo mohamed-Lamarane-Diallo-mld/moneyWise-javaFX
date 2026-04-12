@@ -12,7 +12,7 @@
 
     <!-- ═══════════════════ LOGO ═══════════════════ -->
     <VBox styleClass="sidebar-logo-zone" spacing="2">
-        <Label text="💰 MoneyWise" styleClass="sidebar-logo-title"/>
+        <Label text="Money Wise" styleClass="sidebar-logo-title"/>
         <Label text="Votre finances. Votre contrôle." styleClass="sidebar-logo-sub"/>
     </VBox>
 
@@ -24,20 +24,41 @@
 
         <!-- Dashboard -->
         <HBox fx:id="navHome" styleClass="nav-item" onMouseClicked="#goToHome">
-            <Label text="⌂" styleClass="nav-item-icon"/>
+            <Label text="D" styleClass="nav-item-icon"/>
             <Label text="Dashboard" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Transactions -->
         <HBox fx:id="navTransaction" styleClass="nav-item" onMouseClicked="#goToTransaction">
-            <Label text="↕" styleClass="nav-item-icon"/>
+            <Label text="T" styleClass="nav-item-icon"/>
             <Label text="Transactions" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Statistiques -->
         <HBox fx:id="navStatistique" styleClass="nav-item" onMouseClicked="#goToStatistique">
-            <Label text="▦" styleClass="nav-item-icon"/>
+            <Label text="S" styleClass="nav-item-icon"/>
             <Label text="Statistiques" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <!-- SECTION ADMIN (visible seulement pour les administrateurs) -->
+        <Label fx:id="adminSectionLabel" text="ADMINISTRATION" styleClass="sidebar-section-label" visible="false" managed="false"/>
+
+        <!-- Gestion des utilisateurs -->
+        <HBox fx:id="navAdminUtilisateurs" styleClass="nav-item" onMouseClicked="#goToAdminUtilisateurs" visible="false" managed="false">
+            <Label text="U" styleClass="nav-item-icon"/>
+            <Label text="Utilisateurs" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <!-- Gestion des categories -->
+        <HBox fx:id="navAdminCategories" styleClass="nav-item" onMouseClicked="#goToAdminCategories" visible="false" managed="false">
+            <Label text="C" styleClass="nav-item-icon"/>
+            <Label text="Categories" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <!-- Journal d'activite -->
+        <HBox fx:id="navAdminLogs" styleClass="nav-item" onMouseClicked="#goToAdminLogs" visible="false" managed="false">
+            <Label text="J" styleClass="nav-item-icon"/>
+            <Label text="Journal" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- COMPTE -->
@@ -45,17 +66,15 @@
 
         <!-- Profil -->
         <HBox fx:id="navProfil" styleClass="nav-item" onMouseClicked="#goToProfil">
-            <Label text="◉" styleClass="nav-item-icon"/>
+            <Label text="P" styleClass="nav-item-icon"/>
             <Label text="Mon profil" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Alertes avec badge -->
         <HBox fx:id="navAlertes" styleClass="nav-item" onMouseClicked="#goToAlertes">
-            <Label text="🔔" styleClass="nav-item-icon"/>
+            <Label text="A" styleClass="nav-item-icon"/>
             <Label text="Alertes" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
-            <Label fx:id="alerteBadge" text="0"
-                   styleClass="nav-badge"
-                   visible="false" managed="false"/>
+            <Label fx:id="alerteBadge" text="0" styleClass="nav-badge" visible="false" managed="false"/>
         </HBox>
 
     </VBox>
@@ -70,12 +89,13 @@
 
         <!-- Infos user -->
         <VBox spacing="2" HBox.hgrow="ALWAYS">
-            <Label fx:id="userNameLabel"  text="Utilisateur" styleClass="sidebar-user-name"/>
-            <Label fx:id="userEmailLabel" text="email@..."   styleClass="sidebar-user-email"/>
+            <Label fx:id="userNameLabel" text="Utilisateur" styleClass="sidebar-user-name"/>
+            <Label fx:id="userEmailLabel" text="email@..." styleClass="sidebar-user-email"/>
         </VBox>
 
         <!-- Déconnexion -->
-        <Button text="⏻" styleClass="btn-logout" onAction="#handleLogout"/>
+        <Button text="⏻ Déconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
 
     </HBox>
 </VBox>
+

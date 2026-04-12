@@ -31,7 +31,7 @@ public class JournalDAO {
             ps.setString(3, details);
             ps.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("❌ Erreur log journal : " + e.getMessage());
+            System.err.println("Erreur log journal : " + e.getMessage());
         }
     }
 
@@ -43,7 +43,7 @@ public class JournalDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findByUtilisateur journal : " + e.getMessage());
+            System.err.println("Erreur findByUtilisateur journal : " + e.getMessage());
         }
         return liste;
     }
@@ -58,7 +58,7 @@ public class JournalDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findAll journal : " + e.getMessage());
+            System.err.println("Erreur findAll journal : " + e.getMessage());
         }
         return liste;
     }
@@ -74,7 +74,7 @@ public class JournalDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findByAction : " + e.getMessage());
+            System.err.println("Erreur findByAction : " + e.getMessage());
         }
         return liste;
     }
@@ -87,7 +87,7 @@ public class JournalDAO {
             System.out.println("🧹 " + rows + " log(s) supprimé(s).");
             return true;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur purgerAnciensLogs : " + e.getMessage());
+            System.err.println("Erreur purgerAnciensLogs : " + e.getMessage());
             return false;
         }
     }

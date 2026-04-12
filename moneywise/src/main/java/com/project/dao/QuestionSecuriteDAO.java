@@ -27,7 +27,7 @@ public class QuestionSecuriteDAO {
                 liste.add(new QuestionSecurite(
                     rs.getInt("id"), rs.getString("question")));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findAll questions : " + e.getMessage());
+            System.err.println("Erreur findAll questions : " + e.getMessage());
         }
         return liste;
     }
@@ -48,10 +48,10 @@ public class QuestionSecuriteDAO {
                 ps.addBatch();
             }
             ps.executeBatch();
-            System.out.println("✅ Réponses enregistrées pour l'utilisateur " + utilisateurId);
+            System.out.println("Réponses enregistrées pour l'utilisateur " + utilisateurId);
             return true;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur enregistrerReponses : " + e.getMessage());
+            System.err.println("Erreur enregistrerReponses : " + e.getMessage());
             return false;
         }
     }
@@ -70,11 +70,11 @@ public class QuestionSecuriteDAO {
                 q.setId(rs.getInt("id"));
                 q.setQuestion(rs.getString("question"));
                 list.add(q);
-                System.out.println("📋 Question chargée: " + rs.getString("question"));
+                System.out.println("Question chargée: " + rs.getString("question"));
             }
-            System.out.println("✅ " + list.size() + " questions trouvées pour l'utilisateur " + userId);
+            System.out.println(list.size() + " questions trouvées pour l'utilisateur " + userId);
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findByUtilisateur : " + e.getMessage());
+            System.err.println("Erreur findByUtilisateur : " + e.getMessage());
             e.printStackTrace();
         }
         return list;
@@ -90,11 +90,11 @@ public class QuestionSecuriteDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 boolean existe = rs.getInt(1) > 0;
-                System.out.println("🔍 Vérification questions pour " + email + " : " + existe);
+                System.out.println("Vérification questions pour " + email + " : " + existe);
                 return existe;
             }
         } catch (SQLException e) {
-            System.err.println("❌ Erreur aDesQuestions : " + e.getMessage());
+            System.err.println("Erreur aDesQuestions : " + e.getMessage());
         }
         return false;
     }
@@ -110,13 +110,13 @@ public class QuestionSecuriteDAO {
                 String storedResponse = rs.getString("reponse");
                 // BCrypt check pour les réponses hashées
                 boolean estCorrect = BCrypt.checkpw(reponse.toLowerCase().trim(), storedResponse);
-                System.out.println("🔍 Vérification réponse - Question " + questionId + " : " + (estCorrect ? "✅ Correct" : "❌ Incorrect"));
+                System.out.println("Vérification réponse - Question " + questionId + " : " + (estCorrect ? "Correct" : "Incorrect"));
                 return estCorrect;
             }
-            System.out.println("⚠️ Aucune réponse trouvée pour question " + questionId);
+            System.out.println("Aucune réponse trouvée pour question " + questionId);
             return false;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur verifierReponse : " + e.getMessage());
+            System.err.println("Erreur verifierReponse : " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -130,10 +130,10 @@ public class QuestionSecuriteDAO {
             ps.setString(1, hash);
             ps.setString(2, email);
             int result = ps.executeUpdate();
-            System.out.println("✅ Réinitialisation mot de passe : " + (result > 0));
+            System.out.println("Réinitialisation mot de passe : " + (result > 0));
             return result > 0;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur reinitialiserMotDePasse : " + e.getMessage());
+            System.err.println("Erreur reinitialiserMotDePasse : " + e.getMessage());
             return false;
         }
     }
@@ -146,12 +146,12 @@ public class QuestionSecuriteDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int id = rs.getInt("id");
-                System.out.println("✅ Utilisateur trouvé : " + email + " -> ID: " + id);
+                System.out.println("Utilisateur trouvé : " + email + " -> ID: " + id);
                 return id;
             }
-            System.out.println("⚠️ Utilisateur non trouvé : " + email);
+            System.out.println("Utilisateur non trouvé : " + email);
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findUtilisateurIdByEmail : " + e.getMessage());
+            System.err.println("Erreur findUtilisateurIdByEmail : " + e.getMessage());
         }
         return -1;
     }

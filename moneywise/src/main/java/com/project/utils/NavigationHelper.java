@@ -17,11 +17,10 @@ public class NavigationHelper {
         App.navigateTo(fxmlPath);
     }
 
-    // Ouvre une fenêtre modale (ex: ajout de transaction)
+    // Ouvre une fenêtre modale
     public static void openModal(String fxmlPath, String titre) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-            NavigationHelper.class.getResource(fxmlPath + ".fxml")
-        );
+                NavigationHelper.class.getResource(fxmlPath + ".fxml"));
         Parent root = loader.load();
 
         Stage modal = new Stage();
@@ -32,13 +31,19 @@ public class NavigationHelper {
         modal.showAndWait();
     }
 
-    // Chemins FXML centralisés (évite les typos)
-    public static final String LOGIN        = "/com/project/view/Login";
-    public static final String INSCRIPTION  = "/com/project/view/Inscription";
-    public static final String HOME         = "/com/project/view/Home";
-    public static final String TRANSACTION  = "/com/project/view/Transaction";
-    public static final String STATISTIQUE  = "/com/project/view/Statistique";
-    public static final String PROFIL       = "/com/project/view/Profil";
-    public static final String MODAL_TRANS  = "/com/project/view/TransactionModal";
-    public static final String ALERTES      = "/com/project/view/Alertes";
+    // Chemins FXML
+    public static final String LOGIN = "/com/project/view/Login";
+    public static final String INSCRIPTION = "/com/project/view/Inscription";
+    public static final String HOME = "/com/project/view/Home";
+    public static final String TRANSACTION = "/com/project/view/Transaction";
+    public static final String STATISTIQUE = "/com/project/view/Statistique";
+    public static final String PROFIL = "/com/project/view/Profil";
+    public static final String MODAL_TRANS = "/com/project/view/TransactionModal";
+    public static final String ALERTES = "/com/project/view/Alertes";
+    public static final String RECUPERATION = "/com/project/view/RecuperationCompte";
+
+    // Routes Admin (pages exclusives)
+    public static final String ADMIN_UTILISATEURS = "/com/project/view/AdminUtilisateurs";
+    public static final String ADMIN_CATEGORIES = "/com/project/view/AdminCategories";
+    public static final String ADMIN_LOGS = "/com/project/view/AdminLogs";
 }

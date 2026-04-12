@@ -32,7 +32,7 @@ public class ExportDAO {
             if (keys.next()) e.setId(keys.getInt(1));
             return true;
         } catch (SQLException ex) {
-            System.err.println("❌ Erreur enregistrer export : " + ex.getMessage());
+            System.err.println("Erreur enregistrer export : " + ex.getMessage());
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class ExportDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findByUtilisateur export : " + e.getMessage());
+            System.err.println("Erreur findByUtilisateur export : " + e.getMessage());
         }
         return liste;
     }
@@ -57,7 +57,7 @@ public class ExportDAO {
             ps.setInt(2, utilisateurId);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur supprimer export : " + e.getMessage());
+            System.err.println("Erreur supprimer export : " + e.getMessage());
             return false;
         }
     }

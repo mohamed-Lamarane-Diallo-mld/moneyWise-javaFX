@@ -80,11 +80,11 @@ Créez des budgets depuis la page Transactions."
                             styleClass="alerte-filter-btn"
                             onAction="#filterNonLues"/>
                     <Button fx:id="btnSeuil80"
-                            text="⚠ Seuil 80%"
+                            text="Seuil 80%"
                             styleClass="alerte-filter-btn"
                             onAction="#filterSeuil80"/>
                     <Button fx:id="btnSeuil100"
-                            text="🚨 Seuil 100%"
+                            text="Seuil 100%"
                             styleClass="alerte-filter-btn"
                             onAction="#filterSeuil100"/>
                     <Region HBox.hgrow="ALWAYS"/>

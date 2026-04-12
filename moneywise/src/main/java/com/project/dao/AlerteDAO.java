@@ -23,10 +23,10 @@ public class AlerteDAO {
             ps.setString(2, typeAlerte);
             ps.setInt(3, budgetId);
             ps.executeUpdate();
-            System.out.println("🔔 Alerte créée : " + message);
+            System.out.println("Alerte créée : " + message);
             return true;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur creerAlerte : " + e.getMessage());
+            System.err.println("Erreur creerAlerte : " + e.getMessage());
             return false;
         }
     }
@@ -42,7 +42,7 @@ public class AlerteDAO {
             ResultSet rs = ps.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            System.err.println("❌ Erreur existeDeja : " + e.getMessage());
+            System.err.println("Erreur existeDeja : " + e.getMessage());
         }
         return false;
     }
@@ -58,7 +58,7 @@ public class AlerteDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findNonLues : " + e.getMessage());
+            System.err.println("Erreur findNonLues : " + e.getMessage());
         }
         return liste;
     }
@@ -74,7 +74,7 @@ public class AlerteDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findAll alertes : " + e.getMessage());
+            System.err.println("Erreur findAll alertes : " + e.getMessage());
         }
         return liste;
     }
@@ -88,7 +88,7 @@ public class AlerteDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return rs.getInt("total");
         } catch (SQLException e) {
-            System.err.println("❌ Erreur countNonLues : " + e.getMessage());
+            System.err.println("Erreur countNonLues : " + e.getMessage());
         }
         return 0;
     }
@@ -99,7 +99,7 @@ public class AlerteDAO {
             ps.setInt(1, id);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur marquerLue : " + e.getMessage());
+            System.err.println("Erreur marquerLue : " + e.getMessage());
             return false;
         }
     }
@@ -114,7 +114,7 @@ public class AlerteDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur marquerToutesLues : " + e.getMessage());
+            System.err.println("Erreur marquerToutesLues : " + e.getMessage());
             return false;
         }
     }

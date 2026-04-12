@@ -16,7 +16,7 @@ public class DatabaseConnection {
         "&cachePrepStmts=true" +
         "&prepStmtCacheSize=250" +
         "&useServerPrepStmts=true";
-        // ✅ autoReconnect supprimé — causait 3 tentatives lentes
+        //autoReconnect supprimé — causait 3 tentatives lentes
 
     private static final String USER     = "root";
     private static final String PASSWORD = "";
@@ -28,14 +28,14 @@ public class DatabaseConnection {
             if (connection == null || !isConnectionValid()) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("✅ Connexion MySQL établie.");
+                System.out.println("Connexion MySQL établie.");
             }
         } catch (ClassNotFoundException e) {
-            System.err.println("❌ Driver MySQL introuvable : " + e.getMessage());
+            System.err.println("Driver MySQL introuvable : " + e.getMessage());
             connection = null;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur connexion MySQL : " + e.getMessage());
-            connection = null; // ✅ Évite de retourner une connexion fermée
+            System.err.println("Erreur connexion MySQL : " + e.getMessage());
+            connection = null;
         }
         return connection;
     }
@@ -58,11 +58,10 @@ public class DatabaseConnection {
                 System.out.println("🔌 Connexion MySQL fermée.");
             }
         } catch (SQLException e) {
-            System.err.println("❌ Erreur fermeture : " + e.getMessage());
+            System.err.println("Erreur fermeture : " + e.getMessage());
         }
     }
 
-    // ✅ Vérifier si la connexion est disponible
     public static boolean isAvailable() {
         return getConnection() != null;
     }

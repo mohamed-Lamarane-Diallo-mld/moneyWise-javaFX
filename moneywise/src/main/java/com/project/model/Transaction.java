@@ -14,8 +14,10 @@ public class Transaction {
     private String description;
     private int utilisateurId;
     private int categorieId;
-    private String categorieNom;     // champ pratique pour l'affichage (JOIN)
+    private String categorieNom;     
     private LocalDateTime dateSaisie;
+    private String utilisateurNom;
+
 
     public Transaction() {}
 
@@ -56,4 +58,7 @@ public class Transaction {
 
     public LocalDateTime getDateSaisie()         { return dateSaisie; }
     public void setDateSaisie(LocalDateTime d)   { this.dateSaisie = d; }
+
+    public String getUtilisateurNom() { return utilisateurNom; }
+    public void setUtilisateurNom(String utilisateurNom) { this.utilisateurNom = utilisateurNom; }
 }

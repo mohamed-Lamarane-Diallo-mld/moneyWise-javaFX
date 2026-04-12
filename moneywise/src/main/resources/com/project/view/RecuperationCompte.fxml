@@ -24,11 +24,11 @@
     <Circle fx:id="bubble4" styleClass="bubble-1"
             radius="40" layoutX="100" layoutY="650" managed="false"/>
 
-    <!-- ══ LOGO ══ -->
+    <!-- ══ LOGO ══
     <HBox styleClass="auth-header-logo" alignment="CENTER" style="-fx-padding: 20 0 30 0;">
         <Label text="MoneyWise"
                style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #6C63FF;"/>
-    </HBox>
+    </HBox> -->
 
     <!-- ══ FORMULAIRE CENTRÉ ══ -->
     <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true"

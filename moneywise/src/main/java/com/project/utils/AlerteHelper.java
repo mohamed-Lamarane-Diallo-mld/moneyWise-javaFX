@@ -64,7 +64,7 @@ public class AlerteHelper {
         String couleurBord = alerte.getTypeAlerte().name().equals("SEUIL_100")
             ? "#E74C3C" : "#F39C12";
         String emoji = alerte.getTypeAlerte().name().equals("SEUIL_100")
-            ? "🚨" : "⚠️";
+            ? "erreur" : "avertissement";
 
         // Construction du popup
         VBox container = new VBox(6);

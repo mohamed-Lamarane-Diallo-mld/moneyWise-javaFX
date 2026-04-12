@@ -36,7 +36,7 @@ public class BudgetModalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         chargerCategories();
         chargerMois();
-        // ✅ DateHelper
+        // DateHelper
         anneeField.setText(String.valueOf(DateHelper.anneeCourante()));
         moisCombo.getSelectionModel().select(DateHelper.moisCourant() - 1);
     }
@@ -63,7 +63,6 @@ public class BudgetModalController implements Initializable {
 
     // ─────────────────────────────────────────
     private void chargerCategories() {
-        // ✅ getUserId()
         int uid = SessionManager.getUserId();
         if (uid == -1) return;
 
@@ -118,7 +117,6 @@ public class BudgetModalController implements Initializable {
 
         int mois = moisCombo.getSelectionModel().getSelectedIndex() + 1;
 
-        // ✅ getUserId()
         int uid = SessionManager.getUserId();
         if (uid == -1) return;
 

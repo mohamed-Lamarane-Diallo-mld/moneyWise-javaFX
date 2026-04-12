@@ -1,10 +1,9 @@
-/* CSS style placeholder for global */
 /* ============================================================
    GLOBAL — Variables et styles de base MoneyWise
    ============================================================ */
 
 * {
-    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-family: "Segoe UI", "Inter", "Arial", sans-serif;
 }
 
 /* ── Palette de couleurs ── */
@@ -15,22 +14,22 @@
     -color-primary-light: #EAE8FF;
 
     /* Statuts */
-    -color-success:       #2ECC71;
-    -color-danger:        #E74C3C;
-    -color-warning:       #F39C12;
-    -color-info:          #3498DB;
+    -color-success:       #10B981;
+    -color-danger:        #EF4444;
+    -color-warning:       #F59E0B;
+    -color-info:          #3B82F6;
 
     /* Neutres */
-    -color-bg:            #F4F6FC;
+    -color-bg:            #F8FAFC;
     -color-surface:       #FFFFFF;
-    -color-border:        #E0E0E0;
-    -color-text-primary:  #2D3748;
-    -color-text-secondary:#718096;
-    -color-text-muted:    #A0AEC0;
+    -color-border:        #E2E8F0;
+    -color-text-primary:  #1E293B;
+    -color-text-secondary:#64748B;
+    -color-text-muted:    #94A3B8;
 
     /* Entrées / Sorties */
-    -color-entree:        #2ECC71;
-    -color-sortie:        #E74C3C;
+    -color-entree:        #10B981;
+    -color-sortie:        #EF4444;
 
     -fx-background-color: -color-bg;
 }
@@ -39,25 +38,28 @@
 .btn-primary {
     -fx-background-color: -color-primary;
     -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-padding: 12 24;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 10 20;
     -fx-background-radius: 8;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.2), 6, 0, 0, 2);
 }
 .btn-primary:hover {
     -fx-background-color: -color-primary-dark;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.3), 10, 0, 0, 3);
 }
 
 /* ── Bouton secondaire ── */
 .btn-secondary {
     -fx-background-color: transparent;
     -fx-text-fill: -color-primary;
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
     -fx-border-color: -color-primary;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
-    -fx-padding: 11 24;
+    -fx-padding: 9 19;
     -fx-cursor: hand;
 }
 .btn-secondary:hover {
@@ -68,13 +70,14 @@
 .btn-danger {
     -fx-background-color: -color-danger;
     -fx-text-fill: white;
-    -fx-font-size: 13px;
-    -fx-padding: 10 20;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-padding: 8 16;
     -fx-background-radius: 8;
     -fx-cursor: hand;
 }
 .btn-danger:hover {
-    -fx-background-color: #C0392B;
+    -fx-background-color: #DC2626;
 }
 
 /* ── Champs de saisie ── */
@@ -83,36 +86,38 @@
     -fx-border-color: -color-border;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
-    -fx-padding: 10 14;
-    -fx-font-size: 14px;
+    -fx-padding: 9 12;
+    -fx-font-size: 13px;
     -fx-text-fill: -color-text-primary;
 }
 .input-field:focused {
     -fx-border-color: -color-primary;
     -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(108,99,255,0.1), 4, 0, 0, 1);
 }
 
 /* ── Labels ── */
 .label-title {
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: -color-text-primary;
 }
 .label-subtitle {
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
     -fx-text-fill: -color-text-secondary;
 }
 .label-error {
-    -fx-font-size: 12px;
+    -fx-font-size: 11px;
     -fx-text-fill: -color-danger;
 }
 .label-success {
-    -fx-font-size: 12px;
+    -fx-font-size: 11px;
     -fx-text-fill: -color-success;
 }
 .label-link {
     -fx-text-fill: -color-primary;
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
     -fx-cursor: hand;
 }
 .label-link:hover {
@@ -122,12 +127,12 @@
 /* ── Cards ── */
 .card {
     -fx-background-color: -color-surface;
-    -fx-background-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);
-    -fx-padding: 24;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);
+    -fx-padding: 20;
 }
 
-/* ── Séparateur ── */
+/* ── Separateur ── */
 .separator {
     -fx-background-color: -color-border;
 }
@@ -145,41 +150,35 @@
    RESPONSIVE — Adaptations dynamiques
    ============================================================ */
 
-/* Tous les conteneurs principaux s'étirent */
 .home-root,
 .auth-root {
-    -fx-pref-width:  -1;   /* laisse JavaFX calculer */
+    -fx-pref-width: -1;
     -fx-pref-height: -1;
 }
 
-/* HBox et VBox principaux grandissent avec la fenêtre */
 .main-layout {
-    -fx-pref-width:  -1;
+    -fx-pref-width: -1;
     -fx-pref-height: -1;
 }
 
-/* Le contenu scrollable prend tout l'espace disponible */
 .scroll-pane > .viewport > * {
     -fx-pref-width: -1;
 }
 
-/* Les cards KPI s'adaptent en largeur */
 .kpi-card {
-    -fx-min-width:  160px;
-    -fx-max-width:  -1;       /* illimité */
+    -fx-min-width: 140px;
+    -fx-max-width: -1;
     -fx-pref-width: -1;
 }
 
-/* La table prend toute la largeur disponible */
 .table-view {
-    -fx-pref-width:  -1;
+    -fx-pref-width: -1;
     -fx-pref-height: -1;
 }
 
-/* Auth : panneau droit a une largeur fixe, gauche s'étire */
 .auth-right {
-    -fx-min-width:  420px;
-    -fx-max-width:  520px;
+    -fx-min-width: 420px;
+    -fx-max-width: 520px;
     -fx-pref-width: 460px;
 }
 .auth-left {

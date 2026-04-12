@@ -22,8 +22,8 @@ public class TransactionDAO {
 
     public boolean ajouter(Transaction t) {
         String sql = "INSERT INTO transaction " +
-                     "(montant, type, date_transaction, description, utilisateur_id, categorie_id) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
+                "(montant, type, date_transaction, description, utilisateur_id, categorie_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = getConn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setDouble(1, t.getMontant());
             ps.setString(2, t.getType().name());
@@ -33,19 +33,20 @@ public class TransactionDAO {
             ps.setInt(6, t.getCategorieId());
             ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
-            if (keys.next()) t.setId(keys.getInt(1));
-            System.out.println("✅ Transaction ajoutée : " + t.getMontant());
+            if (keys.next())
+                t.setId(keys.getInt(1));
+            System.out.println("Transaction ajoutee : " + t.getMontant());
             return true;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur ajouter transaction : " + e.getMessage());
+            System.err.println("Erreur ajouter transaction : " + e.getMessage());
             return false;
         }
     }
 
     public boolean modifier(Transaction t) {
         String sql = "UPDATE transaction SET montant = ?, type = ?, date_transaction = ?, " +
-                     "description = ?, categorie_id = ? " +
-                     "WHERE id = ? AND utilisateur_id = ?";
+                "description = ?, categorie_id = ? " +
+                "WHERE id = ? AND utilisateur_id = ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setDouble(1, t.getMontant());
             ps.setString(2, t.getType().name());
@@ -56,7 +57,7 @@ public class TransactionDAO {
             ps.setInt(7, t.getUtilisateurId());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur modifier transaction : " + e.getMessage());
+            System.err.println("Erreur modifier transaction : " + e.getMessage());
             return false;
         }
     }
@@ -68,7 +69,7 @@ public class TransactionDAO {
             ps.setInt(2, utilisateurId);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur supprimer transaction : " + e.getMessage());
+            System.err.println("Erreur supprimer transaction : " + e.getMessage());
             return false;
         }
     }
@@ -76,16 +77,17 @@ public class TransactionDAO {
     public List<Transaction> findByUtilisateur(int utilisateurId) {
         List<Transaction> liste = new ArrayList<>();
         String sql = "SELECT t.*, c.nom AS categorie_nom " +
-                     "FROM transaction t " +
-                     "LEFT JOIN categorie c ON t.categorie_id = c.id " +
-                     "WHERE t.utilisateur_id = ? " +
-                     "ORDER BY t.date_transaction DESC";
+                "FROM transaction t " +
+                "LEFT JOIN categorie c ON t.categorie_id = c.id " +
+                "WHERE t.utilisateur_id = ? " +
+                "ORDER BY t.date_transaction DESC";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setInt(1, utilisateurId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) liste.add(mapResultSet(rs));
+            while (rs.next())
+                liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findByUtilisateur : " + e.getMessage());
+            System.err.println("Erreur findByUtilisateur : " + e.getMessage());
         }
         return liste;
     }
@@ -93,129 +95,251 @@ public class TransactionDAO {
     public List<Transaction> findRecentes(int utilisateurId, int limite) {
         List<Transaction> liste = new ArrayList<>();
         String sql = "SELECT t.*, c.nom AS categorie_nom " +
-                     "FROM transaction t " +
-                     "LEFT JOIN categorie c ON t.categorie_id = c.id " +
-                     "WHERE t.utilisateur_id = ? " +
-                     "ORDER BY t.date_transaction DESC LIMIT ?";
+                "FROM transaction t " +
+                "LEFT JOIN categorie c ON t.categorie_id = c.id " +
+                "WHERE t.utilisateur_id = ? " +
+                "ORDER BY t.date_transaction DESC LIMIT ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setInt(1, utilisateurId);
             ps.setInt(2, limite);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) liste.add(mapResultSet(rs));
+            while (rs.next())
+                liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findRecentes : " + e.getMessage());
+            System.err.println("Erreur findRecentes : " + e.getMessage());
         }
         return liste;
     }
 
     public List<Transaction> rechercher(int utilisateurId, String type,
-                                         Integer categorieId, LocalDate debut,
-                                         LocalDate fin, String motCle) {
+            Integer categorieId, LocalDate debut,
+            LocalDate fin, String motCle) {
         List<Transaction> liste = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
-            "SELECT t.*, c.nom AS categorie_nom FROM transaction t " +
-            "LEFT JOIN categorie c ON t.categorie_id = c.id " +
-            "WHERE t.utilisateur_id = ? ");
+                "SELECT t.*, c.nom AS categorie_nom FROM transaction t " +
+                        "LEFT JOIN categorie c ON t.categorie_id = c.id " +
+                        "WHERE t.utilisateur_id = ? ");
 
-        if (type != null && !type.isEmpty())        sql.append("AND t.type = ? ");
-        if (categorieId != null)                    sql.append("AND t.categorie_id = ? ");
-        if (debut != null)                          sql.append("AND t.date_transaction >= ? ");
-        if (fin != null)                            sql.append("AND t.date_transaction <= ? ");
-        if (motCle != null && !motCle.isEmpty())    sql.append("AND t.description LIKE ? ");
+        if (type != null && !type.isEmpty())
+            sql.append("AND t.type = ? ");
+        if (categorieId != null)
+            sql.append("AND t.categorie_id = ? ");
+        if (debut != null)
+            sql.append("AND t.date_transaction >= ? ");
+        if (fin != null)
+            sql.append("AND t.date_transaction <= ? ");
+        if (motCle != null && !motCle.isEmpty())
+            sql.append("AND t.description LIKE ? ");
         sql.append("ORDER BY t.date_transaction DESC");
 
         try (PreparedStatement ps = getConn().prepareStatement(sql.toString())) {
             int i = 1;
             ps.setInt(i++, utilisateurId);
-            if (type != null && !type.isEmpty())     ps.setString(i++, type);
-            if (categorieId != null)                 ps.setInt(i++, categorieId);
-            if (debut != null)                       ps.setDate(i++, Date.valueOf(debut));
-            if (fin != null)                         ps.setDate(i++, Date.valueOf(fin));
-            if (motCle != null && !motCle.isEmpty()) ps.setString(i++, "%" + motCle + "%");
+            if (type != null && !type.isEmpty())
+                ps.setString(i++, type);
+            if (categorieId != null)
+                ps.setInt(i++, categorieId);
+            if (debut != null)
+                ps.setDate(i++, Date.valueOf(debut));
+            if (fin != null)
+                ps.setDate(i++, Date.valueOf(fin));
+            if (motCle != null && !motCle.isEmpty())
+                ps.setString(i++, "%" + motCle + "%");
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) liste.add(mapResultSet(rs));
+            while (rs.next())
+                liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur rechercher : " + e.getMessage());
+            System.err.println("Erreur rechercher : " + e.getMessage());
         }
         return liste;
     }
 
+    // ==================== METHODES POUR ADMIN ====================
+
+    // Solde total global (pour admin)
+    public double getSoldeTotalGlobal() {
+        String sql = "SELECT COALESCE(SUM(CASE WHEN type = 'ENTREE' THEN montant ELSE -montant END), 0) FROM transaction";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getDouble(1);
+        } catch (SQLException e) {
+            System.err.println("Erreur getSoldeTotalGlobal : " + e.getMessage());
+        }
+        return 0;
+    }
+
+    // Total entrees global du mois
+    public double getTotalEntreesGlobalMois() {
+        String sql = "SELECT COALESCE(SUM(montant), 0) FROM transaction WHERE type = 'ENTREE' AND MONTH(date_transaction) = MONTH(CURDATE()) AND YEAR(date_transaction) = YEAR(CURDATE())";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getDouble(1);
+        } catch (SQLException e) {
+            System.err.println("Erreur getTotalEntreesGlobalMois : " + e.getMessage());
+        }
+        return 0;
+    }
+
+    // Total sorties global du mois
+    public double getTotalSortiesGlobalMois() {
+        String sql = "SELECT COALESCE(SUM(montant), 0) FROM transaction WHERE type = 'SORTIE' AND MONTH(date_transaction) = MONTH(CURDATE()) AND YEAR(date_transaction) = YEAR(CURDATE())";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getDouble(1);
+        } catch (SQLException e) {
+            System.err.println("Erreur getTotalSortiesGlobalMois : " + e.getMessage());
+        }
+        return 0;
+    }
+
+    // Recherche globale (pour admin)
+    public List<Transaction> rechercherGlobal(String type, Integer categorieId, LocalDate dateDebut, LocalDate dateFin,
+            String motCle) {
+        List<Transaction> transactions = new ArrayList<>();
+        StringBuilder sql = new StringBuilder(
+                "SELECT t.*, c.nom as categorie_nom, u.nom as utilisateur_nom " +
+                        "FROM transaction t " +
+                        "JOIN categorie c ON t.categorie_id = c.id " +
+                        "JOIN utilisateur u ON t.utilisateur_id = u.id " +
+                        "WHERE 1=1");
+
+        if (type != null && !type.isEmpty())
+            sql.append(" AND t.type = ?");
+        if (categorieId != null)
+            sql.append(" AND t.categorie_id = ?");
+        if (dateDebut != null)
+            sql.append(" AND t.date_transaction >= ?");
+        if (dateFin != null)
+            sql.append(" AND t.date_transaction <= ?");
+        if (motCle != null && !motCle.isEmpty())
+            sql.append(" AND t.description LIKE ?");
+
+        sql.append(" ORDER BY t.date_transaction DESC");
+
+        try (PreparedStatement ps = getConn().prepareStatement(sql.toString())) {
+            int index = 1;
+            if (type != null && !type.isEmpty())
+                ps.setString(index++, type);
+            if (categorieId != null)
+                ps.setInt(index++, categorieId);
+            if (dateDebut != null)
+                ps.setDate(index++, Date.valueOf(dateDebut));
+            if (dateFin != null)
+                ps.setDate(index++, Date.valueOf(dateFin));
+            if (motCle != null && !motCle.isEmpty())
+                ps.setString(index++, "%" + motCle + "%");
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Transaction t = mapResultSet(rs);
+                t.setUtilisateurNom(rs.getString("utilisateur_nom"));
+                transactions.add(t);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur rechercherGlobal : " + e.getMessage());
+        }
+        return transactions;
+    }
+
+    // Compter toutes les transactions
+    public int countAllTransactions() {
+        String sql = "SELECT COUNT(*) FROM transaction";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            System.err.println("Erreur countAllTransactions : " + e.getMessage());
+        }
+        return 0;
+    }
+
+    // Solde total pour un utilisateur (existe deja mais je la garde)
+    public double getSoldeTotal(int utilisateurId) {
+        String sql = "SELECT " +
+                "COALESCE(SUM(CASE WHEN type='ENTREE' THEN montant ELSE 0 END),0) - " +
+                "COALESCE(SUM(CASE WHEN type='SORTIE' THEN montant ELSE 0 END),0) AS solde " +
+                "FROM transaction WHERE utilisateur_id = ?";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ps.setInt(1, utilisateurId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getDouble("solde");
+        } catch (SQLException e) {
+            System.err.println("Erreur getSoldeTotal : " + e.getMessage());
+        }
+        return 0;
+    }
+
+    // Total entrees du mois pour un utilisateur
     public double getTotalEntreesMois(int utilisateurId) {
         return getTotalParType(utilisateurId, "ENTREE");
     }
 
+    // Total sorties du mois pour un utilisateur
     public double getTotalSortiesMois(int utilisateurId) {
         return getTotalParType(utilisateurId, "SORTIE");
     }
 
     private double getTotalParType(int utilisateurId, String type) {
         String sql = "SELECT COALESCE(SUM(montant), 0) AS total FROM transaction " +
-                     "WHERE utilisateur_id = ? AND type = ? " +
-                     "AND MONTH(date_transaction) = MONTH(CURRENT_DATE) " +
-                     "AND YEAR(date_transaction)  = YEAR(CURRENT_DATE)";
+                "WHERE utilisateur_id = ? AND type = ? " +
+                "AND MONTH(date_transaction) = MONTH(CURRENT_DATE) " +
+                "AND YEAR(date_transaction)  = YEAR(CURRENT_DATE)";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setInt(1, utilisateurId);
             ps.setString(2, type);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getDouble("total");
+            if (rs.next())
+                return rs.getDouble("total");
         } catch (SQLException e) {
-            System.err.println("❌ Erreur getTotalParType : " + e.getMessage());
+            System.err.println("Erreur getTotalParType : " + e.getMessage());
         }
-        return 0.0;
+        return 0;
     }
 
-    public double getSoldeTotal(int utilisateurId) {
-        String sql = "SELECT " +
-                     "COALESCE(SUM(CASE WHEN type='ENTREE' THEN montant ELSE 0 END),0) - " +
-                     "COALESCE(SUM(CASE WHEN type='SORTIE' THEN montant ELSE 0 END),0) AS solde " +
-                     "FROM transaction WHERE utilisateur_id = ?";
-        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
-            ps.setInt(1, utilisateurId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getDouble("solde");
-        } catch (SQLException e) {
-            System.err.println("❌ Erreur getSoldeTotal : " + e.getMessage());
-        }
-        return 0.0;
-    }
-
+    // Depenses par categorie
     public List<Object[]> getDepensesParCategorie(int utilisateurId) {
         List<Object[]> data = new ArrayList<>();
         String sql = "SELECT c.nom, COALESCE(SUM(t.montant), 0) AS total " +
-                     "FROM transaction t LEFT JOIN categorie c ON t.categorie_id = c.id " +
-                     "WHERE t.utilisateur_id = ? AND t.type = 'SORTIE' " +
-                     "AND MONTH(t.date_transaction) = MONTH(CURRENT_DATE) " +
-                     "AND YEAR(t.date_transaction)  = YEAR(CURRENT_DATE) " +
-                     "GROUP BY c.nom ORDER BY total DESC";
+                "FROM transaction t LEFT JOIN categorie c ON t.categorie_id = c.id " +
+                "WHERE t.utilisateur_id = ? AND t.type = 'SORTIE' " +
+                "AND MONTH(t.date_transaction) = MONTH(CURRENT_DATE) " +
+                "AND YEAR(t.date_transaction)  = YEAR(CURRENT_DATE) " +
+                "GROUP BY c.nom ORDER BY total DESC";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setInt(1, utilisateurId);
             ResultSet rs = ps.executeQuery();
             while (rs.next())
-                data.add(new Object[]{rs.getString("nom"), rs.getDouble("total")});
+                data.add(new Object[] { rs.getString("nom"), rs.getDouble("total") });
         } catch (SQLException e) {
-            System.err.println("❌ Erreur getDepensesParCategorie : " + e.getMessage());
+            System.err.println("Erreur getDepensesParCategorie : " + e.getMessage());
         }
         return data;
     }
 
+    // Entrees et sorties par mois
     public List<Object[]> getEntreesSortiesParMois(int utilisateurId, int annee) {
         List<Object[]> data = new ArrayList<>();
         String sql = "SELECT MONTH(date_transaction) AS mois, " +
-                     "COALESCE(SUM(CASE WHEN type='ENTREE' THEN montant ELSE 0 END),0) AS entrees, " +
-                     "COALESCE(SUM(CASE WHEN type='SORTIE' THEN montant ELSE 0 END),0) AS sorties " +
-                     "FROM transaction WHERE utilisateur_id = ? AND YEAR(date_transaction) = ? " +
-                     "GROUP BY MONTH(date_transaction) ORDER BY mois ASC";
+                "COALESCE(SUM(CASE WHEN type='ENTREE' THEN montant ELSE 0 END),0) AS entrees, " +
+                "COALESCE(SUM(CASE WHEN type='SORTIE' THEN montant ELSE 0 END),0) AS sorties " +
+                "FROM transaction WHERE utilisateur_id = ? AND YEAR(date_transaction) = ? " +
+                "GROUP BY MONTH(date_transaction) ORDER BY mois ASC";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setInt(1, utilisateurId);
             ps.setInt(2, annee);
             ResultSet rs = ps.executeQuery();
             while (rs.next())
-                data.add(new Object[]{
-                    rs.getInt("mois"),
-                    rs.getDouble("entrees"),
-                    rs.getDouble("sorties")});
+                data.add(new Object[] {
+                        rs.getInt("mois"),
+                        rs.getDouble("entrees"),
+                        rs.getDouble("sorties") });
         } catch (SQLException e) {
-            System.err.println("❌ Erreur getEntreesSortiesParMois : " + e.getMessage());
+            System.err.println("Erreur getEntreesSortiesParMois : " + e.getMessage());
         }
         return data;
     }
@@ -231,7 +355,49 @@ public class TransactionDAO {
         t.setCategorieId(rs.getInt("categorie_id"));
         t.setCategorieNom(rs.getString("categorie_nom"));
         Timestamp ts = rs.getTimestamp("date_saisie");
-        if (ts != null) t.setDateSaisie(ts.toLocalDateTime());
+        if (ts != null)
+            t.setDateSaisie(ts.toLocalDateTime());
         return t;
+    }
+
+    // Dépenses par catégorie (global)
+    public List<Object[]> getDepensesParCategorieGlobal(LocalDate dateDebut, LocalDate dateFin) {
+        List<Object[]> data = new ArrayList<>();
+        String sql = "SELECT c.nom, COALESCE(SUM(t.montant), 0) AS total " +
+                "FROM transaction t LEFT JOIN categorie c ON t.categorie_id = c.id " +
+                "WHERE t.type = 'SORTIE' AND t.date_transaction BETWEEN ? AND ? " +
+                "GROUP BY c.nom ORDER BY total DESC";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ps.setDate(1, Date.valueOf(dateDebut));
+            ps.setDate(2, Date.valueOf(dateFin));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                data.add(new Object[] { rs.getString("nom"), rs.getDouble("total") });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    // Entrées et sorties par mois (global)
+    public List<Object[]> getEntreesSortiesParMoisGlobal(int annee) {
+        List<Object[]> data = new ArrayList<>();
+        String sql = "SELECT MONTH(date_transaction) AS mois, " +
+                "COALESCE(SUM(CASE WHEN type='ENTREE' THEN montant ELSE 0 END),0) AS entrees, " +
+                "COALESCE(SUM(CASE WHEN type='SORTIE' THEN montant ELSE 0 END),0) AS sorties " +
+                "FROM transaction WHERE YEAR(date_transaction) = ? " +
+                "GROUP BY MONTH(date_transaction) ORDER BY mois ASC";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ps.setInt(1, annee);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                data.add(new Object[] {
+                        rs.getInt("mois"),
+                        rs.getDouble("entrees"),
+                        rs.getDouble("sorties") });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 }

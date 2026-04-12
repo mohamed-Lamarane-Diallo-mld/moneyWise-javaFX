@@ -282,7 +282,7 @@ public class RecuperationCompteController implements Initializable {
 
         // Charger les questions
         questions = questionDAO.findByUtilisateur(utilisateurId);
-        System.out.println("📋 Questions chargées : " + (questions != null ? questions.size() : "null"));
+        System.out.println("Questions chargées : " + (questions != null ? questions.size() : "null"));
 
         if (questions == null || questions.size() < 3) {
             showError("Ce compte n'a pas de questions de sécurité configurées (besoin de "
@@ -296,7 +296,7 @@ public class RecuperationCompteController implements Initializable {
         question2Label.setText(questions.get(1).getQuestion());
         question3Label.setText(questions.get(2).getQuestion());
 
-        System.out.println("✅ Questions affichées");
+        System.out.println("Questions affichées");
 
         emailValide = email;
         afficherEtape(2);

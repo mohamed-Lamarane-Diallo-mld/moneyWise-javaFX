@@ -14,9 +14,9 @@
 
     <VBox HBox.hgrow="ALWAYS">
 
-        <!-- ══════════════════════════════════ -->
-        <!-- HEADER — cohérent avec Home        -->
-        <!-- ══════════════════════════════════ -->
+        <!-- ══════════════════════════════════════ -->
+        <!-- HEADER — identique à Home              -->
+        <!-- ══════════════════════════════════════ -->
         <HBox styleClass="header" alignment="CENTER_LEFT" spacing="0">
             <VBox spacing="4" HBox.hgrow="ALWAYS">
                 <Label fx:id="headerUser" text="Transactions"
@@ -26,7 +26,6 @@
             </VBox>
 
             <HBox spacing="14" alignment="CENTER">
-                <!-- Solde rapide -->
                 <VBox alignment="CENTER" spacing="2"
                       style="-fx-background-color:#F0FFF4;
                              -fx-background-radius:10;
@@ -39,7 +38,7 @@
                                   -fx-text-fill:#276749;"/>
                 </VBox>
 
-                <Button text="＋ Nouvelle transaction"
+                <Button text="＋  Transaction"
                         onAction="#openModalAjouter"
                         style="-fx-background-color:#6C63FF;
                                -fx-text-fill:white;
@@ -51,18 +50,20 @@
             </HBox>
         </HBox>
 
-        <!-- Ligne décorative -->
-       <Region prefHeight="2"
+        <!-- Ligne décorative — identique à Home -->
+        <Region prefHeight="2"
                 style="-fx-background-color:linear-gradient(to right,
                        #6C63FF 0%, #2ECC71 50%, transparent 100%);
                        -fx-opacity:0.5;"/>
 
-        <!-- SCROLL PRINCIPAL -->
+        <!-- ══════════════════════════════════════ -->
+        <!-- CONTENU                                -->
+        <!-- ══════════════════════════════════════ -->
         <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true"
                     styleClass="scroll-pane">
             <VBox styleClass="home-content" spacing="22">
 
-                <!-- TITRE -->
+                <!-- Titre -->
                 <VBox spacing="2">
                     <Label text="Gestion des transactions"
                            styleClass="section-title"/>
@@ -70,9 +71,9 @@
                            styleClass="section-subtitle"/>
                 </VBox>
 
-                <!-- ══════════════════════════════════ -->
-                <!-- KPI CARDS                          -->
-                <!-- ══════════════════════════════════ -->
+                <!-- ──────────────────────────────── -->
+                <!-- KPI — même style que Home        -->
+                <!-- ──────────────────────────────── -->
                 <HBox spacing="16">
 
                     <!-- ENTRÉES -->
@@ -86,10 +87,11 @@
                                 </HBox>
                                 <Label fx:id="resumeEntrees" text="0 FCFA"
                                        styleClass="kpi-value, kpi-value-green"/>
-                                <Label text="" styleClass="kpi-evolution"/>
+                                <Label text="ce mois" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
-                                <Label text="" styleClass="kpi-icon"/>
+                                <Label text=" " styleClass="kpi-icon"
+                                       style="-fx-text-fill:#10B981;"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -107,10 +109,11 @@
                                 </HBox>
                                 <Label fx:id="resumeSorties" text="0 FCFA"
                                        styleClass="kpi-value, kpi-value-red"/>
-                                <Label text="" styleClass="kpi-evolution"/>
+                                <Label text="ce mois" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
-                                <Label text="💸" styleClass="kpi-icon"/>
+                                <Label text=" " styleClass="kpi-icon"
+                                       style="-fx-text-fill:#EF4444;"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -118,35 +121,26 @@
                     </VBox>
 
                     <!-- ÉPARGNE -->
-                    <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
+                    <VBox styleClass="kpi-card-purple" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
                                 <HBox spacing="8" alignment="CENTER_LEFT">
-                                    <Label text="◈" styleClass="kpi-badge-white"
-                                           style="-fx-background-color:#EAE8FF;
-                                                  -fx-text-fill:#6C63FF;
-                                                  -fx-font-size:11px;
-                                                  -fx-font-weight:bold;
-                                                  -fx-padding:3 8;
-                                                  -fx-background-radius:6;"/>
+                                    <Label text="◈" styleClass="kpi-badge-white"/>
                                     <Label text="ÉPARGNE DU MOIS"
-                                           styleClass="kpi-label"/>
+                                           styleClass="kpi-label-white"/>
                                 </HBox>
                                 <Label fx:id="resumeEpargne" text="0 FCFA"
-                                       styleClass="kpi-value"
-                                       style="-fx-text-fill:#6C63FF;
-                                              -fx-font-size:26px;
-                                              -fx-font-weight:bold;"/>
-                                <Label text="" styleClass="kpi-evolution"/>
+                                       styleClass="kpi-value, kpi-value-white"/>
+                                <Label text="entrées et sorties"
+                                       styleClass="kpi-evolution-white"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
-                                <Label text="🏦" styleClass="kpi-icon"/>
+                                <Label text=" " styleClass="kpi-icon"
+                                       style="-fx-text-fill:white;"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
-                        <Region style="-fx-background-color:#6C63FF;
-                                       -fx-background-radius:2;
-                                       -fx-pref-height:3;" maxWidth="56"/>
+                        <Region styleClass="kpi-bar-white" maxWidth="56"/>
                     </VBox>
 
                     <!-- NB TRANSACTIONS -->
@@ -154,35 +148,33 @@
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
                                 <HBox spacing="8" alignment="CENTER_LEFT">
-                                    <Label text="#"
-                                           style="-fx-background-color:#E8F8F1;
-                                                  -fx-text-fill:#27AE60;
-                                                  -fx-font-size:11px;
-                                                  -fx-font-weight:bold;
-                                                  -fx-padding:3 8;
-                                                  -fx-background-radius:6;"/>
-                                    <Label text="TRANSACTIONS" styleClass="kpi-label"/>
+                                    <Label text="#" styleClass="kpi-badge-green"/>
+                                    <Label text="TRANSACTIONS"
+                                           styleClass="kpi-label"/>
                                 </HBox>
                                 <Label fx:id="resumeNbTrans" text="0"
-                                       styleClass="kpi-value"/>
+                                       styleClass="kpi-value"
+                                       style="-fx-text-fill:#6C63FF;"/>
                                 <Label text="au total" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box"
-                                       style="-fx-background-color:#E8F8F1;">
-                                <Label text="📋" styleClass="kpi-icon"/>
+                                       style="-fx-background-color:#ECFDF5;">
+                                <Label text=" " styleClass="kpi-icon"
+                                       style="-fx-text-fill:#6C63FF;"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
-                        <Region style="-fx-background-color:#27AE60;
+                        <Region style="-fx-background-color:#6C63FF;
                                        -fx-background-radius:2;
-                                       -fx-pref-height:3;" maxWidth="56"/>
+                                       -fx-pref-height:2px;"
+                                maxWidth="56"/>
                     </VBox>
 
                 </HBox>
 
-                <!-- ══════════════════════════════════ -->
-                <!-- BUDGETS + CATÉGORIES               -->
-                <!-- ══════════════════════════════════ -->
+                <!-- ──────────────────────────────── -->
+                <!-- BUDGETS + CATÉGORIES             -->
+                <!-- ──────────────────────────────── -->
                 <HBox spacing="20" alignment="TOP_LEFT">
 
                     <!-- BUDGETS -->
@@ -190,8 +182,7 @@
                           HBox.hgrow="ALWAYS"
                           prefHeight="340" maxHeight="340" minHeight="340">
 
-                        <HBox alignment="CENTER_LEFT"
-                              style="-fx-padding:16 18 14 18;">
+                        <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                             <VBox HBox.hgrow="ALWAYS" spacing="2">
                                 <Label text="Budgets du mois"
                                        styleClass="section-title"/>
@@ -199,30 +190,28 @@
                                        styleClass="section-subtitle"/>
                             </VBox>
                             <Button text="＋ Ajouter"
-                                    styleClass="quick-btn-primary"
-                                    style="-fx-font-size:12px; -fx-padding:7 14;"
+                                    styleClass="btn-voir-tout"
                                     onAction="#openModalAjouterBudget"/>
                         </HBox>
 
-                        <Separator/>
+                        <Separator style="-fx-opacity:0.5;"/>
 
-                        <!-- Total budgété + œil -->
                         <HBox alignment="CENTER_LEFT" spacing="8"
-                              style="-fx-padding:8 18 6 18;
+                              style="-fx-padding:6 18 4 18;
                                      -fx-background-color:#FAFBFF;">
                             <Label text="Total budgété :"
-                                   style="-fx-font-size:12px;
+                                   style="-fx-font-size:11px;
                                           -fx-text-fill:#718096;
                                           -fx-font-weight:bold;"/>
                             <Label fx:id="totalBudgetLabel" text="—"
-                                   style="-fx-font-size:13px;
+                                   style="-fx-font-size:12px;
                                           -fx-font-weight:bold;
                                           -fx-text-fill:#6C63FF;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
                             <Button fx:id="toggleBudgetBtn" text="👁"
                                     onAction="#toggleBudgetVisible"
                                     style="-fx-background-color:transparent;
-                                           -fx-font-size:14px;
-                                           -fx-cursor:hand;
+                                           -fx-font-size:13px; -fx-cursor:hand;
                                            -fx-padding:2 6;
                                            -fx-border-color:transparent;"/>
                         </HBox>
@@ -234,60 +223,44 @@
                                            -fx-border-color:transparent;
                                            -fx-padding:0;">
                             <VBox>
-                                <VBox fx:id="budgetListContainer" spacing="14"
-                                      style="-fx-padding:12 16;"/>
+                                <VBox fx:id="budgetListContainer" spacing="12"
+                                      style="-fx-padding:10 14;"/>
                                 <Label fx:id="noBudgetLabel"
-                                       text="Aucun budget ce mois.&#10;Cliquez sur ＋ pour en créer un."
+                                       text="Aucun budget ce mois. Cliquez sur ＋ pour en créer un."
                                        style="-fx-text-fill:#A0AEC0;
-                                              -fx-font-size:13px;
+                                              -fx-font-size:12px;
                                               -fx-padding:20;
                                               -fx-text-alignment:center;"
-                                       textAlignment="CENTER" wrapText="true"
-                                       visible="false" managed="false"/>
+                                       textAlignment="CENTER"
+                                       visible="false"/>
                             </VBox>
                         </ScrollPane>
 
                         <HBox fx:id="budgetPaginationBox"
                               alignment="CENTER" spacing="10"
-                              style="-fx-padding:6 16 10 16;
+                              style="-fx-padding:4 16 8 16;
                                      -fx-background-color:white;
-                                     -fx-border-color:#F0F0F0 transparent
-                                                      transparent transparent;"
-                              visible="false" managed="false">
-                            <Button fx:id="budgetPrevBtn" text="‹"
+                                     -fx-border-color:#F0F0F0 transparent transparent transparent;"
+                              visible="false">
+                            <Button fx:id="budgetPrevBtn" text="‹ Précédent"
                                     onAction="#budgetPagePrev"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:6;
-                                           -fx-background-radius:6;
-                                           -fx-cursor:hand;
-                                           -fx-padding:4 12;
-                                           -fx-font-size:14px;"/>
+                                    styleClass="btn-voir-tout"/>
                             <Label fx:id="budgetPageLabel" text="1 / 1"
-                                   style="-fx-font-size:12px;
-                                          -fx-text-fill:#718096;
-                                          -fx-min-width:40px;
-                                          -fx-alignment:center;"/>
-                            <Button fx:id="budgetNextBtn" text="›"
+                                   style="-fx-font-size:11px; -fx-text-fill:#718096;
+                                          -fx-min-width:40px; -fx-alignment:center;"/>
+                            <Button fx:id="budgetNextBtn" text="Suivant ›"
                                     onAction="#budgetPageNext"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:6;
-                                           -fx-background-radius:6;
-                                           -fx-cursor:hand;
-                                           -fx-padding:4 12;
-                                           -fx-font-size:14px;"/>
+                                    styleClass="btn-voir-tout"/>
                         </HBox>
 
                     </VBox>
 
                     <!-- CATÉGORIES -->
                     <VBox styleClass="table-card" spacing="0"
-                          prefWidth="300" minWidth="300" maxWidth="300"
+                          prefWidth="280" minWidth="280" maxWidth="280"
                           prefHeight="340" maxHeight="340" minHeight="340">
 
-                        <HBox alignment="CENTER_LEFT"
-                              style="-fx-padding:16 18 14 18;">
+                        <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                             <VBox HBox.hgrow="ALWAYS" spacing="2">
                                 <Label text="Mes catégories"
                                        styleClass="section-title"/>
@@ -295,12 +268,11 @@
                                        styleClass="section-subtitle"/>
                             </VBox>
                             <Button text="＋ Ajouter"
-                                    styleClass="quick-btn-primary"
-                                    style="-fx-font-size:12px; -fx-padding:7 14;"
+                                    styleClass="btn-voir-tout"
                                     onAction="#openModalAjouterCategorie"/>
                         </HBox>
 
-                        <Separator/>
+                        <Separator style="-fx-opacity:0.5;"/>
 
                         <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true"
                                     style="-fx-background-color:transparent;
@@ -308,133 +280,110 @@
                                            -fx-padding:0;">
                             <VBox>
                                 <VBox fx:id="categorieListContainer" spacing="6"
-                                      style="-fx-padding:12 16;"/>
+                                      style="-fx-padding:10 14;"/>
                                 <Label fx:id="noCategorieLabel"
                                        text="Aucune catégorie personnalisée."
                                        style="-fx-text-fill:#A0AEC0;
-                                              -fx-font-size:13px;
-                                              -fx-padding:20;"
-                                       visible="false" managed="false"/>
+                                              -fx-font-size:12px; -fx-padding:20;"
+                                       visible="false"/>
                             </VBox>
                         </ScrollPane>
 
                         <HBox fx:id="categoriePaginationBox"
                               alignment="CENTER" spacing="10"
-                              style="-fx-padding:6 16 10 16;
+                              style="-fx-padding:4 16 8 16;
                                      -fx-background-color:white;
-                                     -fx-border-color:#F0F0F0 transparent
-                                                      transparent transparent;"
-                              visible="false" managed="false">
-                            <Button fx:id="categoriePrevBtn" text="‹"
+                                     -fx-border-color:#F0F0F0 transparent transparent transparent;"
+                              visible="false">
+                            <Button fx:id="categoriePrevBtn" text="‹ Précédent"
                                     onAction="#categoriePagePrev"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:6;
-                                           -fx-background-radius:6;
-                                           -fx-cursor:hand;
-                                           -fx-padding:4 12;
-                                           -fx-font-size:14px;"/>
+                                    styleClass="btn-voir-tout"/>
                             <Label fx:id="categoriePageLabel" text="1 / 1"
-                                   style="-fx-font-size:12px;
-                                          -fx-text-fill:#718096;
-                                          -fx-min-width:40px;
-                                          -fx-alignment:center;"/>
-                            <Button fx:id="categorieNextBtn" text="›"
+                                   style="-fx-font-size:11px; -fx-text-fill:#718096;
+                                          -fx-min-width:40px; -fx-alignment:center;"/>
+                            <Button fx:id="categorieNextBtn" text="Suivant ›"
                                     onAction="#categoriePageNext"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:6;
-                                           -fx-background-radius:6;
-                                           -fx-cursor:hand;
-                                           -fx-padding:4 12;
-                                           -fx-font-size:14px;"/>
+                                    styleClass="btn-voir-tout"/>
                         </HBox>
 
                     </VBox>
 
                 </HBox>
 
-                <!-- ══════════════════════════════════ -->
-                <!-- FILTRES                            -->
-                <!-- ══════════════════════════════════ -->
+                <!-- ──────────────────────────────── -->
+                <!-- FILTRES                          -->
+                <!-- ──────────────────────────────── -->
                 <VBox styleClass="table-card" spacing="0">
 
-                    <HBox alignment="CENTER_LEFT"
-                          style="-fx-padding:14 18 12 18;">
+                    <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                         <Label text="Filtrer les transactions"
                                styleClass="section-title"
                                HBox.hgrow="ALWAYS"/>
                         <Button text="✕ Réinitialiser"
-                                styleClass="quick-btn-secondary"
-                                style="-fx-font-size:12px; -fx-padding:7 14;"
+                                styleClass="btn-voir-tout"
+                                style="-fx-font-size:11px; -fx-padding:5 12;"
                                 onAction="#onResetFilters"/>
                     </HBox>
 
                     <Separator style="-fx-opacity:0.4;"/>
 
-                    <HBox style="-fx-padding:14 18;" spacing="12"
+                    <HBox style="-fx-padding:12 18;" spacing="10"
                           alignment="CENTER_LEFT">
 
-                        <TextField fx:id="searchField"
-                                   promptText="Rechercher..."
-                                   style="-fx-background-color:#F7FAFC;
-                                          -fx-border-color:#E2E8F0;
-                                          -fx-border-radius:8;
-                                          -fx-background-radius:8;
-                                          -fx-padding:9 14;
-                                          -fx-font-size:13px;"
-                                   prefWidth="200"
-                                   onKeyReleased="#onSearchChanged"/>
+                        <HBox alignment="CENTER_LEFT" spacing="0"
+                              style="-fx-background-color:#F7FAFC;
+                                     -fx-border-color:#E2E8F0;
+                                     -fx-border-radius:8;
+                                     -fx-background-radius:8;">
+                            <Label text=" 🔍 "
+                                   style="-fx-font-size:12px; -fx-text-fill:#94A3B8;"/>
+                            <TextField fx:id="searchField"
+                                       promptText="Rechercher..."
+                                       style="-fx-background-color:transparent;
+                                              -fx-border-color:transparent;
+                                              -fx-padding:7 10 7 0;
+                                              -fx-font-size:12px;"
+                                       prefWidth="180"
+                                       onKeyReleased="#onSearchChanged"/>
+                        </HBox>
 
                         <ComboBox fx:id="filterType"
                                   promptText="Type"
-                                  style="-fx-background-color:#F7FAFC;
-                                         -fx-border-color:#E2E8F0;
-                                         -fx-border-radius:8;
-                                         -fx-background-radius:8;
-                                         -fx-font-size:13px;"
-                                  prefWidth="130"
+                                  styleClass="filter-combo"
+                                  prefWidth="110"
                                   onAction="#onFilterChanged"/>
 
                         <ComboBox fx:id="filterCategorie"
                                   promptText="Catégorie"
-                                  style="-fx-background-color:#F7FAFC;
-                                         -fx-border-color:#E2E8F0;
-                                         -fx-border-radius:8;
-                                         -fx-background-radius:8;
-                                         -fx-font-size:13px;"
-                                  prefWidth="160"
+                                  styleClass="filter-combo"
+                                  prefWidth="140"
                                   onAction="#onFilterChanged"/>
 
                         <DatePicker fx:id="filterDateDebut"
                                     promptText="Date début"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:8;
-                                           -fx-background-radius:8;
-                                           -fx-font-size:13px;"
+                                    styleClass="filter-date"
                                     onAction="#onFilterChanged"/>
 
                         <DatePicker fx:id="filterDateFin"
                                     promptText="Date fin"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:8;
-                                           -fx-background-radius:8;
-                                           -fx-font-size:13px;"
+                                    styleClass="filter-date"
                                     onAction="#onFilterChanged"/>
 
+                        <ComboBox fx:id="filterUtilisateur"
+                                  promptText="Tous les utilisateurs"
+                                  styleClass="filter-combo"
+                                  prefWidth="170"
+                                  visible="false"
+                                  onAction="#onFilterChanged"/>
                     </HBox>
                 </VBox>
 
-                <!-- ══════════════════════════════════ -->
-                <!-- TABLE TRANSACTIONS PAGINÉE         -->
-                <!-- ══════════════════════════════════ -->
-                <VBox styleClass="table-card" spacing="0">
+                <!-- ──────────────────────────────── -->
+                <!-- TABLE TRANSACTIONS               -->
+                <!-- ──────────────────────────────── -->
+                <VBox styleClass="table-card">
 
-                    <!-- En-tête table -->
-                    <HBox alignment="CENTER_LEFT"
-                          style="-fx-padding:16 18 14 18;">
+                    <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                         <VBox HBox.hgrow="ALWAYS" spacing="2">
                             <Label text="Liste des transactions"
                                    styleClass="section-title"/>
@@ -445,114 +394,65 @@
                                 onAction="#openModalAjouter"
                                 style="-fx-background-color:#6C63FF;
                                        -fx-text-fill:white;
-                                       -fx-font-size:13px;
+                                       -fx-font-size:12px;
                                        -fx-font-weight:bold;
-                                       -fx-padding:10 18;
-                                       -fx-background-radius:9;
+                                       -fx-padding:8 16;
+                                       -fx-background-radius:8;
                                        -fx-cursor:hand;"/>
                     </HBox>
 
                     <Separator style="-fx-opacity:0.5;"/>
 
-                    <!-- TableView -->
                     <TableView fx:id="transactionsTable"
                                styleClass="table-view"
                                prefHeight="380"
                                VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="colDate"
-                                         text="DATE" prefWidth="120"/>
-                            <TableColumn fx:id="colDescription"
-                                         text="DESCRIPTION" prefWidth="220"/>
-                            <TableColumn fx:id="colCategorie"
-                                         text="CATÉGORIE" prefWidth="140"/>
-                            <TableColumn fx:id="colType"
-                                         text="TYPE" prefWidth="100"/>
-                            <TableColumn fx:id="colMontant"
-                                         text="MONTANT" prefWidth="140"/>
-                            <TableColumn fx:id="colActions"
-                                         text="ACTIONS" prefWidth="180"/>
+                            <TableColumn fx:id="colDate"        text="DATE"        prefWidth="100"/>
+                            <TableColumn fx:id="colDescription" text="DESCRIPTION" prefWidth="200"/>
+                            <TableColumn fx:id="colCategorie"   text="CATÉGORIE"   prefWidth="120"/>
+                            <TableColumn fx:id="colUtilisateur" text="UTILISATEUR" prefWidth="140" visible="false"/>
+                            <TableColumn fx:id="colType"        text="TYPE"        prefWidth="80"/>
+                            <TableColumn fx:id="colMontant"     text="MONTANT"     prefWidth="120"/>
+                            <TableColumn fx:id="colActions"     text="ACTIONS"     prefWidth="150"/>
                         </columns>
                     </TableView>
 
-                    <!-- ✅ PAGINATION TABLE -->
+                    <!-- PAGINATION -->
                     <HBox alignment="CENTER" spacing="8"
-                          style="-fx-padding:14 18;
+                          style="-fx-padding:10 18;
                                  -fx-background-color:#FAFBFF;
-                                 -fx-border-color:#F0F0F0 transparent
-                                                  transparent transparent;">
+                                 -fx-border-color:#F0F0F0 transparent transparent transparent;">
 
-                        <!-- Info résumé gauche -->
                         <Label fx:id="paginationInfo" text=""
-                               style="-fx-font-size:12px; -fx-text-fill:#718096;"
+                               style="-fx-font-size:11px; -fx-text-fill:#718096;"
                                HBox.hgrow="ALWAYS"/>
 
-                        <!-- Boutons pagination -->
-                        <HBox spacing="6" alignment="CENTER">
-
-                            <!-- Première page -->
+                        <HBox spacing="5" alignment="CENTER">
                             <Button fx:id="btnPremierePage" text="«"
                                     onAction="#goToPremierePage"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:8;
-                                           -fx-background-radius:8;
-                                           -fx-cursor:hand;
-                                           -fx-padding:8 12;
-                                           -fx-font-size:13px;"/>
-
-                            <!-- Page précédente -->
-                            <Button fx:id="btnPagePrev" text="‹  Précédent"
+                                    styleClass="btn-voir-tout"
+                                    style="-fx-min-width:30px; -fx-font-weight:bold;"/>
+                            <Button fx:id="btnPagePrev" text="‹ Préc."
                                     onAction="#goToPagePrecedente"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:8;
-                                           -fx-background-radius:8;
-                                           -fx-cursor:hand;
-                                           -fx-padding:8 14;
-                                           -fx-font-size:13px;"/>
-
-                            <!-- Numéros de pages -->
-                            <HBox fx:id="pageNumbersBox" spacing="4"
-                                  alignment="CENTER"/>
-
-                            <!-- Page suivante -->
-                            <Button fx:id="btnPageNext" text="Suivant  ›"
+                                    styleClass="btn-voir-tout"/>
+                            <HBox fx:id="pageNumbersBox" spacing="4" alignment="CENTER"/>
+                            <Button fx:id="btnPageNext" text="Suiv. ›"
                                     onAction="#goToPageSuivante"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:8;
-                                           -fx-background-radius:8;
-                                           -fx-cursor:hand;
-                                           -fx-padding:8 14;
-                                           -fx-font-size:13px;"/>
-
-                            <!-- Dernière page -->
+                                    styleClass="btn-voir-tout"/>
                             <Button fx:id="btnDernierePage" text="»"
                                     onAction="#goToDernierePage"
-                                    style="-fx-background-color:#F7FAFC;
-                                           -fx-border-color:#E2E8F0;
-                                           -fx-border-radius:8;
-                                           -fx-background-radius:8;
-                                           -fx-cursor:hand;
-                                           -fx-padding:8 12;
-                                           -fx-font-size:13px;"/>
+                                    styleClass="btn-voir-tout"
+                                    style="-fx-min-width:30px; -fx-font-weight:bold;"/>
                         </HBox>
 
-                        <!-- Sélecteur nb par page -->
-                        <HBox spacing="8" alignment="CENTER"
-                              HBox.hgrow="ALWAYS"
-                              style="-fx-alignment:CENTER_RIGHT;">
+                        <HBox spacing="6" alignment="CENTER_RIGHT"
+                              HBox.hgrow="ALWAYS">
                             <Label text="Par page :"
-                                   style="-fx-font-size:12px;
-                                          -fx-text-fill:#718096;"/>
+                                   style="-fx-font-size:11px; -fx-text-fill:#718096;"/>
                             <ComboBox fx:id="pageSizeCombo"
-                                      style="-fx-background-color:#F7FAFC;
-                                             -fx-border-color:#E2E8F0;
-                                             -fx-border-radius:8;
-                                             -fx-background-radius:8;
-                                             -fx-font-size:12px;"
-                                      prefWidth="70"
+                                      styleClass="filter-combo"
+                                      prefWidth="62"
                                       onAction="#onPageSizeChanged"/>
                         </HBox>
 

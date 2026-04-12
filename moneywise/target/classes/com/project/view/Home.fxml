@@ -62,7 +62,7 @@
                       styleClass="alerte-widget"
                       spacing="14" alignment="CENTER_LEFT"
                       visible="false" managed="false">
-                    <Label text="⚠"
+                    <Label text=""
                            style="-fx-font-size:20px; -fx-text-fill:#D97706;"/>
                     <VBox spacing="2" HBox.hgrow="ALWAYS">
                         <Label text="Seuil budgétaire atteint"
@@ -99,14 +99,13 @@
                                     <Label text="REVENUS DU MOIS"
                                            styleClass="kpi-label"/>
                                 </HBox>
-                                <!-- ✅ fx:id unique -->
                                 <Label fx:id="kpiRevenus" text="0 FCFA"
                                        styleClass="kpi-value, kpi-value-green"/>
                                 <Label fx:id="kpiRevenusEvol" text=""
                                        styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
-                                <Label text="💰" styleClass="kpi-icon"/>
+                                <Label text="" styleClass="kpi-icon"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -122,21 +121,20 @@
                                     <Label text="DÉPENSES DU MOIS"
                                            styleClass="kpi-label"/>
                                 </HBox>
-                                <!-- ✅ fx:id unique -->
                                 <Label fx:id="kpiDepenses" text="0 FCFA"
                                        styleClass="kpi-value, kpi-value-red"/>
                                 <Label fx:id="kpiDepensesEvol" text=""
                                        styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
-                                <Label text="💸" styleClass="kpi-icon"/>
+                                <Label text="" styleClass="kpi-icon"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-red" maxWidth="56"/>
                     </VBox>
 
-                    <!-- SOLDE card violette -->
+                    <!-- SOLDE card -->
                     <VBox styleClass="kpi-card-purple" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
@@ -145,14 +143,13 @@
                                     <Label text="SOLDE TOTAL"
                                            styleClass="kpi-label-white"/>
                                 </HBox>
-                                <!-- ✅ fx:id unique -->
                                 <Label fx:id="kpiSolde" text="0 FCFA"
                                        styleClass="kpi-value, kpi-value-white"/>
                                 <Label fx:id="kpiSoldeEvol" text=""
                                        styleClass="kpi-evolution-white"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
-                                <Label text="🏦" styleClass="kpi-icon"/>
+                                <Label text=" " styleClass="kpi-icon"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -213,17 +210,16 @@
                                     styleClass="quick-btn-primary"
                                     maxWidth="Infinity"
                                     onAction="#goToTransactions"/>
-                            <Button text="📊  Statistiques"
+                            <Button text="Statistiques"
                                     styleClass="quick-btn-secondary"
                                     maxWidth="Infinity"
                                     onAction="#goToStatistiques"/>
-                            <Button text="🔔  Alertes budgétaires"
+                            <Button text="Alertes budgétaires"
                                     styleClass="quick-btn-warning"
                                     maxWidth="Infinity"
                                     onAction="#goToAlertes"/>
                         </VBox>
 
-                        <!-- RÉSUMÉ MENSUEL — ✅ fx:id différents -->
                         <VBox styleClass="side-card" spacing="0">
                             <Label text="Résumé mensuel"
                                    styleClass="side-card-title"
@@ -240,7 +236,6 @@
                                 </StackPane>
                                 <VBox spacing="1" HBox.hgrow="ALWAYS">
                                     <Label text="Revenus" styleClass="summary-label"/>
-                                    <!-- ✅ sideRevenus -->
                                     <Label fx:id="sideRevenus" text="0 FCFA"
                                            styleClass="summary-value-green"/>
                                 </VBox>
@@ -257,7 +252,6 @@
                                 </StackPane>
                                 <VBox spacing="1" HBox.hgrow="ALWAYS">
                                     <Label text="Dépenses" styleClass="summary-label"/>
-                                    <!-- ✅ sideDepenses -->
                                     <Label fx:id="sideDepenses" text="0 FCFA"
                                            styleClass="summary-value-red"/>
                                 </VBox>
@@ -267,7 +261,7 @@
                                   alignment="CENTER_LEFT" spacing="12">
                                 <StackPane styleClass="summary-icon-box"
                                            style="-fx-background-color:#EAE8FF;">
-                                    <Label text="◈"
+                                    <Label text=""
                                            style="-fx-text-fill:#6C63FF;
                                                   -fx-font-weight:bold;
                                                   -fx-font-size:13px;"/>
@@ -275,7 +269,6 @@
                                 <VBox spacing="1" HBox.hgrow="ALWAYS">
                                     <Label text="Épargne nette"
                                            styleClass="summary-label"/>
-                                    <!-- ✅ sideEpargne -->
                                     <Label fx:id="sideEpargne" text="0 FCFA"
                                            styleClass="summary-value-purple"/>
                                 </VBox>
@@ -284,7 +277,7 @@
 
                         <!-- CONSEIL -->
                         <VBox styleClass="conseil-card" spacing="8">
-                            <Label text="💡  Conseil du mois"
+                            <Label text="Conseil du mois"
                                    styleClass="conseil-badge"/>
                             <Label text="Suivez vos dépenses chaque semaine pour mieux maîtriser votre budget et identifier les postes à optimiser."
                                    styleClass="conseil-text"

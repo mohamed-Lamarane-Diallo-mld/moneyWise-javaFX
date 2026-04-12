@@ -32,13 +32,13 @@ public class UtilisateurDAO {
             ps.setBoolean(5, true);
             ps.setBoolean(6, false);
             ps.executeUpdate();
-            System.out.println("✅ Utilisateur inscrit : " + u.getEmail());
+            System.out.println("Utilisateur inscrit : " + u.getEmail());
             return true;
         } catch (SQLIntegrityConstraintViolationException e) {
-            System.err.println("⚠️ Email déjà existant : " + u.getEmail());
+            System.err.println("Email déjà existant : " + u.getEmail());
             return false;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur inscription : " + e.getMessage());
+            System.err.println("Erreur inscription : " + e.getMessage());
             return false;
         }
     }
@@ -52,13 +52,13 @@ public class UtilisateurDAO {
                 if (BCrypt.checkpw(motDePasse, rs.getString("mot_de_passe"))) {
                     return mapResultSet(rs);
                 } else {
-                    System.err.println("⚠️ Mot de passe incorrect.");
+                    System.err.println("Mot de passe incorrect.");
                 }
             } else {
-                System.err.println("⚠️ Email introuvable ou compte inactif.");
+                System.err.println("Email introuvable ou compte inactif.");
             }
         } catch (SQLException e) {
-            System.err.println("❌ Erreur connexion : " + e.getMessage());
+            System.err.println("Erreur connexion : " + e.getMessage());
         }
         return null;
     }
@@ -70,7 +70,7 @@ public class UtilisateurDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return mapResultSet(rs);
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findById : " + e.getMessage());
+            System.err.println("Erreur findById : " + e.getMessage());
         }
         return null;
     }
@@ -81,7 +81,7 @@ public class UtilisateurDAO {
             ps.setString(1, email);
             return ps.executeQuery().next();
         } catch (SQLException e) {
-            System.err.println("❌ Erreur emailExiste : " + e.getMessage());
+            System.err.println("Erreur emailExiste : " + e.getMessage());
         }
         return false;
     }
@@ -95,7 +95,7 @@ public class UtilisateurDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur modifierProfil : " + e.getMessage());
+            System.err.println("Erreur modifierProfil : " + e.getMessage());
             return false;
         }
     }
@@ -103,7 +103,7 @@ public class UtilisateurDAO {
     public boolean modifierMotDePasse(int id, String ancienMdp, String nouveauMdp) {
         Utilisateur u = findById(id);
         if (u == null || !BCrypt.checkpw(ancienMdp, u.getMotDePasse())) {
-            System.err.println("⚠️ Ancien mot de passe incorrect.");
+            System.err.println("-> Ancien mot de passe incorrect.");
             return false;
         }
         String sql = "UPDATE utilisateur SET mot_de_passe = ? WHERE id = ?";
@@ -113,7 +113,7 @@ public class UtilisateurDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur modifierMotDePasse : " + e.getMessage());
+            System.err.println("-> Erreur modifierMotDePasse : " + e.getMessage());
             return false;
         }
     }
