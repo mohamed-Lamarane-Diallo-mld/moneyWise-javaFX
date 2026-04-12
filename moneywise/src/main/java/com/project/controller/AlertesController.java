@@ -60,7 +60,6 @@ public class AlertesController implements Initializable {
     }
 
     private void chargerHeader() {
-        // DateHelper + getUserId
         headerDate.setText(DateHelper.formaterComplet(LocalDate.now()));
         moisLabel.setText(DateHelper.nomMoisCourant() + " " + DateHelper.anneeCourante());
         int uid = SessionManager.getUserId();
@@ -133,10 +132,13 @@ public class AlertesController implements Initializable {
     private void afficherAlertes(List<Alerte> alertes) {
         alertesContainer.getChildren().clear();
         if (alertes.isEmpty()) {
-            noAlerteContainer.setVisible(true); noAlerteContainer.setManaged(true);
-            countAlertes.setText("0 alerte(s)"); return;
+            noAlerteContainer.setVisible(true); 
+            noAlerteContainer.setManaged(true);
+            countAlertes.setText("0 alerte(s)"); 
+            return;
         }
-        noAlerteContainer.setVisible(false); noAlerteContainer.setManaged(false);
+        noAlerteContainer.setVisible(false); 
+        noAlerteContainer.setManaged(false);
         countAlertes.setText(alertes.size() + " alerte(s)");
         for (Alerte a : alertes)
             alertesContainer.getChildren().add(creerAlerteItem(a));
@@ -155,7 +157,7 @@ public class AlertesController implements Initializable {
         }
 
         Label emoji = new Label(alerte.getTypeAlerte().name().equals("SEUIL_100")
-            ? "alert" : "warning");
+            ? "🚨" : "⚠️");
         emoji.setStyle("-fx-font-size:22px;");
 
         VBox content = new VBox(4);

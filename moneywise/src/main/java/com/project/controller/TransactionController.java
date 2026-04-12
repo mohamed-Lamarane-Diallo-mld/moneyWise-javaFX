@@ -164,7 +164,7 @@ public class TransactionController implements Initializable {
 
     // ── État pagination table ──
     private int pageActuelle = 0;
-    private int transParPage = 10;
+    private int transParPage = 5;
 
     // ── Pagination budgets ──
     private List<Budget> tousLesBudgets = new ArrayList<>();

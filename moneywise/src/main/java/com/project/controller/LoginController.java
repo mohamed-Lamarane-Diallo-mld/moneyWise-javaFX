@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import com.project.dao.JournalDAO;
 import com.project.dao.UtilisateurDAO;
 import com.project.model.Utilisateur;
+import com.project.utils.LoaderOverlay;
 import com.project.utils.NavigationHelper;
 import com.project.utils.SessionManager;
 
@@ -14,6 +15,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +27,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -38,7 +41,6 @@ public class LoginController implements Initializable {
     private VBox formCard;
     @FXML
     private Circle bubble1, bubble2, bubble3, bubble4, bubble5, bubble6, bubble7;
-
     @FXML
     private TextField emailField;
     @FXML
@@ -52,10 +54,16 @@ public class LoginController implements Initializable {
 
     private final UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
     private final JournalDAO journalDAO = new JournalDAO();
+    private LoaderOverlay loaderOverlay; // Loader personnalisé
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        javafx.application.Platform.runLater(this::lancerAnimations);
+        Platform.runLater(this::lancerAnimations);
+        
+        // Initialiser le loader
+        if (rootPane.getParent() instanceof StackPane) {
+            loaderOverlay = new LoaderOverlay();
+        }
     }
 
     // ─────────────────────────────────────────
@@ -73,8 +81,7 @@ public class LoginController implements Initializable {
     }
 
     private void animerFormCard() {
-        if (formCard == null)
-            return;
+        if (formCard == null) return;
         formCard.setOpacity(0);
         formCard.setTranslateY(20);
         FadeTransition fade = new FadeTransition(Duration.millis(600), formCard);
@@ -88,8 +95,7 @@ public class LoginController implements Initializable {
     }
 
     private void animerBulle(Circle c, double fromY, double toY, double ms) {
-        if (c == null)
-            return;
+        if (c == null) return;
         TranslateTransition t = new TranslateTransition(Duration.millis(ms), c);
         t.setFromY(fromY);
         t.setToY(toY);
@@ -100,8 +106,7 @@ public class LoginController implements Initializable {
     }
 
     private void animerErreur() {
-        if (formCard == null)
-            return;
+        if (formCard == null) return;
         TranslateTransition shake = new TranslateTransition(Duration.millis(60), formCard);
         shake.setFromX(0);
         shake.setByX(8);
@@ -124,7 +129,55 @@ public class LoginController implements Initializable {
     }
 
     // ─────────────────────────────────────────
-    // CONNEXION
+    // AFFICHAGE / MASQUAGE DU LOADER
+    // ─────────────────────────────────────────
+    private void showLoader(String message) {
+        if (loaderOverlay == null) {
+            // Si rootPane n'est pas dans un StackPane, on crée un StackPane parent
+            if (rootPane.getParent() == null) {
+                StackPane stackPane = new StackPane();
+                stackPane.getChildren().add(rootPane);
+                if (rootPane.getScene() != null) {
+                    rootPane.getScene().setRoot(stackPane);
+                }
+                loaderOverlay = new LoaderOverlay();
+            } else if (rootPane.getParent() instanceof StackPane) {
+                loaderOverlay = new LoaderOverlay();
+            } else {
+                // Fallback: créer un StackPane temporaire
+                StackPane stackPane = new StackPane();
+                Parent oldParent = rootPane.getParent();
+                if (oldParent instanceof StackPane) {
+                    loaderOverlay = new LoaderOverlay();
+                } else {
+                    // Solution alternative
+                    System.err.println("Impossible d'afficher le loader - parent non compatible");
+                    return;
+                }
+            }
+        }
+        
+        loaderOverlay.setMessage(message);
+        StackPane parent = (StackPane) rootPane.getParent();
+        if (!parent.getChildren().contains(loaderOverlay)) {
+            parent.getChildren().add(loaderOverlay);
+        }
+    }
+    
+    private void hideLoader() {
+        if (loaderOverlay != null) {
+            loaderOverlay.hideLoader();
+        }
+    }
+    
+    private void updateLoaderProgress(double progress) {
+        if (loaderOverlay != null) {
+            loaderOverlay.updateProgress(progress);
+        }
+    }
+
+    // ─────────────────────────────────────────
+    // CONNEXION AVEC LOADER
     // ─────────────────────────────────────────
     @FXML
     private void handleLogin() {
@@ -145,33 +198,80 @@ public class LoginController implements Initializable {
 
         loginBtn.setDisable(true);
         loginBtn.setText("Connexion en cours…");
+        
+        // Afficher le loader
+        showLoader("Authentification en cours...");
 
         new Thread(() -> {
-            Utilisateur user = utilisateurDAO.connecter(email, mdp);
-            javafx.application.Platform.runLater(() -> {
-                // Dans handleLogin(), après connexion réussie
+            try {
+                // Étape 1: Authentification
+                Platform.runLater(() -> updateLoaderProgress(0.3));
+                Thread.sleep(500); // Petit délai pour voir l'animation (optionnel)
+                
+                Utilisateur user = utilisateurDAO.connecter(email, mdp);
+                
                 if (user != null) {
-                    SessionManager.setUtilisateur(user);
-                    journalDAO.log(user.getId(), JournalDAO.ACTION_CONNEXION, "Connexion");
-                    animerSortie(() -> {
-                        try {
-                            if (SessionManager.isAdmin()) {
-                                NavigationHelper.navigateTo(NavigationHelper.HOME); // ou ADMIN_DASHBOARD
-                            } else {
-                                NavigationHelper.navigateTo(NavigationHelper.HOME);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                    // Étape 2: Connexion réussie - préparation des données
+                    Platform.runLater(() -> {
+                        updateLoaderProgress(0.6);
+                        loaderOverlay.setMessage("Chargement de votre espace...");
                     });
+                    
+                    Thread.sleep(500); // Simulation chargement données (optionnel)
+                    
+                    SessionManager.setUtilisateur(user);
+                    
+                    Platform.runLater(() -> {
+                        updateLoaderProgress(0.9);
+                        loaderOverlay.setMessage("Redirection vers l'accueil...");
+                    });
+                    
+                    Thread.sleep(300);
+                    
+                    // Journalisation
+                    journalDAO.log(user.getId(), JournalDAO.ACTION_CONNEXION, "Connexion");
+                    
+                    // Redirection vers la page d'accueil
+                    Platform.runLater(() -> {
+                        updateLoaderProgress(1.0);
+                        
+                        animerSortie(() -> {
+                            hideLoader();
+                            try {
+                                if (SessionManager.isAdmin()) {
+                                    NavigationHelper.navigateTo(NavigationHelper.HOME);
+                                } else {
+                                    NavigationHelper.navigateTo(NavigationHelper.HOME);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                showError("Erreur lors du chargement de la page d'accueil.");
+                                loginBtn.setDisable(false);
+                                loginBtn.setText("Se connecter  →");
+                            }
+                        });
+                    });
+                    
                 } else {
-                    showError("Email ou mot de passe incorrect.");
+                    Platform.runLater(() -> {
+                        hideLoader();
+                        showError("Email ou mot de passe incorrect.");
+                        animerErreur();
+                        passwordField.clear();
+                        loginBtn.setDisable(false);
+                        loginBtn.setText("Se connecter  →");
+                    });
+                }
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    hideLoader();
+                    showError("Erreur de connexion : " + e.getMessage());
                     animerErreur();
-                    passwordField.clear();
                     loginBtn.setDisable(false);
                     loginBtn.setText("Se connecter  →");
-                }
-            });
+                });
+                e.printStackTrace();
+            }
         }).start();
     }
 

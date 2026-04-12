@@ -137,9 +137,25 @@ public class InscriptionController implements Initializable {
         if (nom.length() < 2) {
             showError("Le nom doit contenir au moins 2 caractères."); animerErreur(); return;
         }
-        if (!email.contains("@") || !email.contains(".")) {
+
+        if (mdp.length() < 6) {
+            showError("Le mot de passe doit contenir au moins 6 caractères."); animerErreur(); return;
+        }
+
+        if(
+            !email.contains("@") ||
+             !email.contains(".") || 
+             email.startsWith("@") || 
+             email.endsWith("@") || 
+             email.startsWith(".") || 
+             email.endsWith(".") ||
+            !email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$") || // seule mail .gmail et .uadb.edu.sn
+            email.contains("..") ||
+            !email.matches("^[A-Za-z0-9._%+-]+@(gmail\\.com|uadb\\.edu\\.sn)$") // restreindre aux domaines autorisés
+        ) {
             showError("Adresse email invalide."); animerErreur(); return;
         }
+
         if (mdp.length() < 6) {
             showError("Le mot de passe doit contenir au moins 6 caractères."); animerErreur(); return;
         }
@@ -201,7 +217,7 @@ public class InscriptionController implements Initializable {
                         journalDAO.log(user.getId(),
                             JournalDAO.ACTION_INSCRIPTION, "Nouvelle inscription");
                         animerSortie(() -> {
-                            try { NavigationHelper.navigateTo(NavigationHelper.HOME); }
+                            try { NavigationHelper.navigateTo(NavigationHelper.LOGIN); }
                             catch (Exception e) { e.printStackTrace(); }
                         });
                     }
@@ -262,6 +278,8 @@ public class InscriptionController implements Initializable {
         fade.setOnFinished(e -> onFinish.run());
         fade.play();
     }
+
+    
 
     @FXML
     private void goToLogin(MouseEvent event) {
