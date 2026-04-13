@@ -1,10 +1,10 @@
-# 💰 MoneyWise - Application de Gestion Financière
+# MoneyWise - Application de Gestion Financière
 
 **MoneyWise** est une application JavaFX complète de gestion financière personnelle. Elle permet aux utilisateurs de gérer leurs transactions, budgets, catégories, alertes et exporter leurs données.
 
 ---
 
-## 📋 Table des Matières
+## Table des Matières
 
 - [Aperçu du Projet](#aperçu-du-projet)
 - [Caractéristiques Principales](#caractéristiques-principales)
@@ -17,63 +17,63 @@
 
 ---
 
-## 📊 Aperçu du Projet
+## Aperçu du Projet
 
 **MoneyWise** est une solution centralisée pour la gestion des finances personnelles ou entreprise avec les fonctionnalités suivantes :
 
-- 👤 **Authentification sécurisée** avec hashage de mot de passe (BCrypt)
-- 💸 **Gestion des transactions** (ajout, modification, suppression, affichage)
-- 💰 **Gestion des budgets** avec alertes de dépassement
-- 📂 **Gestion des catégories** de dépenses/revenus
-- ⚠️ **Système d'alertes** personnalisées
-- 📊 **Statistiques et rapports** graphiques
-- 👥 **Gestion des utilisateurs** (Admin et Utilisateur)
-- 📄 **Export de données** (PDF, Excel, etc.)
-- 📋 **Journalisation des activités** (Logs)
-- 🔐 **Questions de sécurité** pour récupération de compte
+- **Authentification sécurisée** avec hashage de mot de passe (BCrypt)
+- **Gestion des transactions** (ajout, modification, suppression, affichage)
+- **Gestion des budgets** avec alertes de dépassement
+- **Gestion des catégories** de dépenses/revenus
+- **Système d'alertes** personnalisées
+- **Statistiques et rapports** graphiques
+- **Gestion des utilisateurs** (Admin et Utilisateur)
+- **Export de données** (PDF, Excel, etc.)
+- **Journalisation des activités** (Logs)
+- **Questions de sécurité** pour récupération de compte
 
 ---
 
-## ✨ Caractéristiques Principales
+## Caractéristiques Principales
 
-### 🔐 Authentification
+### Authentification
 - Système de login/inscription sécurisé
 - Hashage BCrypt des mots de passe
 - Questions de sécurité pour la récupération de compte
 - Profil utilisateur personnalisable
 
-### 💳 Gestion des Transactions
+### Gestion des Transactions
 - Créer, modifier, supprimer des transactions
 - Catégoriser les transactions (revenus/dépenses)
 - Filtrer par date, catégorie, montant
 - Vue détaillée des transactions
 
-### 💰 Budget et Alertes
+### Budget et Alertes
 - Définir des budgets par catégorie
 - Alertes de dépassement automatiques
 - Types d'alertes (Email, Système)
 - Historique des alertes
 
-### 📊 Statistiques
+### Statistiques
 - Graphiques des dépenses par catégorie
 - Évolution temporelle des transactions
 - Résumés mensuels/annuels
 - Comparaisons budgétaires
 
-### 👨‍💼 Administration
+### Administration
 - Gestion des utilisateurs
 - Gestion des catégories système
 - Visualisation des logs d'activité
 - Statistiques globales
 
-### 📤 Export
+### Export
 - Export en PDF
 - Export en Excel
 - Rapports formatés
 
 ---
 
-## 🏗️ Architecture Technique
+## Architecture Technique
 
 ### Stack Technologique
 - **Langage** : Java 21
@@ -97,7 +97,7 @@ Base de Données
 
 ---
 
-## 📁 Structure du Projet
+## Structure du Projet
 
 ```
 moneyWise-javaFX/
@@ -195,7 +195,7 @@ moneyWise-javaFX/
 
 ---
 
-## 📦 Dépendances
+## Dépendances
 
 ### JavaFX (Interface Utilisateur)
 ```xml
@@ -245,7 +245,7 @@ moneyWise-javaFX/
 
 ---
 
-## 🚀 Installation et Configuration
+## Installation et Configuration
 
 ### Prérequis
 - **Java JDK 21** ou supérieur
@@ -255,13 +255,13 @@ moneyWise-javaFX/
 
 ### Étapes d'Installation
 
-#### 1️⃣ Cloner/Récupérer le Projet
+#### Cloner/Récupérer le Projet
 ```bash
 git clone [repository-url]
 cd moneyWise-javaFX
 ```
 
-#### 2️⃣ Configurer la Base de Données
+#### Configurer la Base de Données
 1. Créer une base de données MySQL :
 ```sql
 CREATE DATABASE moneywise_db;
@@ -279,13 +279,13 @@ String user = "root";
 String password = "votre_mot_de_passe";
 ```
 
-#### 3️⃣ Compiler le Projet
+#### Compiler le Projet
 ```bash
 cd moneywise
 mvn clean compile
 ```
 
-#### 4️⃣ Exécuter l'Application
+#### Exécuter l'Application
 ```bash
 mvn javafx:run
 ```
@@ -295,9 +295,9 @@ ou via l'IDE :
 
 ---
 
-## 📖 Guide d'Utilisation
+## Guide d'Utilisation
 
-### 👤 Authentification
+### Authentification
 1. **Première visite** : Cliquez sur "S'inscrire"
    - Remplissez le formulaire d'inscription
    - Choisissez des questions de sécurité
@@ -307,36 +307,36 @@ ou via l'IDE :
    - Email et mot de passe
    - Ouvlie du mot de passe ? Utilisez la récupération par questions de sécurité
 
-### 💳 Gestion des Transactions
+### Gestion des Transactions
 - **Vue Transactions** : Consultez l'historique complet
 - **Ajouter** : Cliquez sur "Nouvelle Transaction" → Selectionnez type → Confirmez
 - **Modifier** : Cliquez sur une transaction → Modifiez → Sauvegardez
 - **Supprimer** : Sélectionnez → Supprimez (confirmation requise)
 
-### 💰 Budgets
+### Budgets
 - **Ajouter un budget** : Catégorie + Limite mensuelle
 - **Alertes** : Recevez des notifications si le budget est dépassé
 - **Historique** : Consultez les budgets passés
 
-### 📊 Statistiques
+### Statistiques
 - **Graphiques** : Visualisez vos dépenses par catégorie
 - **Tendances** : Évolution mensuelle/annuelle
 - **Rapports** : Résumés détaillés
 
-### 👨‍💼 Administration (Utilisateur Admin)
+### Administration (Utilisateur Admin)
 - **Gérer utilisateurs** : Activer/Désactiver/Supprimer
 - **Catégories système** : Ajouter/Modifier/Supprimer catégories
 - **Logs** : Consulter l'historique des activités
 - **Statistiques globales** : Vue d'ensemble du système
 
-### 📤 Export
+### Export
 - Sélectionnez la plage de dates
 - Choisissez le format (PDF, Excel, etc.)
 - Téléchargez le fichier
 
 ---
 
-## 🛠️ Scripts et Commandes Maven
+## Scripts et Commandes Maven
 
 ### Compilation
 ```bash
@@ -367,7 +367,7 @@ mvn install                    # Télécharger et installer dépendances
 
 ---
 
-## 🗂️ Détails des Fichiers Clés
+## Détails des Fichiers Clés
 
 ### `App.java` - Point d'Entrée Principal
 - Initialise l'application JavaFX
@@ -402,7 +402,7 @@ mvn install                    # Télécharger et installer dépendances
 
 ---
 
-## 🐛 Dépannage
+## Dépannage
 
 ### Erreur de Connexion Database
 - Vérifier que MySQL est démarré : `mysql -u root -p`
@@ -421,7 +421,7 @@ mvn install                    # Télécharger et installer dépendances
 
 ---
 
-## 📝 Notes de Développement
+## Notes de Développement
 
 - **Modules Java** : Le projet utilise `module-info.java` pour la modularité Java 9+
 - **Maven** : Configuré pour Java 21, UTF-8 encoding
@@ -431,13 +431,13 @@ mvn install                    # Télécharger et installer dépendances
 
 ---
 
-## 📄 Licence
+## Licence
 
 [À compléter selon votre licence]
 
 ---
 
-## 👨‍💻 Auteur & Contribution
+## Auteur & Contribution
 
 **Projet** : MoneyWise
 **Créé** : 2026
