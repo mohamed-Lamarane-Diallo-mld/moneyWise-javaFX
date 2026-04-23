@@ -32,10 +32,10 @@ public class BudgetDAO {
             if (keys.next()) b.setId(keys.getInt(1));
             return true;
         } catch (SQLIntegrityConstraintViolationException e) {
-            System.err.println("⚠️ Budget déjà existant pour cette catégorie ce mois-ci.");
+            System.err.println("Budget déjà existant pour cette catégorie ce mois-ci.");
             return false;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur ajouter budget : " + e.getMessage());
+            System.err.println(" Erreur ajouter budget : " + e.getMessage());
             return false;
         }
     }
