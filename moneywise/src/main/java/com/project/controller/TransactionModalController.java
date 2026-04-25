@@ -196,8 +196,11 @@ public class TransactionModalController implements Initializable {
                 AlerteHelper.verifierEtNotifier(user);
 
                 fermerModal();
-                if (parentController != null)
+                if (parentController != null) {
                     parentController.chargerTransactions();
+                    parentController.rafraichirBudgets();
+                    parentController.rafraichirBadgeAlertes();
+                }
             } else {
                 showError("Erreur lors de l'enregistrement.");
                 saveBtn.setDisable(false);
@@ -217,8 +220,11 @@ public class TransactionModalController implements Initializable {
                 AlerteHelper.verifierEtNotifier(user);
 
                 fermerModal();
-                if (parentController != null)
+                if (parentController != null) {
                     parentController.chargerTransactions();
+                    parentController.rafraichirBudgets();
+                    parentController.rafraichirBadgeAlertes();
+                }
             } else {
                 showError("Erreur lors de la modification.");
                 saveBtn.setDisable(false);

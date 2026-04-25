@@ -159,7 +159,7 @@ public class BudgetDAO {
         AlerteDAO alerteDAO  = new AlerteDAO();
         for (Budget b : budgets) {
             double pct = getConsommation(b.getId());
-            if (pct >= 100) {
+            if (pct == 100 || pct > 100) {
                 if (!alerteDAO.existeDeja(b.getId(), "SEUIL_100"))
                     alerteDAO.creerAlerte(b.getId(), "SEUIL_100",
                         "Budget \"" + b.getCategorieNom() + "\" dépassé à 100% !");

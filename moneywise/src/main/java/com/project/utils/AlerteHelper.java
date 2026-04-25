@@ -64,7 +64,7 @@ public class AlerteHelper {
         String couleurBord = alerte.getTypeAlerte().name().equals("SEUIL_100")
             ? "#E74C3C" : "#F39C12";
         String emoji = alerte.getTypeAlerte().name().equals("SEUIL_100")
-            ? "erreur" : "avertissement";
+            ? "Critique" : "Avertissement";
 
         // Construction du popup
         VBox container = new VBox(6);
@@ -118,10 +118,10 @@ public class AlerteHelper {
         double y = stage.getY() + stage.getHeight()  - 120;
         popup.show(stage, x, y);
 
-        // Fermeture automatique après 4 secondes
+        // Fermeture automatique après 30 secondes
         new Thread(() -> {
             try {
-                Thread.sleep(4000);
+                Thread.sleep(30000);
                 Platform.runLater(popup::hide);
             } catch (InterruptedException ignored) {}
         }).start();
@@ -174,7 +174,7 @@ public class AlerteHelper {
     public static void soldeInsuffisant(double solde, double montant) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Solde insuffisant");
-        alert.setHeaderText("⚠ Transaction impossible");
+        alert.setHeaderText("Transaction impossible");
         alert.setContentText(
             "Solde disponible : " + String.format("%,.0f", solde) + " FCFA\n" +
             "Montant demandé  : " + String.format("%,.0f", montant) + " FCFA\n\n" +

@@ -80,9 +80,11 @@ public class AlerteDAO {
     }
 
     public int countNonLues(int utilisateurId) {
+        // On compte seulement les alertes critiques (100% et plus)
         String sql = "SELECT COUNT(*) AS total FROM alerte a " +
                      "JOIN budget b ON a.budget_id = b.id " +
-                     "WHERE b.utilisateur_id = ? AND a.est_lue = FALSE";
+                     "WHERE b.utilisateur_id = ? AND a.est_lue = FALSE " +
+                     "AND a.type_alerte = 'SEUIL_100'";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setInt(1, utilisateurId);
             ResultSet rs = ps.executeQuery();

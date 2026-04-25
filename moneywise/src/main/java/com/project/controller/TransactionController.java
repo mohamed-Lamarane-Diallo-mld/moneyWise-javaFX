@@ -425,10 +425,19 @@ public class TransactionController implements Initializable {
     public void rafraichirBudgets() {
         if (currentUserId == -1)
             return;
-        tousLesBudgets = budgetDAO.findActifsMoisCourant(currentUserId);
+        tousLesBudgets = budgetDAO.findByUtilisateur(currentUserId);
         budgetPage = 0;
         afficherPageBudgets();
         mettreAJourTotalBudget();
+    }
+
+    // ─────────────────────────────────────────
+    // RAFRAÎCHIR BADGE ALERTES SIDEBAR
+    // ─────────────────────────────────────────
+    public void rafraichirBadgeAlertes() {
+        if (sidebarController != null) {
+            sidebarController.chargerBadgeAlertes();
+        }
     }
 
     private void afficherPageBudgets() {
@@ -503,12 +512,31 @@ public class TransactionController implements Initializable {
         mettreAJourTotalBudget();
     }
 
+    // ─────────────────────────────────────────
+    // UTILITAIRE : Formatage du mois
+    // ─────────────────────────────────────────
+    private String getMoisLabel(int mois, int annee) {
+        String[] moisNom = {"", "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                           "Juil", "Août", "Sep", "Oct", "Nov", "Déc"};
+        int moisCourant = java.time.LocalDate.now().getMonthValue();
+        int anneeCourante = java.time.LocalDate.now().getYear();
+
+        if (mois == moisCourant && annee == anneeCourante) {
+            return "ce mois-ci";
+        } else if (mois >= 1 && mois <= 12) {
+            return moisNom[mois] + " " + annee;
+        }
+        return mois + "/" + annee;
+    }
+
     private VBox creerBudgetItem(Budget budget, double pct) {
         VBox item = new VBox(6);
         item.getStyleClass().add("budget-progress-item");
 
-        // Nom de la catégorie
-        Label nom = new Label(budget.getCategorieNom() != null ? budget.getCategorieNom() : "—");
+        // Nom de la catégorie + mois
+        String catNom = budget.getCategorieNom() != null ? budget.getCategorieNom() : "—";
+        String moisStr = getMoisLabel(budget.getMois(), budget.getAnnee());
+        Label nom = new Label(catNom + " (" + moisStr + ")");
         nom.getStyleClass().add("budget-progress-label");
 
         // Montant consommé / max
