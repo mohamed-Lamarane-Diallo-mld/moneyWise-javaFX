@@ -304,7 +304,7 @@
                 <!-- ══════════════════════════════════ -->
                 <!-- LIGNE 2 : PRÉFÉRENCES SYSTÈME      -->
                 <!-- ══════════════════════════════════ -->
-                <VBox styleClass="table-card" spacing="0">
+              <!-- <VBox styleClass="table-card" spacing="0">
 
                     <HBox alignment="CENTER_LEFT"
                           style="-fx-padding:16 20 14 20;">
@@ -320,140 +320,7 @@
 
                     <Separator style="-fx-opacity:0.5;"/>
 
-                    <HBox style="-fx-padding:20;" spacing="40" alignment="TOP_LEFT">
-
-                        <!-- APPARENCE -->
-                        <VBox spacing="16" HBox.hgrow="ALWAYS">
-                            <Label text="APPARENCE"
-                                   style="-fx-font-size:10px; -fx-font-weight:bold;
-                                          -fx-text-fill:#A0AEC0;
-                                          -fx-padding:0 0 4 0;
-                                          -fx-border-color:transparent transparent
-                                                           #F0F0F0 transparent;"/>
-
-                            <VBox spacing="6">
-                                <Label text="Langue de l'interface"
-                                       styleClass="profil-field-label"/>
-                                <ComboBox fx:id="langueCombo"
-                                          maxWidth="Infinity"
-                                          styleClass="profil-field"/>
-                            </VBox>
-
-                            <VBox spacing="6">
-                                <Label text="Devise monétaire"
-                                       styleClass="profil-field-label"/>
-                                <ComboBox fx:id="deviseCombo"
-                                          maxWidth="Infinity"
-                                          styleClass="profil-field"/>
-                            </VBox>
-
-                            <VBox spacing="6">
-                                <Label text="Thème de l'interface"
-                                       styleClass="profil-field-label"/>
-                                <ComboBox fx:id="themeCombo"
-                                          maxWidth="Infinity"
-                                          styleClass="profil-field"/>
-                            </VBox>
-
-                            <VBox spacing="6">
-                                <Label text="Format de date"
-                                       styleClass="profil-field-label"/>
-                                <ComboBox fx:id="formatDateCombo"
-                                          maxWidth="Infinity"
-                                          styleClass="profil-field"/>
-                            </VBox>
-
-                            <VBox spacing="6">
-                                <Label text="Transactions affichées (dashboard)"
-                                       styleClass="profil-field-label"/>
-                                <ComboBox fx:id="nbTransCombo"
-                                          maxWidth="Infinity"
-                                          styleClass="profil-field"/>
-                            </VBox>
-                        </VBox>
-
-                        <Separator orientation="VERTICAL"/>
-
-                        <!-- NOTIFICATIONS -->
-                        <VBox spacing="16" HBox.hgrow="ALWAYS">
-                            <Label text="NOTIFICATIONS &amp; DONNÉES"
-                                   style="-fx-font-size:10px; -fx-font-weight:bold;
-                                          -fx-text-fill:#A0AEC0;
-                                          -fx-padding:0 0 4 0;"/>
-
-                            <!-- Alertes budget -->
-                            <HBox alignment="CENTER_LEFT" spacing="14"
-                                  style="-fx-background-color:#FAFBFF;
-                                         -fx-background-radius:10;
-                                         -fx-padding:12 14;">
-                                <VBox spacing="2" HBox.hgrow="ALWAYS">
-                                    <Label text="Alertes budget"
-                                           styleClass="profil-field-label"/>
-                                    <Label text="Notifier à 80% et 100% du plafond"
-                                           styleClass="section-subtitle"/>
-                                </VBox>
-                                <CheckBox fx:id="checkAlertesBudget" selected="true"/>
-                            </HBox>
-
-                            <!-- Son -->
-                            <HBox alignment="CENTER_LEFT" spacing="14"
-                                  style="-fx-background-color:#FAFBFF;
-                                         -fx-background-radius:10;
-                                         -fx-padding:12 14;">
-                                <VBox spacing="2" HBox.hgrow="ALWAYS">
-                                    <Label text="Son des notifications"
-                                           styleClass="profil-field-label"/>
-                                    <Label text="Jouer un son à chaque alerte"
-                                           styleClass="section-subtitle"/>
-                                </VBox>
-                                <CheckBox fx:id="checkSon" selected="false"/>
-                            </HBox>
-
-                            <!-- Résumé hebdo -->
-                            <HBox alignment="CENTER_LEFT" spacing="14"
-                                  style="-fx-background-color:#FAFBFF;
-                                         -fx-background-radius:10;
-                                         -fx-padding:12 14;">
-                                <VBox spacing="2" HBox.hgrow="ALWAYS">
-                                    <Label text="Résumé hebdomadaire"
-                                           styleClass="profil-field-label"/>
-                                    <Label text="Récapitulatif chaque lundi"
-                                           styleClass="section-subtitle"/>
-                                </VBox>
-                                <CheckBox fx:id="checkResumeHebdo" selected="true"/>
-                            </HBox>
-
-                            <!-- Sauvegarde auto -->
-                            <HBox alignment="CENTER_LEFT" spacing="14"
-                                  style="-fx-background-color:#FAFBFF;
-                                         -fx-background-radius:10;
-                                         -fx-padding:12 14;">
-                                <VBox spacing="2" HBox.hgrow="ALWAYS">
-                                    <Label text="Sauvegarde automatique"
-                                           styleClass="profil-field-label"/>
-                                    <Label text="Export automatique toutes les 24h"
-                                           styleClass="section-subtitle"/>
-                                </VBox>
-                                <CheckBox fx:id="checkSauvegarde" selected="true"/>
-                            </HBox>
-
-                        </VBox>
-
-                    </HBox>
-
-                    <!-- Bouton sauvegarder -->
-                    <HBox alignment="CENTER_RIGHT" spacing="14"
-                          style="-fx-padding:0 20 20 20;">
-                        <Label fx:id="prefMessage" text=""
-                               visible="false" managed="false"
-                               style="-fx-font-size:13px;"/>
-                        <Button text="✓  Sauvegarder les préférences"
-                                styleClass="quick-btn-primary"
-                                style="-fx-padding:11 20;"
-                                onAction="#handleSauvegarderPrefs"/>
-                    </HBox>
-
-                </VBox>
+                </VBox> -->
 
                 <!-- ══════════════════════════════════ -->
                 <!-- LIGNE 3 : CONSEIL SÉCURITÉ        -->

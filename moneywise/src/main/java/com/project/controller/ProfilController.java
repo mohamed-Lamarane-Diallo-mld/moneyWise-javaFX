@@ -17,8 +17,6 @@ import com.project.utils.SessionManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -63,26 +61,6 @@ public class ProfilController implements Initializable {
     private Label statDepensesMois;
     @FXML
     private SidebarController sidebarController;
-    @FXML
-    private ComboBox<String> langueCombo;
-    @FXML
-    private ComboBox<String> deviseCombo;
-    @FXML
-    private ComboBox<String> themeCombo;
-    @FXML
-    private ComboBox<String> formatDateCombo;
-    @FXML
-    private ComboBox<Integer> nbTransCombo;
-    @FXML
-    private CheckBox checkAlertesBudget;
-    @FXML
-    private CheckBox checkSon;
-    @FXML
-    private CheckBox checkResumeHebdo;
-    @FXML
-    private CheckBox checkSauvegarde;
-    @FXML
-    private Label prefMessage;
 
     private final UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
     private final TransactionDAO transactionDAO = new TransactionDAO();
@@ -96,7 +74,6 @@ public class ProfilController implements Initializable {
         chargerHeader();
         chargerProfil();
         chargerStats();
-        chargerPreferences();
         if (sidebarController != null) {
             sidebarController.setActiveItem("profil");
         }
@@ -258,38 +235,13 @@ public class ProfilController implements Initializable {
         }
     }
 
-    private void chargerPreferences() {
-        langueCombo.getItems().addAll("Français", "English", "Español");
-        langueCombo.getSelectionModel().select("Français");
-        deviseCombo.getItems().addAll("FCFA", "EUR €", "USD $", "GBP £", "MAD");
-        deviseCombo.getSelectionModel().select("FCFA");
-        themeCombo.getItems().addAll("Clair", "Sombre", "Système");
-        themeCombo.getSelectionModel().select("Clair");
-        formatDateCombo.getItems().addAll("dd/MM/yyyy", "MM/dd/yyyy", "yyyy-MM-dd", "dd MMM yyyy");
-        formatDateCombo.getSelectionModel().select("dd/MM/yyyy");
-        nbTransCombo.getItems().addAll(5, 8, 10, 15, 20);
-        nbTransCombo.getSelectionModel().select(Integer.valueOf(8));
-    }
-
-    @FXML
-    private void handleSauvegarderPrefs() {
-        // TODO : persister dans un fichier .properties
-        prefMessage.setText("✓ Préférences enregistrées !");
-        prefMessage.setStyle(
-                "-fx-text-fill:#2ECC71; -fx-font-size:13px; -fx-font-weight:bold;");
-        prefMessage.setVisible(true);
-        prefMessage.setManaged(true);
-
-        new Thread(() -> {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ignored) {
-            }
-            javafx.application.Platform.runLater(() -> {
-                prefMessage.setVisible(false);
-                prefMessage.setManaged(false);
-            });
-        }).start();
+    private void showMdpMessage(String msg, boolean succes) {
+        mdpMessage.setText(msg);
+        mdpMessage.setStyle(succes
+                ? "-fx-text-fill:#2ECC71; -fx-font-size:13px; -fx-font-weight:bold;"
+                : "-fx-text-fill:#E74C3C; -fx-font-size:13px;");
+        mdpMessage.setVisible(true);
+        mdpMessage.setManaged(true);
     }
 
     private void showInfoMessage(String msg, boolean succes) {
@@ -299,15 +251,6 @@ public class ProfilController implements Initializable {
                 : "-fx-text-fill:#E74C3C; -fx-font-size:13px;");
         infoMessage.setVisible(true);
         infoMessage.setManaged(true);
-    }
-
-    private void showMdpMessage(String msg, boolean succes) {
-        mdpMessage.setText(msg);
-        mdpMessage.setStyle(succes
-                ? "-fx-text-fill:#2ECC71; -fx-font-size:13px; -fx-font-weight:bold;"
-                : "-fx-text-fill:#E74C3C; -fx-font-size:13px;");
-        mdpMessage.setVisible(true);
-        mdpMessage.setManaged(true);
     }
 
     private void hideMessages() {
