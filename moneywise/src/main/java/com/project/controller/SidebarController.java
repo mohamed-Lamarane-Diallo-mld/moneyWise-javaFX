@@ -36,8 +36,8 @@ public class SidebarController implements Initializable {
     // User info
     @FXML private Label alerteBadge;
     @FXML private Label avatarLabel;
-    @FXML private Label userNameLabel;
-    @FXML private Label userEmailLabel;
+    // @FXML private Label userNameLabel;
+    // @FXML private Label userEmailLabel;
 
     private final AlerteDAO alerteDAO = new AlerteDAO();
     private final JournalDAO journalDAO = new JournalDAO();
@@ -74,8 +74,8 @@ public class SidebarController implements Initializable {
         }
         Utilisateur user = SessionManager.getUtilisateur();
 
-        userNameLabel.setText(user.getNom());
-        userEmailLabel.setText(user.getEmail());
+        // userNameLabel.setText(user.getNom());
+        // userEmailLabel.setText(user.getEmail());
 
         String[] parts = user.getNom().trim().split(" ");
         String initiales = parts.length >= 2

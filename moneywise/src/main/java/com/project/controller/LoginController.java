@@ -211,6 +211,19 @@ public class LoginController implements Initializable {
                 Utilisateur user = utilisateurDAO.connecter(email, mdp);
                 
                 if (user != null) {
+                    // Vérifier si le compte est actif
+                    if (!user.isEstActif()) {
+                        // Compte suspendu
+                        Platform.runLater(() -> {
+                            hideLoader();
+                            showError("Votre compte a été temporairement suspendu. Veuillez contacter l'administrateur.");
+                            animerErreur();
+                            loginBtn.setDisable(false);
+                            loginBtn.setText("Se connecter  →");
+                        });
+                        return;
+                    }
+                    
                     // Étape 2: Connexion réussie - préparation des données
                     Platform.runLater(() -> {
                         updateLoaderProgress(0.6);
@@ -252,7 +265,7 @@ public class LoginController implements Initializable {
                         });
                     });
                     
-                } else {
+                } else { 
                     Platform.runLater(() -> {
                         hideLoader();
                         showError("Email ou mot de passe incorrect.");

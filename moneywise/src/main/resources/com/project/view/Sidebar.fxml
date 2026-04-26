@@ -87,12 +87,6 @@
             <Label fx:id="avatarLabel" text="?" styleClass="sidebar-user-avatar-label"/>
         </StackPane>
 
-        <!-- Infos user -->
-        <VBox spacing="2" HBox.hgrow="ALWAYS">
-            <Label fx:id="userNameLabel" text="Utilisateur" styleClass="sidebar-user-name"/>
-            <Label fx:id="userEmailLabel" text="email@..." styleClass="sidebar-user-email"/>
-        </VBox>
-
         <!-- Déconnexion -->
         <Button text="⏻ Déconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
 

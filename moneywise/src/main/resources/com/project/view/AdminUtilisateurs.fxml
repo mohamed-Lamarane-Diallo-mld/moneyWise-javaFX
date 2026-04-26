@@ -160,13 +160,13 @@
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                         </columnResizePolicy>
                         <columns>
-                            <TableColumn fx:id="colId"              text="ID"           minWidth="50"  maxWidth="60"/>
-                            <TableColumn fx:id="colNom"             text="NOM"          minWidth="130"/>
-                            <TableColumn fx:id="colEmail"           text="EMAIL"        minWidth="170"/>
+                            <TableColumn fx:id="colId"              text="ID"           minWidth="60"  maxWidth="60"/>
+                            <TableColumn fx:id="colNom"             text="NOM"          minWidth="90"/>
+                            <TableColumn fx:id="colEmail"           text="EMAIL"        minWidth="90"/>
                             <TableColumn fx:id="colDateInscription" text="INSCRIPTION"  minWidth="100" maxWidth="115"/>
-                            <TableColumn fx:id="colStatut"          text="STATUT"       minWidth="85"  maxWidth="95"/>
+                            <TableColumn fx:id="colStatut"          text="STATUT"       minWidth="60"  maxWidth="95"/>
                             <TableColumn fx:id="colRole"            text="RÔLE"         minWidth="90"  maxWidth="100"/>
-                            <TableColumn fx:id="colActions"         text="ACTIONS"      minWidth="240" maxWidth="270"/>
+                            <TableColumn fx:id="colActions"         text="ACTIONS"      minWidth="300" maxWidth="400"/>
                         </columns>
                         <placeholder>
                             <VBox alignment="CENTER" spacing="8" style="-fx-padding:50;">

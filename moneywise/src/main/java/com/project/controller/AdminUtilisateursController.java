@@ -131,7 +131,7 @@ public class AdminUtilisateursController implements Initializable {
                     private final Button btnToggleStatut  = new Button("⏻ Statut");
                     private final Button btnToggleAdmin   = new Button("🛡 Rôle");
                     private final Button btnSupprimer     = new Button("✕ Suppr.");
-                    private final HBox   box = new HBox(5,
+                    private final HBox   box = new HBox(10,
                             btnModifier, btnToggleStatut, btnToggleAdmin, btnSupprimer);
                     {
                         box.setAlignment(Pos.CENTER);

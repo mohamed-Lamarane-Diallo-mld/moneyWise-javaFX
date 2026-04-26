@@ -44,6 +44,34 @@ public class UtilisateurDAO {
     }
 
     public Utilisateur connecter(String email, String motDePasse) {
+        // Vérifier d'abord si l'email existe
+        String sqlCheck = "SELECT id, est_actif FROM utilisateur WHERE email = ?";
+        try (PreparedStatement psCheck = getConn().prepareStatement(sqlCheck)) {
+            psCheck.setString(1, email);
+            ResultSet rsCheck = psCheck.executeQuery();
+            
+            if (!rsCheck.next()) {
+                // Email introuvable
+                System.err.println("Email introuvable.");
+                return null;
+            }
+            
+            // Vérifier si le compte est actif
+            boolean estActif = rsCheck.getBoolean("est_actif");
+            if (!estActif) {
+                // Compte suspendu - on retourne un utilisateur spécial avec un flag
+                System.err.println("Compte suspendu.");
+                Utilisateur u = new Utilisateur();
+                u.setId(rsCheck.getInt("id"));
+                u.setEmail(email);
+                u.setEstActif(false);
+                return u;
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur vérification compte : " + e.getMessage());
+        }
+        
+        // Vérifier le mot de passe
         String sql = "SELECT * FROM utilisateur WHERE email = ? AND est_actif = TRUE";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setString(1, email);
@@ -54,8 +82,6 @@ public class UtilisateurDAO {
                 } else {
                     System.err.println("Mot de passe incorrect.");
                 }
-            } else {
-                System.err.println("Email introuvable ou compte inactif.");
             }
         } catch (SQLException e) {
             System.err.println("Erreur connexion : " + e.getMessage());
@@ -125,7 +151,7 @@ public class UtilisateurDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) liste.add(mapResultSet(rs));
         } catch (SQLException e) {
-            System.err.println("❌ Erreur findAll : " + e.getMessage());
+            System.err.println("Erreur findAll : " + e.getMessage());
         }
         return liste;
     }
@@ -138,7 +164,7 @@ public class UtilisateurDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.err.println("❌ Erreur changerStatut : " + e.getMessage());
+            System.err.println("Erreur changerStatut : " + e.getMessage());
             return false;
         }
     }
