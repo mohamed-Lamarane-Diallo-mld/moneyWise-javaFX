@@ -24,19 +24,19 @@
 
         <!-- Dashboard -->
         <HBox fx:id="navHome" styleClass="nav-item" onMouseClicked="#goToHome">
-            <Label text="D" styleClass="nav-item-icon"/>
+            <Label text="" styleClass="nav-item-icon"/>
             <Label text="Dashboard" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Transactions -->
         <HBox fx:id="navTransaction" styleClass="nav-item" onMouseClicked="#goToTransaction">
-            <Label text="T" styleClass="nav-item-icon"/>
+            <Label text="" styleClass="nav-item-icon"/>
             <Label text="Transactions" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Statistiques -->
         <HBox fx:id="navStatistique" styleClass="nav-item" onMouseClicked="#goToStatistique">
-            <Label text="S" styleClass="nav-item-icon"/>
+            <Label text="" styleClass="nav-item-icon"/>
             <Label text="Statistiques" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
@@ -45,19 +45,19 @@
 
         <!-- Gestion des utilisateurs -->
         <HBox fx:id="navAdminUtilisateurs" styleClass="nav-item" onMouseClicked="#goToAdminUtilisateurs" visible="false" managed="false">
-            <Label text="U" styleClass="nav-item-icon"/>
+            <Label text="" styleClass="nav-item-icon"/>
             <Label text="Utilisateurs" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Gestion des categories -->
         <HBox fx:id="navAdminCategories" styleClass="nav-item" onMouseClicked="#goToAdminCategories" visible="false" managed="false">
-            <Label text="C" styleClass="nav-item-icon"/>
+            <Label text="" styleClass="nav-item-icon"/>
             <Label text="Categories" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Journal d'activite -->
         <HBox fx:id="navAdminLogs" styleClass="nav-item" onMouseClicked="#goToAdminLogs" visible="false" managed="false">
-            <Label text="J" styleClass="nav-item-icon"/>
+            <Label text="" styleClass="nav-item-icon"/>
             <Label text="Journal" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
@@ -66,13 +66,13 @@
 
         <!-- Profil -->
         <HBox fx:id="navProfil" styleClass="nav-item" onMouseClicked="#goToProfil">
-            <Label text="P" styleClass="nav-item-icon"/>
+            <Label text="" styleClass="nav-item-icon"/>
             <Label text="Mon profil" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <!-- Alertes avec badge -->
         <HBox fx:id="navAlertes" styleClass="nav-item" onMouseClicked="#goToAlertes">
-            <Label text="A" styleClass="nav-item-icon"/>
+            <Label text="" styleClass="nav-item-icon"/>
             <Label text="Alertes" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
             <Label fx:id="alerteBadge" text="0" styleClass="nav-badge" visible="false" managed="false"/>
         </HBox>
