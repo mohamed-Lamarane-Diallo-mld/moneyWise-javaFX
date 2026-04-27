@@ -80,7 +80,7 @@ public class TransactionDAO {
                 "FROM transaction t " +
                 "LEFT JOIN categorie c ON t.categorie_id = c.id " +
                 "WHERE t.utilisateur_id = ? " +
-                "ORDER BY t.date_transaction DESC";
+                "ORDER BY t.date_transaction DESC, t.id DESC";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setInt(1, utilisateurId);
             ResultSet rs = ps.executeQuery();
@@ -98,7 +98,7 @@ public class TransactionDAO {
                 "FROM transaction t " +
                 "LEFT JOIN categorie c ON t.categorie_id = c.id " +
                 "WHERE t.utilisateur_id = ? " +
-                "ORDER BY t.date_transaction DESC LIMIT ?";
+                "ORDER BY t.date_transaction DESC, t.id DESC LIMIT ?";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
             ps.setInt(1, utilisateurId);
             ps.setInt(2, limite);
@@ -130,7 +130,7 @@ public class TransactionDAO {
             sql.append("AND t.date_transaction <= ? ");
         if (motCle != null && !motCle.isEmpty())
             sql.append("AND t.description LIKE ? ");
-        sql.append("ORDER BY t.date_transaction DESC");
+        sql.append("ORDER BY t.date_transaction DESC, t.id DESC");
 
         try (PreparedStatement ps = getConn().prepareStatement(sql.toString())) {
             int i = 1;
@@ -156,7 +156,6 @@ public class TransactionDAO {
 
     // ==================== METHODES POUR ADMIN ====================
 
-    // Solde total global (pour admin)
     public double getSoldeTotalGlobal() {
         String sql = "SELECT COALESCE(SUM(CASE WHEN type = 'ENTREE' THEN montant ELSE -montant END), 0) FROM transaction";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
@@ -169,7 +168,6 @@ public class TransactionDAO {
         return 0;
     }
 
-    // Total entrees global du mois
     public double getTotalEntreesGlobalMois() {
         String sql = "SELECT COALESCE(SUM(montant), 0) FROM transaction WHERE type = 'ENTREE' AND MONTH(date_transaction) = MONTH(CURDATE()) AND YEAR(date_transaction) = YEAR(CURDATE())";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
@@ -182,7 +180,6 @@ public class TransactionDAO {
         return 0;
     }
 
-    // Total sorties global du mois
     public double getTotalSortiesGlobalMois() {
         String sql = "SELECT COALESCE(SUM(montant), 0) FROM transaction WHERE type = 'SORTIE' AND MONTH(date_transaction) = MONTH(CURDATE()) AND YEAR(date_transaction) = YEAR(CURDATE())";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
@@ -195,7 +192,6 @@ public class TransactionDAO {
         return 0;
     }
 
-    // Recherche globale (pour admin)
     public List<Transaction> rechercherGlobal(String type, Integer categorieId, LocalDate dateDebut, LocalDate dateFin,
             String motCle) {
         List<Transaction> transactions = new ArrayList<>();
@@ -217,7 +213,7 @@ public class TransactionDAO {
         if (motCle != null && !motCle.isEmpty())
             sql.append(" AND t.description LIKE ?");
 
-        sql.append(" ORDER BY t.date_transaction DESC");
+        sql.append(" ORDER BY t.date_transaction DESC, t.id DESC");
 
         try (PreparedStatement ps = getConn().prepareStatement(sql.toString())) {
             int index = 1;
@@ -244,7 +240,6 @@ public class TransactionDAO {
         return transactions;
     }
 
-    // Compter toutes les transactions
     public int countAllTransactions() {
         String sql = "SELECT COUNT(*) FROM transaction";
         try (PreparedStatement ps = getConn().prepareStatement(sql)) {
@@ -257,7 +252,6 @@ public class TransactionDAO {
         return 0;
     }
 
-    // Solde total pour un utilisateur (existe deja mais je la garde)
     public double getSoldeTotal(int utilisateurId) {
         String sql = "SELECT " +
                 "COALESCE(SUM(CASE WHEN type='ENTREE' THEN montant ELSE 0 END),0) - " +
@@ -274,12 +268,10 @@ public class TransactionDAO {
         return 0;
     }
 
-    // Total entrees du mois pour un utilisateur
     public double getTotalEntreesMois(int utilisateurId) {
         return getTotalParType(utilisateurId, "ENTREE");
     }
 
-    // Total sorties du mois pour un utilisateur
     public double getTotalSortiesMois(int utilisateurId) {
         return getTotalParType(utilisateurId, "SORTIE");
     }
@@ -301,7 +293,6 @@ public class TransactionDAO {
         return 0;
     }
 
-    // Depenses par categorie
     public List<Object[]> getDepensesParCategorie(int utilisateurId) {
         List<Object[]> data = new ArrayList<>();
         String sql = "SELECT c.nom, COALESCE(SUM(t.montant), 0) AS total " +
@@ -321,7 +312,6 @@ public class TransactionDAO {
         return data;
     }
 
-    // Entrees et sorties par mois
     public List<Object[]> getEntreesSortiesParMois(int utilisateurId, int annee) {
         List<Object[]> data = new ArrayList<>();
         String sql = "SELECT MONTH(date_transaction) AS mois, " +
@@ -360,7 +350,6 @@ public class TransactionDAO {
         return t;
     }
 
-    // Dépenses par catégorie (global)
     public List<Object[]> getDepensesParCategorieGlobal(LocalDate dateDebut, LocalDate dateFin) {
         List<Object[]> data = new ArrayList<>();
         String sql = "SELECT c.nom, COALESCE(SUM(t.montant), 0) AS total " +
@@ -379,7 +368,6 @@ public class TransactionDAO {
         return data;
     }
 
-    // Entrées et sorties par mois (global)
     public List<Object[]> getEntreesSortiesParMoisGlobal(int annee) {
         List<Object[]> data = new ArrayList<>();
         String sql = "SELECT MONTH(date_transaction) AS mois, " +

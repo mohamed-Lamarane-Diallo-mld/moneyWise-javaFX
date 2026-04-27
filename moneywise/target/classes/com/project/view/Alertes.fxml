@@ -75,10 +75,10 @@ Créez des budgets depuis la page Transactions."
                             styleClass="alerte-filter-btn,
                                         alerte-filter-btn-active"
                             onAction="#filterTous"/>
-                    <Button fx:id="btnNonLues"
+                    <!-- <Button fx:id="btnNonLues"
                             text="Non lues"
                             styleClass="alerte-filter-btn"
-                            onAction="#filterNonLues"/>
+                            onAction="#filterNonLues"/> -->
                     <Button fx:id="btnSeuil80"
                             text="Seuil 80%"
                             styleClass="alerte-filter-btn"

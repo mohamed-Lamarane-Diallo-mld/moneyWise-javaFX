@@ -184,7 +184,7 @@
 
                         <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                             <VBox HBox.hgrow="ALWAYS" spacing="2">
-                                <Label text="Budgets du mois"
+                                <Label text="Budgets"
                                        styleClass="section-title"/>
                                 <Label text="Suivi de vos plafonds"
                                        styleClass="section-subtitle"/>

@@ -425,7 +425,28 @@ public class TransactionController implements Initializable {
     public void rafraichirBudgets() {
         if (currentUserId == -1)
             return;
+
         tousLesBudgets = budgetDAO.findByUtilisateur(currentUserId);
+
+        // Trier les budgets : mois courant en premier, puis chronologiquement
+        int moisCourant = LocalDate.now().getMonthValue();
+        int anneeCourante = LocalDate.now().getYear();
+        tousLesBudgets.sort((b1, b2) -> {
+            boolean b1EstCourant = b1.getMois() == moisCourant && b1.getAnnee() == anneeCourante;
+            boolean b2EstCourant = b2.getMois() == moisCourant && b2.getAnnee() == anneeCourante;
+
+            if (b1EstCourant && !b2EstCourant)
+                return -1;
+            if (!b1EstCourant && b2EstCourant)
+                return 1;
+
+            // Si aucun n'est le mois courant, trier par année puis par mois
+            if (b1.getAnnee() != b2.getAnnee()) {
+                return Integer.compare(b1.getAnnee(), b2.getAnnee());
+            }
+            return Integer.compare(b1.getMois(), b2.getMois());
+        });
+
         budgetPage = 0;
         afficherPageBudgets();
         mettreAJourTotalBudget();
@@ -516,8 +537,8 @@ public class TransactionController implements Initializable {
     // UTILITAIRE : Formatage du mois
     // ─────────────────────────────────────────
     private String getMoisLabel(int mois, int annee) {
-        String[] moisNom = {"", "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
-                           "Juil", "Août", "Sep", "Oct", "Nov", "Déc"};
+        String[] moisNom = { "", "Jan", "Fév", "Mar", "Avr", "Mai", "Juin",
+                "Juil", "Août", "Sep", "Oct", "Nov", "Déc" };
         int moisCourant = java.time.LocalDate.now().getMonthValue();
         int anneeCourante = java.time.LocalDate.now().getYear();
 
@@ -801,6 +822,11 @@ public class TransactionController implements Initializable {
                     motCle.isEmpty() ? null : motCle);
         }
 
+        // Tri par date décroissante : les plus récentes en premier
+        transactionsFiltrees.sort((a, b) -> b.getDateTransaction().compareTo(a.getDateTransaction()));
+
+        pageActuelle = 0;
+
         pageActuelle = 0;
         afficherPageTransactions();
         chargerResume();
@@ -930,6 +956,11 @@ public class TransactionController implements Initializable {
         } else {
             transactionsFiltrees = transactionDAO.findByUtilisateur(currentUserId);
         }
+
+        // Tri par date décroissante : les plus récentes en premier
+        transactionsFiltrees.sort((a, b) -> b.getDateTransaction().compareTo(a.getDateTransaction()));
+
+        pageActuelle = 0;
 
         pageActuelle = 0;
         afficherPageTransactions();

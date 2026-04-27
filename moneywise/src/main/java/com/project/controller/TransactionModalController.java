@@ -10,6 +10,7 @@ import com.project.dao.CategorieDAO;
 import com.project.dao.JournalDAO;
 import com.project.dao.TransactionDAO;
 import com.project.enums.TypeTransaction;
+import com.project.model.Budget;
 import com.project.model.Categorie;
 import com.project.model.Transaction;
 import com.project.model.Utilisateur;
@@ -29,24 +30,33 @@ import javafx.stage.Stage;
 
 public class TransactionModalController implements Initializable {
 
-    @FXML private Label    modalTitle;
-    @FXML private Button   btnEntree;
-    @FXML private Button   btnSortie;
-    @FXML private TextField montantField;
-    @FXML private ComboBox<Categorie> categorieCombo;
-    @FXML private DatePicker datePicker;
-    @FXML private TextField descriptionField;
-    @FXML private Label    errorLabel;
-    @FXML private Button   saveBtn;
+    @FXML
+    private Label modalTitle;
+    @FXML
+    private Button btnEntree;
+    @FXML
+    private Button btnSortie;
+    @FXML
+    private TextField montantField;
+    @FXML
+    private ComboBox<Categorie> categorieCombo;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private TextField descriptionField;
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private Button saveBtn;
 
     private final TransactionDAO transactionDAO = new TransactionDAO();
-    private final CategorieDAO   categorieDAO   = new CategorieDAO();
-    private final BudgetDAO      budgetDAO      = new BudgetDAO();
-    private final JournalDAO     journalDAO     = new JournalDAO();
+    private final CategorieDAO categorieDAO = new CategorieDAO();
+    private final BudgetDAO budgetDAO = new BudgetDAO();
+    private final JournalDAO journalDAO = new JournalDAO();
 
-    private Transaction           transactionAModifier = null;
+    private Transaction transactionAModifier = null;
     private TransactionController parentController;
-    private TypeTransaction       typeSelectionne = TypeTransaction.SORTIE;
+    private TypeTransaction typeSelectionne = TypeTransaction.SORTIE;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,22 +71,25 @@ public class TransactionModalController implements Initializable {
 
     public void setTransaction(Transaction t) {
         this.transactionAModifier = t;
-        if (t == null) return;
+        if (t == null)
+            return;
 
         modalTitle.setText("Modifier la transaction");
         saveBtn.setText("Enregistrer les modifications");
         montantField.setText(String.valueOf(t.getMontant()));
         datePicker.setValue(t.getDateTransaction());
         descriptionField.setText(
-            t.getDescription() != null ? t.getDescription() : "");
+                t.getDescription() != null ? t.getDescription() : "");
 
-        if (t.getType() == TypeTransaction.ENTREE) selectEntree();
-        else selectSortie();
+        if (t.getType() == TypeTransaction.ENTREE)
+            selectEntree();
+        else
+            selectSortie();
 
         categorieCombo.getItems().stream()
-            .filter(c -> c != null && c.getId() == t.getCategorieId())
-            .findFirst()
-            .ifPresent(c -> categorieCombo.getSelectionModel().select(c));
+                .filter(c -> c != null && c.getId() == t.getCategorieId())
+                .findFirst()
+                .ifPresent(c -> categorieCombo.getSelectionModel().select(c));
     }
 
     // ─────────────────────────────────────────
@@ -101,22 +114,26 @@ public class TransactionModalController implements Initializable {
     // ─────────────────────────────────────────
     private void chargerCategories() {
         Utilisateur user = SessionManager.getUtilisateur();
-        if (user == null) return;
+        if (user == null)
+            return;
 
         List<Categorie> cats = categorieDAO.findByUtilisateur(user.getId());
         categorieCombo.setItems(FXCollections.observableArrayList(cats));
 
         categorieCombo.setCellFactory(lv -> new ListCell<>() {
-            @Override protected void updateItem(Categorie item, boolean empty) {
+            @Override
+            protected void updateItem(Categorie item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? "" : item.getNom());
             }
         });
         categorieCombo.setButtonCell(new ListCell<>() {
-            @Override protected void updateItem(Categorie item, boolean empty) {
+            @Override
+            protected void updateItem(Categorie item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null
-                    ? "Choisir une catégorie" : item.getNom());
+                        ? "Choisir une catégorie"
+                        : item.getNom());
             }
         });
     }
@@ -128,6 +145,7 @@ public class TransactionModalController implements Initializable {
     private void handleSave() {
         hideError();
 
+        // ── Validation montant ──
         String montantStr = montantField.getText().trim();
         if (montantStr.isEmpty()) {
             showError("Le montant est obligatoire.");
@@ -137,12 +155,14 @@ public class TransactionModalController implements Initializable {
         double montant;
         try {
             montant = Double.parseDouble(montantStr.replace(",", "."));
-            if (montant <= 0) throw new NumberFormatException();
+            if (montant <= 0)
+                throw new NumberFormatException();
         } catch (NumberFormatException e) {
             showError("Montant invalide. Entrez un nombre positif.");
             return;
         }
 
+        // ── Validation catégorie et date ──
         if (categorieCombo.getValue() == null) {
             showError("Veuillez choisir une catégorie.");
             return;
@@ -153,10 +173,29 @@ public class TransactionModalController implements Initializable {
         }
 
         Utilisateur user = SessionManager.getUtilisateur();
-        if (user == null) return;
-        
+        if (user == null)
+            return;
+
+        // ── VÉRIFICATION : interdire toute transaction dans un mois futur ────
+        // Règle : la date de la transaction ne peut pas être dans un mois
+        // strictement postérieur au mois courant (le mois courant est autorisé).
+        // Cette règle s'applique aux ENTRÉES comme aux SORTIES.
+        LocalDate dateTx = datePicker.getValue();
+        LocalDate aujourdhui = LocalDate.now();
+
+        boolean estDansMoisFutur = dateTx.getYear() > aujourdhui.getYear()
+                || (dateTx.getYear() == aujourdhui.getYear()
+                        && dateTx.getMonthValue() > aujourdhui.getMonthValue());
+
+        if (estDansMoisFutur) {
+            showError("Impossible d'enregistrer une transaction sur un mois futur.");
+            return;
+        }
+        // ─────────────────────────────────────────────────────────────────────
+
+        // ── Vérification solde insuffisant (SORTIE uniquement) ──
         if (typeSelectionne == TypeTransaction.SORTIE) {
-            double soldeActuel    = transactionDAO.getSoldeTotal(user.getId());
+            double soldeActuel = transactionDAO.getSoldeTotal(user.getId());
             double soldeDisponible = soldeActuel;
 
             if (transactionAModifier != null
@@ -165,11 +204,9 @@ public class TransactionModalController implements Initializable {
             }
 
             if (montant > soldeDisponible) {
-                // Message inline dans le modal
                 showError(String.format(
-                    "Solde insuffisant ! Disponible : %,.0f FCFA — Demandé : %,.0f FCFA",
-                    soldeDisponible, montant));
-
+                        "Solde insuffisant ! Disponible : %,.0f FCFA — Demandé : %,.0f FCFA",
+                        soldeDisponible, montant));
                 AlerteHelper.soldeInsuffisant(soldeDisponible, montant);
                 return;
             }
@@ -180,18 +217,17 @@ public class TransactionModalController implements Initializable {
         if (transactionAModifier == null) {
             // ── AJOUT ──
             Transaction t = new Transaction(
-                montant, typeSelectionne,
-                datePicker.getValue(),
-                descriptionField.getText().trim(),
-                user.getId(),
-                categorieCombo.getValue().getId()
-            );
+                    montant, typeSelectionne,
+                    datePicker.getValue(),
+                    descriptionField.getText().trim(),
+                    user.getId(),
+                    categorieCombo.getValue().getId());
 
             boolean ok = transactionDAO.ajouter(t);
             if (ok) {
                 journalDAO.log(user.getId(),
-                    JournalDAO.ACTION_AJOUT_TRANSACTION,
-                    typeSelectionne.name() + " : " + montant + " FCFA");
+                        JournalDAO.ACTION_AJOUT_TRANSACTION,
+                        typeSelectionne.name() + " : " + montant + " FCFA");
 
                 AlerteHelper.verifierEtNotifier(user);
 
@@ -216,7 +252,6 @@ public class TransactionModalController implements Initializable {
 
             boolean ok = transactionDAO.modifier(transactionAModifier);
             if (ok) {
-
                 AlerteHelper.verifierEtNotifier(user);
 
                 fermerModal();
@@ -236,7 +271,9 @@ public class TransactionModalController implements Initializable {
     // ANNULER
     // ─────────────────────────────────────────
     @FXML
-    private void handleCancel() { fermerModal(); }
+    private void handleCancel() {
+        fermerModal();
+    }
 
     private void fermerModal() {
         ((Stage) saveBtn.getScene().getWindow()).close();
