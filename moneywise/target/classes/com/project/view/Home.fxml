@@ -2,6 +2,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <HBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.project.controller.HomeController"
@@ -62,8 +63,7 @@
                       styleClass="alerte-widget"
                       spacing="14" alignment="CENTER_LEFT"
                       visible="false" managed="false">
-                    <Label text=""
-                           style="-fx-font-size:20px; -fx-text-fill:#D97706;"/>
+                    <FontIcon iconLiteral="fas-exclamation-triangle" iconSize="20" style="-fx-icon-color: #D97706;"/>
                     <VBox spacing="2" HBox.hgrow="ALWAYS">
                         <Label text="Seuil budgétaire atteint"
                                styleClass="alerte-widget-title"/>
@@ -105,7 +105,7 @@
                                        styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
-                                <Label text="" styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-arrow-up" styleClass="kpi-icon" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -127,7 +127,7 @@
                                        styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
-                                <Label text="" styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -149,7 +149,7 @@
                                        styleClass="kpi-evolution-white"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
-                                <Label text=" " styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-wallet" styleClass="kpi-icon-white" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -229,10 +229,7 @@
                                   alignment="CENTER_LEFT" spacing="12">
                                 <StackPane styleClass="summary-icon-box"
                                            style="-fx-background-color:#E8F8F1;">
-                                    <Label text="↑"
-                                           style="-fx-text-fill:#27AE60;
-                                                  -fx-font-weight:bold;
-                                                  -fx-font-size:14px;"/>
+                                    <FontIcon iconLiteral="fas-arrow-up" iconSize="14" style="-fx-icon-color: #27AE60;"/>
                                 </StackPane>
                                 <VBox spacing="1" HBox.hgrow="ALWAYS">
                                     <Label text="Revenus" styleClass="summary-label"/>
@@ -245,10 +242,7 @@
                                   alignment="CENTER_LEFT" spacing="12">
                                 <StackPane styleClass="summary-icon-box"
                                            style="-fx-background-color:#FDECEA;">
-                                    <Label text="↓"
-                                           style="-fx-text-fill:#E74C3C;
-                                                  -fx-font-weight:bold;
-                                                  -fx-font-size:14px;"/>
+                                    <FontIcon iconLiteral="fas-arrow-down" iconSize="14" style="-fx-icon-color: #E74C3C;"/>
                                 </StackPane>
                                 <VBox spacing="1" HBox.hgrow="ALWAYS">
                                     <Label text="Dépenses" styleClass="summary-label"/>
@@ -261,10 +255,7 @@
                                   alignment="CENTER_LEFT" spacing="12">
                                 <StackPane styleClass="summary-icon-box"
                                            style="-fx-background-color:#EAE8FF;">
-                                    <Label text=""
-                                           style="-fx-text-fill:#6C63FF;
-                                                  -fx-font-weight:bold;
-                                                  -fx-font-size:13px;"/>
+                                    <FontIcon iconLiteral="fas-piggy-bank" iconSize="14" style="-fx-icon-color: #6C63FF;"/>
                                 </StackPane>
                                 <VBox spacing="1" HBox.hgrow="ALWAYS">
                                     <Label text="Épargne nette"
@@ -277,6 +268,7 @@
 
                         <!-- CONSEIL -->
                         <VBox styleClass="conseil-card" spacing="8">
+                            <FontIcon iconLiteral="fas-lightbulb" iconSize="16" style="-fx-icon-color: rgba(255,255,255,0.7);"/>
                             <Label text="Conseil du mois"
                                    styleClass="conseil-badge"/>
                             <Label text="Suivez vos dépenses chaque semaine pour mieux maîtriser votre budget et identifier les postes à optimiser."

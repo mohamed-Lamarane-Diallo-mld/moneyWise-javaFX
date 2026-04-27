@@ -358,3 +358,87 @@
 .page-number-btn:hover {
     -fx-background-color: #F1F5F9;
 }
+
+/* ============================================================
+   ICÔNES KPI - STYLES SPÉCIFIQUES
+   ============================================================ */
+
+/* Style des boîtes d'icônes (pour qu'elles soient rondes) */
+.kpi-icon-box {
+    -fx-min-width: 44px;
+    -fx-min-height: 44px;
+    -fx-max-width: 44px;
+    -fx-max-height: 44px;
+    -fx-background-radius: 22px;  /* La moitié de la largeur = rond parfait */
+    -fx-alignment: center;
+}
+
+/* Couleurs de fond pour les boîtes */
+.kpi-icon-box-green {
+    -fx-background-color: #ECFDF5;
+}
+
+.kpi-icon-box-red {
+    -fx-background-color: #FEF2F2;
+}
+
+.kpi-icon-box-purple {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Style des icônes dans les KPI */
+.kpi-icon {
+    -fx-icon-color: #059669;  /* Vert foncé */
+    -fx-icon-size: 20px;
+}
+
+/* Icône pour la carte solde (fond violet) */
+.kpi-icon-white {
+    -fx-icon-color: white;
+    -fx-icon-size: 20px;
+}
+
+/* Icône pour la carte transactions */
+.kpi-icon-transaction {
+    -fx-icon-color: #6C63FF;
+    -fx-icon-size: 20px;
+}
+
+/* Style spécifique pour l'icône d'épargne sur fond violet */
+.kpi-icon-box-purple .kpi-icon-white {
+    -fx-icon-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Au survol des KPI (optionnel) */
+.kpi-card:hover .kpi-icon-box {
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+/* ============================================================
+   STYLES POUR LES ICÔNES DANS LES FILTRES ET BUDGETS
+   ============================================================ */
+
+/* Style pour l'icône chart-pie (total budgété) */
+.budget-icon {
+    -fx-icon-color: #718096;
+    -fx-icon-size: 12px;
+}
+
+/* Style pour l'icône de filtre */
+.filter-icon {
+    -fx-icon-color: #6C63FF;
+    -fx-icon-size: 14px;
+}
+
+/* Style pour l'icône de recherche */
+.search-icon {
+    -fx-icon-color: #94A3B8;
+    -fx-icon-size: 12px;
+}
+
+/* Conteneur pour l'icône de recherche (la rendre alignée) */
+.search-icon-container {
+    -fx-padding: 0 0 0 8;
+}

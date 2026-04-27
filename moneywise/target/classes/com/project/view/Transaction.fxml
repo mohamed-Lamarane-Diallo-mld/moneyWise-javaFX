@@ -2,6 +2,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <HBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.project.controller.TransactionController"
@@ -14,66 +15,35 @@
 
     <VBox HBox.hgrow="ALWAYS">
 
-        <!-- ══════════════════════════════════════ -->
-        <!-- HEADER — identique à Home              -->
-        <!-- ══════════════════════════════════════ -->
+        <!-- HEADER -->
         <HBox styleClass="header" alignment="CENTER_LEFT" spacing="0">
             <VBox spacing="4" HBox.hgrow="ALWAYS">
-                <Label fx:id="headerUser" text="Transactions"
-                       styleClass="header-title"/>
-                <Label fx:id="headerDate" text=""
-                       styleClass="header-date"/>
+                <Label fx:id="headerUser" text="Transactions" styleClass="header-title"/>
+                <Label fx:id="headerDate" text="" styleClass="header-date"/>
             </VBox>
-
             <HBox spacing="14" alignment="CENTER">
-                <VBox alignment="CENTER" spacing="2"
-                      style="-fx-background-color:#F0FFF4;
-                             -fx-background-radius:10;
-                             -fx-padding:8 18;">
-                    <Label text="SOLDE"
-                           style="-fx-font-size:9px; -fx-font-weight:bold;
-                                  -fx-text-fill:#38A169;"/>
-                    <Label fx:id="soldeLabel" text="— FCFA"
-                           style="-fx-font-size:15px; -fx-font-weight:bold;
-                                  -fx-text-fill:#276749;"/>
+                <VBox alignment="CENTER" spacing="2" style="-fx-background-color:#F0FFF4; -fx-background-radius:10; -fx-padding:8 18;">
+                    <Label text="SOLDE" style="-fx-font-size:9px; -fx-font-weight:bold; -fx-text-fill:#38A169;"/>
+                    <Label fx:id="soldeLabel" text="— FCFA" style="-fx-font-size:15px; -fx-font-weight:bold; -fx-text-fill:#276749;"/>
                 </VBox>
-
-                <Button text="＋  Transaction"
-                        onAction="#openModalAjouter"
-                        style="-fx-background-color:#6C63FF;
-                               -fx-text-fill:white;
-                               -fx-font-size:13px;
-                               -fx-font-weight:bold;
-                               -fx-padding:10 20;
-                               -fx-background-radius:9;
-                               -fx-cursor:hand;"/>
+                <Button text="＋  Transaction" onAction="#openModalAjouter" style="-fx-background-color:#6C63FF; -fx-text-fill:white; -fx-font-size:13px; -fx-font-weight:bold; -fx-padding:10 20; -fx-background-radius:9; -fx-cursor:hand;"/>
             </HBox>
         </HBox>
 
-        <!-- Ligne décorative — identique à Home -->
-        <Region prefHeight="2"
-                style="-fx-background-color:linear-gradient(to right,
-                       #6C63FF 0%, #2ECC71 50%, transparent 100%);
-                       -fx-opacity:0.5;"/>
+        <!-- Ligne décorative -->
+        <Region prefHeight="2" style="-fx-background-color:linear-gradient(to right, #6C63FF 0%, #2ECC71 50%, transparent 100%); -fx-opacity:0.5;"/>
 
-        <!-- ══════════════════════════════════════ -->
-        <!-- CONTENU                                -->
-        <!-- ══════════════════════════════════════ -->
-        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true"
-                    styleClass="scroll-pane">
+        <!-- CONTENU -->
+        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" styleClass="scroll-pane">
             <VBox styleClass="home-content" spacing="22">
 
                 <!-- Titre -->
                 <VBox spacing="2">
-                    <Label text="Gestion des transactions"
-                           styleClass="section-title"/>
-                    <Label text="Suivi complet de vos entrées et sorties financières"
-                           styleClass="section-subtitle"/>
+                    <Label text="Gestion des transactions" styleClass="section-title"/>
+                    <Label text="Suivi complet de vos entrées et sorties financières" styleClass="section-subtitle"/>
                 </VBox>
 
-                <!-- ──────────────────────────────── -->
-                <!-- KPI — même style que Home        -->
-                <!-- ──────────────────────────────── -->
+                <!-- KPI CARDS -->
                 <HBox spacing="16">
 
                     <!-- ENTRÉES -->
@@ -82,16 +52,13 @@
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <Label text="↑" styleClass="kpi-badge-green"/>
-                                    <Label text="ENTRÉES DU MOIS"
-                                           styleClass="kpi-label"/>
+                                    <Label text="ENTRÉES DU MOIS" styleClass="kpi-label"/>
                                 </HBox>
-                                <Label fx:id="resumeEntrees" text="0 FCFA"
-                                       styleClass="kpi-value, kpi-value-green"/>
+                                <Label fx:id="resumeEntrees" text="0 FCFA" styleClass="kpi-value, kpi-value-green"/>
                                 <Label text="ce mois" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
-                                <Label text=" " styleClass="kpi-icon"
-                                       style="-fx-text-fill:#10B981;"/>
+                                <FontIcon iconLiteral="fas-arrow-up" styleClass="kpi-icon" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -104,39 +71,32 @@
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <Label text="↓" styleClass="kpi-badge-red"/>
-                                    <Label text="SORTIES DU MOIS"
-                                           styleClass="kpi-label"/>
+                                    <Label text="SORTIES DU MOIS" styleClass="kpi-label"/>
                                 </HBox>
-                                <Label fx:id="resumeSorties" text="0 FCFA"
-                                       styleClass="kpi-value, kpi-value-red"/>
+                                <Label fx:id="resumeSorties" text="0 FCFA" styleClass="kpi-value, kpi-value-red"/>
                                 <Label text="ce mois" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
-                                <Label text=" " styleClass="kpi-icon"
-                                       style="-fx-text-fill:#EF4444;"/>
+                                <FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-red" maxWidth="56"/>
                     </VBox>
 
-                    <!-- ÉPARGNE -->
+                    <!-- ÉPARGNE DU MOIS -->
                     <VBox styleClass="kpi-card-purple" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <Label text="◈" styleClass="kpi-badge-white"/>
-                                    <Label text="ÉPARGNE DU MOIS"
-                                           styleClass="kpi-label-white"/>
+                                    <Label text="ÉPARGNE DU MOIS" styleClass="kpi-label-white"/>
                                 </HBox>
-                                <Label fx:id="resumeEpargne" text="0 FCFA"
-                                       styleClass="kpi-value, kpi-value-white"/>
-                                <Label text="entrées et sorties"
-                                       styleClass="kpi-evolution-white"/>
+                                <Label fx:id="resumeEpargne" text="0 FCFA" styleClass="kpi-value, kpi-value-white"/>
+                                <Label text="entrées et sorties" styleClass="kpi-evolution-white"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
-                                <Label text=" " styleClass="kpi-icon"
-                                       style="-fx-text-fill:white;"/>
+                                <FontIcon iconLiteral="fas-piggy-bank" styleClass="kpi-icon-white" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
@@ -149,315 +109,139 @@
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
                                 <HBox spacing="8" alignment="CENTER_LEFT">
                                     <Label text="#" styleClass="kpi-badge-green"/>
-                                    <Label text="TRANSACTIONS"
-                                           styleClass="kpi-label"/>
+                                    <Label text="TRANSACTIONS" styleClass="kpi-label"/>
                                 </HBox>
-                                <Label fx:id="resumeNbTrans" text="0"
-                                       styleClass="kpi-value"
-                                       style="-fx-text-fill:#6C63FF;"/>
+                                <Label fx:id="resumeNbTrans" text="0" style="-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:#6C63FF;"/>
                                 <Label text="au total" styleClass="kpi-evolution"/>
                             </VBox>
-                            <StackPane styleClass="kpi-icon-box"
-                                       style="-fx-background-color:#ECFDF5;">
-                                <Label text=" " styleClass="kpi-icon"
-                                       style="-fx-text-fill:#6C63FF;"/>
+                            <StackPane styleClass="kpi-icon-box" style="-fx-background-color:#ECFDF5; -fx-background-radius:22px;">
+                                <FontIcon iconLiteral="fas-exchange-alt" styleClass="kpi-icon-transaction" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
-                        <Region style="-fx-background-color:#6C63FF;
-                                       -fx-background-radius:2;
-                                       -fx-pref-height:2px;"
-                                maxWidth="56"/>
+                        <Region style="-fx-background-color:#6C63FF; -fx-background-radius:2; -fx-pref-height:2px;" maxWidth="56"/>
                     </VBox>
 
                 </HBox>
 
-                <!-- ──────────────────────────────── -->
-                <!-- BUDGETS + CATÉGORIES             -->
-                <!-- ──────────────────────────────── -->
+                <!-- BUDGETS + CATÉGORIES -->
                 <HBox spacing="20" alignment="TOP_LEFT">
 
                     <!-- BUDGETS -->
-                    <VBox styleClass="table-card" spacing="0"
-                          HBox.hgrow="ALWAYS"
-                          prefHeight="340" maxHeight="340" minHeight="340">
-
+                    <VBox styleClass="table-card" spacing="0" HBox.hgrow="ALWAYS" prefHeight="340" maxHeight="340" minHeight="340">
                         <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                             <VBox HBox.hgrow="ALWAYS" spacing="2">
-                                <Label text="Budgets"
+                                <Label text="Budgets du mois"
                                        styleClass="section-title"/>
                                 <Label text="Suivi de vos plafonds"
                                        styleClass="section-subtitle"/>
                             </VBox>
-                            <Button text="＋ Ajouter"
-                                    styleClass="btn-voir-tout"
-                                    onAction="#openModalAjouterBudget"/>
+                            <Button text="＋ Ajouter" styleClass="btn-voir-tout" onAction="#openModalAjouterBudget"/>
                         </HBox>
-
                         <Separator style="-fx-opacity:0.5;"/>
-
-                        <HBox alignment="CENTER_LEFT" spacing="8"
-                              style="-fx-padding:6 18 4 18;
-                                     -fx-background-color:#FAFBFF;">
-                            <Label text="Total budgété :"
-                                   style="-fx-font-size:11px;
-                                          -fx-text-fill:#718096;
-                                          -fx-font-weight:bold;"/>
-                            <Label fx:id="totalBudgetLabel" text="—"
-                                   style="-fx-font-size:12px;
-                                          -fx-font-weight:bold;
-                                          -fx-text-fill:#6C63FF;"/>
+                        <HBox alignment="CENTER_LEFT" spacing="8" style="-fx-padding:6 18 4 18; -fx-background-color:#FAFBFF;">
+                            <FontIcon iconLiteral="fas-chart-pie" styleClass="budget-icon" iconSize="12"/>
+                            <Label text="Total budgété :" style="-fx-font-size:11px; -fx-text-fill:#718096; -fx-font-weight:bold;"/>
+                            <Label fx:id="totalBudgetLabel" text="—" style="-fx-font-size:12px; -fx-font-weight:bold; -fx-text-fill:#6C63FF;"/>
                             <Region HBox.hgrow="ALWAYS"/>
-                            <Button fx:id="toggleBudgetBtn" text="👁"
-                                    onAction="#toggleBudgetVisible"
-                                    style="-fx-background-color:transparent;
-                                           -fx-font-size:13px; -fx-cursor:hand;
-                                           -fx-padding:2 6;
-                                           -fx-border-color:transparent;"/>
+                            <Button fx:id="toggleBudgetBtn" text="👁" onAction="#toggleBudgetVisible" style="-fx-background-color:transparent; -fx-font-size:13px; -fx-cursor:hand; -fx-padding:2 6; -fx-border-color:transparent;"/>
                         </HBox>
-
                         <Separator style="-fx-opacity:0.3;"/>
-
-                        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true"
-                                    style="-fx-background-color:transparent;
-                                           -fx-border-color:transparent;
-                                           -fx-padding:0;">
+                        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" style="-fx-background-color:transparent; -fx-border-color:transparent; -fx-padding:0;">
                             <VBox>
-                                <VBox fx:id="budgetListContainer" spacing="12"
-                                      style="-fx-padding:10 14;"/>
-                                <Label fx:id="noBudgetLabel"
-                                       text="Aucun budget ce mois. Cliquez sur ＋ pour en créer un."
-                                       style="-fx-text-fill:#A0AEC0;
-                                              -fx-font-size:12px;
-                                              -fx-padding:20;
-                                              -fx-text-alignment:center;"
-                                       textAlignment="CENTER"
-                                       visible="false"/>
+                                <VBox fx:id="budgetListContainer" spacing="12" style="-fx-padding:10 14;"/>
+                                <Label fx:id="noBudgetLabel" text="Aucun budget ce mois. Cliquez sur ＋ pour en créer un." style="-fx-text-fill:#A0AEC0; -fx-font-size:12px; -fx-padding:20; -fx-text-alignment:center;" textAlignment="CENTER" visible="false"/>
                             </VBox>
                         </ScrollPane>
-
-                        <HBox fx:id="budgetPaginationBox"
-                              alignment="CENTER" spacing="10"
-                              style="-fx-padding:4 16 8 16;
-                                     -fx-background-color:white;
-                                     -fx-border-color:#F0F0F0 transparent transparent transparent;"
-                              visible="false">
-                            <Button fx:id="budgetPrevBtn" text="‹ Précédent"
-                                    onAction="#budgetPagePrev"
-                                    styleClass="btn-voir-tout"/>
-                            <Label fx:id="budgetPageLabel" text="1 / 1"
-                                   style="-fx-font-size:11px; -fx-text-fill:#718096;
-                                          -fx-min-width:40px; -fx-alignment:center;"/>
-                            <Button fx:id="budgetNextBtn" text="Suivant ›"
-                                    onAction="#budgetPageNext"
-                                    styleClass="btn-voir-tout"/>
+                        <HBox fx:id="budgetPaginationBox" alignment="CENTER" spacing="10" style="-fx-padding:4 16 8 16; -fx-background-color:white; -fx-border-color:#F0F0F0 transparent transparent transparent;" visible="false">
+                            <Button fx:id="budgetPrevBtn" text="‹ Précédent" onAction="#budgetPagePrev" styleClass="btn-voir-tout"/>
+                            <Label fx:id="budgetPageLabel" text="1 / 1" style="-fx-font-size:11px; -fx-text-fill:#718096; -fx-min-width:40px; -fx-alignment:center;"/>
+                            <Button fx:id="budgetNextBtn" text="Suivant ›" onAction="#budgetPageNext" styleClass="btn-voir-tout"/>
                         </HBox>
-
                     </VBox>
 
                     <!-- CATÉGORIES -->
-                    <VBox styleClass="table-card" spacing="0"
-                          prefWidth="280" minWidth="280" maxWidth="280"
-                          prefHeight="340" maxHeight="340" minHeight="340">
-
+                    <VBox styleClass="table-card" spacing="0" prefWidth="280" minWidth="280" maxWidth="280" prefHeight="340" maxHeight="340" minHeight="340">
                         <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                             <VBox HBox.hgrow="ALWAYS" spacing="2">
-                                <Label text="Mes catégories"
-                                       styleClass="section-title"/>
-                                <Label text="Catégories personnalisées"
-                                       styleClass="section-subtitle"/>
+                                <Label text="Mes catégories" styleClass="section-title"/>
+                                <Label text="Catégories personnalisées" styleClass="section-subtitle"/>
                             </VBox>
-                            <Button text="＋ Ajouter"
-                                    styleClass="btn-voir-tout"
-                                    onAction="#openModalAjouterCategorie"/>
+                            <Button text="＋ Ajouter" styleClass="btn-voir-tout" onAction="#openModalAjouterCategorie"/>
                         </HBox>
-
                         <Separator style="-fx-opacity:0.5;"/>
-
-                        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true"
-                                    style="-fx-background-color:transparent;
-                                           -fx-border-color:transparent;
-                                           -fx-padding:0;">
+                        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" style="-fx-background-color:transparent; -fx-border-color:transparent; -fx-padding:0;">
                             <VBox>
-                                <VBox fx:id="categorieListContainer" spacing="6"
-                                      style="-fx-padding:10 14;"/>
-                                <Label fx:id="noCategorieLabel"
-                                       text="Aucune catégorie personnalisée."
-                                       style="-fx-text-fill:#A0AEC0;
-                                              -fx-font-size:12px; -fx-padding:20;"
-                                       visible="false"/>
+                                <VBox fx:id="categorieListContainer" spacing="6" style="-fx-padding:10 14;"/>
+                                <Label fx:id="noCategorieLabel" text="Aucune catégorie personnalisée." style="-fx-text-fill:#A0AEC0; -fx-font-size:12px; -fx-padding:20;" visible="false"/>
                             </VBox>
                         </ScrollPane>
-
-                        <HBox fx:id="categoriePaginationBox"
-                              alignment="CENTER" spacing="10"
-                              style="-fx-padding:4 16 8 16;
-                                     -fx-background-color:white;
-                                     -fx-border-color:#F0F0F0 transparent transparent transparent;"
-                              visible="false">
-                            <Button fx:id="categoriePrevBtn" text="‹ Précédent"
-                                    onAction="#categoriePagePrev"
-                                    styleClass="btn-voir-tout"/>
-                            <Label fx:id="categoriePageLabel" text="1 / 1"
-                                   style="-fx-font-size:11px; -fx-text-fill:#718096;
-                                          -fx-min-width:40px; -fx-alignment:center;"/>
-                            <Button fx:id="categorieNextBtn" text="Suivant ›"
-                                    onAction="#categoriePageNext"
-                                    styleClass="btn-voir-tout"/>
+                        <HBox fx:id="categoriePaginationBox" alignment="CENTER" spacing="10" style="-fx-padding:4 16 8 16; -fx-background-color:white; -fx-border-color:#F0F0F0 transparent transparent transparent;" visible="false">
+                            <Button fx:id="categoriePrevBtn" text="‹ Précédent" onAction="#categoriePagePrev" styleClass="btn-voir-tout"/>
+                            <Label fx:id="categoriePageLabel" text="1 / 1" style="-fx-font-size:11px; -fx-text-fill:#718096; -fx-min-width:40px; -fx-alignment:center;"/>
+                            <Button fx:id="categorieNextBtn" text="Suivant ›" onAction="#categoriePageNext" styleClass="btn-voir-tout"/>
                         </HBox>
-
                     </VBox>
 
                 </HBox>
 
-                <!-- ──────────────────────────────── -->
-                <!-- FILTRES                          -->
-                <!-- ──────────────────────────────── -->
+                <!-- FILTRES -->
                 <VBox styleClass="table-card" spacing="0">
-
                     <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
-                        <Label text="Filtrer les transactions"
-                               styleClass="section-title"
-                               HBox.hgrow="ALWAYS"/>
-                        <Button text="✕ Réinitialiser"
-                                styleClass="btn-voir-tout"
-                                style="-fx-font-size:11px; -fx-padding:5 12;"
-                                onAction="#onResetFilters"/>
+                        <FontIcon iconLiteral="fas-filter" styleClass="filter-icon" iconSize="14"/>
+                        <Label text="  Filtrer les transactions" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+                        <Button text="✕ Réinitialiser" styleClass="btn-voir-tout" style="-fx-font-size:11px; -fx-padding:5 12;" onAction="#onResetFilters"/>
                     </HBox>
-
                     <Separator style="-fx-opacity:0.4;"/>
-
-                    <HBox style="-fx-padding:12 18;" spacing="10"
-                          alignment="CENTER_LEFT">
-
-                        <HBox alignment="CENTER_LEFT" spacing="0"
-                              style="-fx-background-color:#F7FAFC;
-                                     -fx-border-color:#E2E8F0;
-                                     -fx-border-radius:8;
-                                     -fx-background-radius:8;">
-                            <Label text=" 🔍 "
-                                   style="-fx-font-size:12px; -fx-text-fill:#94A3B8;"/>
-                            <TextField fx:id="searchField"
-                                       promptText="Rechercher..."
-                                       style="-fx-background-color:transparent;
-                                              -fx-border-color:transparent;
-                                              -fx-padding:7 10 7 0;
-                                              -fx-font-size:12px;"
-                                       prefWidth="180"
-                                       onKeyReleased="#onSearchChanged"/>
+                    <HBox style="-fx-padding:12 18;" spacing="10" alignment="CENTER_LEFT">
+                        <HBox alignment="CENTER_LEFT" spacing="0" style="-fx-background-color:#F7FAFC; -fx-border-color:#E2E8F0; -fx-border-radius:8; -fx-background-radius:8;">
+                            <FontIcon iconLiteral="fas-search" styleClass="search-icon" iconSize="12"/>
+                            <TextField fx:id="searchField" promptText="Rechercher..." style="-fx-background-color:transparent; -fx-border-color:transparent; -fx-padding:7 10 7 5; -fx-font-size:12px;" prefWidth="180" onKeyReleased="#onSearchChanged"/>
                         </HBox>
-
-                        <ComboBox fx:id="filterType"
-                                  promptText="Type"
-                                  styleClass="filter-combo"
-                                  prefWidth="110"
-                                  onAction="#onFilterChanged"/>
-
-                        <ComboBox fx:id="filterCategorie"
-                                  promptText="Catégorie"
-                                  styleClass="filter-combo"
-                                  prefWidth="140"
-                                  onAction="#onFilterChanged"/>
-
-                        <DatePicker fx:id="filterDateDebut"
-                                    promptText="Date début"
-                                    styleClass="filter-date"
-                                    onAction="#onFilterChanged"/>
-
-                        <DatePicker fx:id="filterDateFin"
-                                    promptText="Date fin"
-                                    styleClass="filter-date"
-                                    onAction="#onFilterChanged"/>
-
-                        <ComboBox fx:id="filterUtilisateur"
-                                  promptText="Tous les utilisateurs"
-                                  styleClass="filter-combo"
-                                  prefWidth="170"
-                                  visible="false"
-                                  onAction="#onFilterChanged"/>
+                        <ComboBox fx:id="filterType" promptText="Type" styleClass="filter-combo" prefWidth="110" onAction="#onFilterChanged"/>
+                        <ComboBox fx:id="filterCategorie" promptText="Catégorie" styleClass="filter-combo" prefWidth="140" onAction="#onFilterChanged"/>
+                        <DatePicker fx:id="filterDateDebut" promptText="Date début" styleClass="filter-date" onAction="#onFilterChanged"/>
+                        <DatePicker fx:id="filterDateFin" promptText="Date fin" styleClass="filter-date" onAction="#onFilterChanged"/>
+                        <ComboBox fx:id="filterUtilisateur" promptText="Tous les utilisateurs" styleClass="filter-combo" prefWidth="170" visible="false" onAction="#onFilterChanged"/>
                     </HBox>
                 </VBox>
 
-                <!-- ──────────────────────────────── -->
-                <!-- TABLE TRANSACTIONS               -->
-                <!-- ──────────────────────────────── -->
+                <!-- TABLE TRANSACTIONS -->
                 <VBox styleClass="table-card">
-
                     <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                         <VBox HBox.hgrow="ALWAYS" spacing="2">
-                            <Label text="Liste des transactions"
-                                   styleClass="section-title"/>
-                            <Label fx:id="countLabel" text="0 transaction(s)"
-                                   styleClass="section-subtitle"/>
+                            <Label text="Liste des transactions" styleClass="section-title"/>
+                            <Label fx:id="countLabel" text="0 transaction(s)" styleClass="section-subtitle"/>
                         </VBox>
-                        <Button text="＋  Nouvelle transaction"
-                                onAction="#openModalAjouter"
-                                style="-fx-background-color:#6C63FF;
-                                       -fx-text-fill:white;
-                                       -fx-font-size:12px;
-                                       -fx-font-weight:bold;
-                                       -fx-padding:8 16;
-                                       -fx-background-radius:8;
-                                       -fx-cursor:hand;"/>
+                        <Button text="＋  Nouvelle transaction" onAction="#openModalAjouter" style="-fx-background-color:#6C63FF; -fx-text-fill:white; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:8 16; -fx-background-radius:8; -fx-cursor:hand;"/>
                     </HBox>
-
                     <Separator style="-fx-opacity:0.5;"/>
-
-                    <TableView fx:id="transactionsTable"
-                               styleClass="table-view"
-                               prefHeight="380"
-                               VBox.vgrow="ALWAYS">
+                    <TableView fx:id="transactionsTable" styleClass="table-view" prefHeight="380" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="colDate"        text="DATE"        prefWidth="100"/>
+                            <TableColumn fx:id="colDate" text="DATE" prefWidth="100"/>
                             <TableColumn fx:id="colDescription" text="DESCRIPTION" prefWidth="200"/>
-                            <TableColumn fx:id="colCategorie"   text="CATÉGORIE"   prefWidth="120"/>
+                            <TableColumn fx:id="colCategorie" text="CATÉGORIE" prefWidth="120"/>
                             <TableColumn fx:id="colUtilisateur" text="UTILISATEUR" prefWidth="140" visible="false"/>
-                            <TableColumn fx:id="colType"        text="TYPE"        prefWidth="80"/>
-                            <TableColumn fx:id="colMontant"     text="MONTANT"     prefWidth="120"/>
-                            <TableColumn fx:id="colActions"     text="ACTIONS"     prefWidth="150"/>
+                            <TableColumn fx:id="colType" text="TYPE" prefWidth="80"/>
+                            <TableColumn fx:id="colMontant" text="MONTANT" prefWidth="120"/>
+                            <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="150"/>
                         </columns>
                     </TableView>
-
                     <!-- PAGINATION -->
-                    <HBox alignment="CENTER" spacing="8"
-                          style="-fx-padding:10 18;
-                                 -fx-background-color:#FAFBFF;
-                                 -fx-border-color:#F0F0F0 transparent transparent transparent;">
-
-                        <Label fx:id="paginationInfo" text=""
-                               style="-fx-font-size:11px; -fx-text-fill:#718096;"
-                               HBox.hgrow="ALWAYS"/>
-
+                    <HBox alignment="CENTER" spacing="8" style="-fx-padding:10 18; -fx-background-color:#FAFBFF; -fx-border-color:#F0F0F0 transparent transparent transparent;">
+                        <Label fx:id="paginationInfo" text="" style="-fx-font-size:11px; -fx-text-fill:#718096;" HBox.hgrow="ALWAYS"/>
                         <HBox spacing="5" alignment="CENTER">
-                            <Button fx:id="btnPremierePage" text="«"
-                                    onAction="#goToPremierePage"
-                                    styleClass="btn-voir-tout"
-                                    style="-fx-min-width:30px; -fx-font-weight:bold;"/>
-                            <Button fx:id="btnPagePrev" text="‹ Préc."
-                                    onAction="#goToPagePrecedente"
-                                    styleClass="btn-voir-tout"/>
+                            <Button fx:id="btnPremierePage" text="«" onAction="#goToPremierePage" styleClass="btn-voir-tout" style="-fx-min-width:30px; -fx-font-weight:bold;"/>
+                            <Button fx:id="btnPagePrev" text="‹ Préc." onAction="#goToPagePrecedente" styleClass="btn-voir-tout"/>
                             <HBox fx:id="pageNumbersBox" spacing="4" alignment="CENTER"/>
-                            <Button fx:id="btnPageNext" text="Suiv. ›"
-                                    onAction="#goToPageSuivante"
-                                    styleClass="btn-voir-tout"/>
-                            <Button fx:id="btnDernierePage" text="»"
-                                    onAction="#goToDernierePage"
-                                    styleClass="btn-voir-tout"
-                                    style="-fx-min-width:30px; -fx-font-weight:bold;"/>
+                            <Button fx:id="btnPageNext" text="Suiv. ›" onAction="#goToPageSuivante" styleClass="btn-voir-tout"/>
+                            <Button fx:id="btnDernierePage" text="»" onAction="#goToDernierePage" styleClass="btn-voir-tout" style="-fx-min-width:30px; -fx-font-weight:bold;"/>
                         </HBox>
-
-                        <HBox spacing="6" alignment="CENTER_RIGHT"
-                              HBox.hgrow="ALWAYS">
-                            <Label text="Par page :"
-                                   style="-fx-font-size:11px; -fx-text-fill:#718096;"/>
-                            <ComboBox fx:id="pageSizeCombo"
-                                      styleClass="filter-combo"
-                                      prefWidth="62"
-                                      onAction="#onPageSizeChanged"/>
+                        <HBox spacing="6" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                            <Label text="Par page :" style="-fx-font-size:11px; -fx-text-fill:#718096;"/>
+                            <ComboBox fx:id="pageSizeCombo" styleClass="filter-combo" prefWidth="62" onAction="#onPageSizeChanged"/>
                         </HBox>
-
                     </HBox>
-
                 </VBox>
 
             </VBox>
