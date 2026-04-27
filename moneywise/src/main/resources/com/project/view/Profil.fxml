@@ -152,7 +152,7 @@
                                                   -fx-min-height:32px;
                                                   -fx-max-width:32px;
                                                   -fx-max-height:32px;">
-                                    <Label text="🏷"
+                                    <Label text=""
                                            style="-fx-font-size:14px;"/>
                                 </StackPane>
                                 <VBox spacing="1" HBox.hgrow="ALWAYS">

@@ -2,6 +2,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <HBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.project.controller.AdminLogsController"
@@ -14,6 +15,7 @@
 
     <VBox HBox.hgrow="ALWAYS">
 
+        <!-- HEADER -->
         <HBox styleClass="header" alignment="CENTER_LEFT" spacing="0">
             <VBox spacing="4" HBox.hgrow="ALWAYS">
                 <Label text="Journal d'activité" styleClass="header-title"/>
@@ -30,20 +32,24 @@
             </HBox>
         </HBox>
 
+        <!-- Ligne décorative -->
         <Region prefHeight="2"
                 style="-fx-background-color:linear-gradient(to right,#6C63FF 0%,#2ECC71 50%,transparent 100%);-fx-opacity:0.5;"/>
 
         <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" styleClass="scroll-pane">
             <VBox styleClass="home-content" spacing="22">
 
+                <!-- TITRE -->
                 <VBox spacing="2">
                     <Label text="Journal d'activité" styleClass="section-title"/>
                     <Label text="Historique complet des actions effectuées par les utilisateurs"
                            styleClass="section-subtitle"/>
                 </VBox>
 
-                <!-- KPI -->
+                <!-- KPI CARDS -->
                 <HBox spacing="16">
+
+                    <!-- TOTAL ACTIONS -->
                     <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
@@ -55,12 +61,14 @@
                                 <Label text="entrées dans le journal" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
-                                <Label text=" " styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-history" styleClass="kpi-icon" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-green" maxWidth="56"/>
                     </VBox>
+
+                    <!-- CONNEXIONS -->
                     <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
@@ -68,16 +76,18 @@
                                     <Label text="C" styleClass="kpi-badge-purple"/>
                                     <Label text="CONNEXIONS" styleClass="kpi-label"/>
                                 </HBox>
-                                <Label fx:id="totalConnexions" text="0" styleClass="kpi-value"/>
+                                <Label fx:id="totalConnexions" text="0" styleClass="kpi-value" style="-fx-text-fill:#6C63FF;"/>
                                 <Label text="sessions ouvertes" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box" style="-fx-background-color:#EAE8FF;">
-                                <Label text=" " styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-sign-in-alt" styleClass="kpi-icon-purple" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region style="-fx-background-color:#6C63FF;-fx-background-radius:2;-fx-pref-height:3;" maxWidth="56"/>
                     </VBox>
+
+                    <!-- TRANSACTIONS -->
                     <VBox styleClass="kpi-card-purple" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
@@ -89,12 +99,14 @@
                                 <Label text="opérations financières" styleClass="kpi-evolution-white"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
-                                <Label text=" " styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-exchange-alt" styleClass="kpi-icon-white" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-white" maxWidth="56"/>
                     </VBox>
+
+                    <!-- INSCRIPTIONS -->
                     <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
@@ -106,18 +118,20 @@
                                 <Label text="nouveaux comptes créés" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
-                                <Label text=" " styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-user-plus" styleClass="kpi-icon-red" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-red" maxWidth="56"/>
                     </VBox>
+
                 </HBox>
 
                 <!-- FILTRES -->
                 <VBox styleClass="table-card" spacing="0">
                     <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
-                        <Label text="Filtrer le journal" styleClass="section-title" style="-fx-padding:0 12 0 0;" HBox.hgrow="ALWAYS"/>
+                        <FontIcon iconLiteral="fas-filter" styleClass="filter-icon" iconSize="14"/>
+                        <Label text="  Filtrer le journal" styleClass="section-title" style="-fx-padding:0 12 0 0;" HBox.hgrow="ALWAYS"/>
                         <Button text="✕ Réinitialiser" styleClass="btn-voir-tout"
                                 style="-fx-font-size:11px;-fx-padding:5 12;" onAction="#resetFiltres"/>
                     </HBox>
@@ -125,9 +139,9 @@
                     <HBox style="-fx-padding:12 18;" spacing="10" alignment="CENTER_LEFT">
                         <HBox alignment="CENTER_LEFT" spacing="0"
                               style="-fx-background-color:#F7FAFC;-fx-border-color:#E2E8F0;-fx-border-radius:8;-fx-background-radius:8;">
-                            <Label text=" 🔍 " style="-fx-font-size:12px;-fx-text-fill:#94A3B8;"/>
+                            <FontIcon iconLiteral="fas-search" styleClass="search-icon" iconSize="12"/>
                             <TextField fx:id="searchField" promptText="Utilisateur, action, détails..."
-                                       style="-fx-background-color:transparent;-fx-border-color:transparent;-fx-padding:7 10 7 0;-fx-font-size:12px;"
+                                       style="-fx-background-color:transparent;-fx-border-color:transparent;-fx-padding:7 10 7 5;-fx-font-size:12px;"
                                        prefWidth="240" onKeyReleased="#onSearchChanged"/>
                         </HBox>
                         <ComboBox fx:id="filterAction" promptText="Type d'action"
@@ -142,7 +156,7 @@
                     </HBox>
                 </VBox>
 
-                <!-- TABLE -->
+                <!-- TABLE LOGS -->
                 <VBox styleClass="table-card" spacing="0">
                     <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                         <VBox HBox.hgrow="ALWAYS" spacing="2">
@@ -172,7 +186,7 @@
                         </columns>
                         <placeholder>
                             <VBox alignment="CENTER" spacing="8" style="-fx-padding:50;">
-                                <Label text="📋" style="-fx-font-size:36px;"/>
+                                <FontIcon iconLiteral="fas-history" iconSize="36" style="-fx-icon-color: #94A3B8;"/>
                                 <Label text="Aucune entrée dans le journal"
                                        style="-fx-font-size:14px;-fx-font-weight:bold;-fx-text-fill:#64748B;"/>
                                 <Label text="Modifiez les filtres ou la période de recherche."

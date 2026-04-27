@@ -18,9 +18,7 @@
 
     <!-- NAVIGATION -->
     <VBox VBox.vgrow="ALWAYS" spacing="2" style="-fx-padding: 10 0;">
-
         <Label text="MENU" styleClass="sidebar-section-label"/>
-
         <HBox fx:id="navHome" styleClass="nav-item" onMouseClicked="#goToHome">
             <Label fx:id="navHomeIcon" styleClass="nav-item-icon"/>
             <Label text="Dashboard" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>

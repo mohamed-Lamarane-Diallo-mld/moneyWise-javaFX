@@ -392,6 +392,15 @@
     -fx-icon-size: 20px;
 }
 
+.kpi-icon-red {
+    -fx-icon-color: #EF4444;  /* Rouge vif */
+    -fx-icon-size: 20px;
+}
+
+.kpi-icon-purple {
+    -fx-icon-color: #6C63FF;  /* Violet */
+    -fx-icon-size: 20px;
+}
 /* Icône pour la carte solde (fond violet) */
 .kpi-icon-white {
     -fx-icon-color: white;
@@ -441,4 +450,28 @@
 /* Conteneur pour l'icône de recherche (la rendre alignée) */
 .search-icon-container {
     -fx-padding: 0 0 0 8;
+}
+
+.conseil-card {
+    -fx-background-color: #6C63FF;
+    -fx-background-radius: 12;
+    -fx-padding: 14;
+    -fx-spacing: 10;
+}
+
+/* Style pour les icônes KPI violettes */
+.kpi-icon-purple {
+    -fx-icon-color: #6C63FF;
+    -fx-icon-size: 20px;
+}
+
+/* Style pour les icônes KPI rouges */
+.kpi-icon-red {
+    -fx-icon-color: #EF4444;
+    -fx-icon-size: 20px;
+}
+
+/* Style pour le placeholder de la table */
+.table-view .placeholder .font-icon {
+    -fx-icon-color: #94A3B8;
 }

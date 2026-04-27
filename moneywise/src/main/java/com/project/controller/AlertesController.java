@@ -36,8 +36,6 @@ public class AlertesController implements Initializable {
     private Label noBudgetLabel;
     @FXML
     private Button btnTous;
-    // @FXML
-    // private Button btnNonLues;
     @FXML
     private Button btnSeuil80;
     @FXML
@@ -267,20 +265,4 @@ public class AlertesController implements Initializable {
         actif.getStyleClass().add("alerte-filter-btn-active");
     }
 
-    @FXML
-    private void handleMarquerToutLu() {
-        int uid = SessionManager.getUserId();
-        if (uid == -1)
-            return;
-
-        if (AlerteHelper.confirmer("Marquer tout comme lu",
-                "Marquer toutes les alertes comme lues ?")) {
-            // AlerteHelper.marquerToutesLues
-            AlerteHelper.marquerToutesLues(uid);
-            chargerAlertes();
-            chargerBudgets();
-            if (sidebarController != null)
-                sidebarController.chargerBadgeAlertes();
-        }
-    }
 }

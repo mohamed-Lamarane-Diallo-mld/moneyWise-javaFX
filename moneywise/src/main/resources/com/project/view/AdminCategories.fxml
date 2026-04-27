@@ -2,6 +2,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <HBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.project.controller.AdminCategoriesController"
@@ -14,6 +15,7 @@
 
     <VBox HBox.hgrow="ALWAYS">
 
+        <!-- HEADER -->
         <HBox styleClass="header" alignment="CENTER_LEFT" spacing="0">
             <VBox spacing="4" HBox.hgrow="ALWAYS">
                 <Label text="Gestion des catégories" styleClass="header-title"/>
@@ -34,20 +36,24 @@
             </HBox>
         </HBox>
 
+        <!-- Ligne décorative -->
         <Region prefHeight="2"
                 style="-fx-background-color:linear-gradient(to right,#6C63FF 0%,#2ECC71 50%,transparent 100%);-fx-opacity:0.5;"/>
 
         <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" styleClass="scroll-pane">
             <VBox styleClass="home-content" spacing="22">
 
+                <!-- TITRE -->
                 <VBox spacing="2">
                     <Label text="Administration des catégories" styleClass="section-title"/>
                     <Label text="Gérer les catégories système et personnalisées des transactions"
                            styleClass="section-subtitle"/>
                 </VBox>
 
-                <!-- KPI -->
+                <!-- KPI CARDS -->
                 <HBox spacing="16">
+
+                    <!-- TOTAL CATÉGORIES -->
                     <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
@@ -59,12 +65,14 @@
                                 <Label text="toutes catégories" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
-                                <Label text=" " styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-tags" styleClass="kpi-icon" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-green" maxWidth="56"/>
                     </VBox>
+
+                    <!-- SYSTÈME -->
                     <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
@@ -72,16 +80,18 @@
                                     <Label text="S" styleClass="kpi-badge-purple"/>
                                     <Label text="SYSTÈME" styleClass="kpi-label"/>
                                 </HBox>
-                                <Label fx:id="totalSysteme" text="0" styleClass="kpi-value"/>
+                                <Label fx:id="totalSysteme" text="0" styleClass="kpi-value" style="-fx-text-fill:#6C63FF;"/>
                                 <Label text="catégories par défaut" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box" style="-fx-background-color:#EAE8FF;">
-                                <Label text=" " styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-cogs" styleClass="kpi-icon-purple" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region style="-fx-background-color:#6C63FF;-fx-background-radius:2;-fx-pref-height:3;" maxWidth="56"/>
                     </VBox>
+
+                    <!-- PERSONNALISÉES -->
                     <VBox styleClass="kpi-card-purple" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
@@ -93,12 +103,14 @@
                                 <Label text="créées par les utilisateurs" styleClass="kpi-evolution-white"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
-                                <Label text=" " styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-user-plus" styleClass="kpi-icon-white" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-white" maxWidth="56"/>
                     </VBox>
+
+                    <!-- AVEC BUDGET -->
                     <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
                         <HBox alignment="CENTER_LEFT" spacing="0">
                             <VBox spacing="6" HBox.hgrow="ALWAYS">
@@ -110,18 +122,20 @@
                                 <Label text="budgets actifs associés" styleClass="kpi-evolution"/>
                             </VBox>
                             <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
-                                <Label text=" " styleClass="kpi-icon"/>
+                                <FontIcon iconLiteral="fas-chart-pie" styleClass="kpi-icon-red" iconSize="20"/>
                             </StackPane>
                         </HBox>
                         <Region prefHeight="14"/>
                         <Region styleClass="kpi-bar-red" maxWidth="56"/>
                     </VBox>
+
                 </HBox>
 
                 <!-- FILTRES -->
                 <VBox styleClass="table-card" spacing="0">
                     <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
-                        <Label text="Filtrer les catégories" styleClass="section-title" style="-fx-padding:0 12 0 0;" HBox.hgrow="ALWAYS"/>
+                        <FontIcon iconLiteral="fas-filter" styleClass="filter-icon" iconSize="14"/>
+                        <Label text="  Filtrer les catégories" styleClass="section-title" style="-fx-padding:0 12 0 0;" HBox.hgrow="ALWAYS"/>
                         <Button text="✕ Réinitialiser" styleClass="btn-voir-tout"
                                 style="-fx-font-size:11px;-fx-padding:5 12;" onAction="#resetFiltres"/>
                     </HBox>
@@ -129,9 +143,9 @@
                     <HBox style="-fx-padding:12 18;" spacing="10" alignment="CENTER_LEFT">
                         <HBox alignment="CENTER_LEFT" spacing="0"
                               style="-fx-background-color:#F7FAFC;-fx-border-color:#E2E8F0;-fx-border-radius:8;-fx-background-radius:8;">
-                            <Label text=" 🔍 " style="-fx-font-size:12px;-fx-text-fill:#94A3B8;"/>
+                            <FontIcon iconLiteral="fas-search" styleClass="search-icon" iconSize="12"/>
                             <TextField fx:id="searchField" promptText="Rechercher par nom..."
-                                       style="-fx-background-color:transparent;-fx-border-color:transparent;-fx-padding:7 10 7 0;-fx-font-size:12px;"
+                                       style="-fx-background-color:transparent;-fx-border-color:transparent;-fx-padding:7 10 7 5;-fx-font-size:12px;"
                                        prefWidth="240" onKeyReleased="#onSearchChanged"/>
                         </HBox>
                         <ComboBox fx:id="filterType" promptText="Type"
@@ -140,7 +154,7 @@
                     </HBox>
                 </VBox>
 
-                <!-- TABLE -->
+                <!-- TABLE CATÉGORIES -->
                 <VBox styleClass="table-card" spacing="0">
                     <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                         <VBox HBox.hgrow="ALWAYS" spacing="2">
@@ -150,7 +164,11 @@
                         <Button text="＋ Nouvelle catégorie" onAction="#ajouterCategorie"
                                 style="-fx-background-color:#6C63FF;-fx-text-fill:white;
                                        -fx-font-size:12px;-fx-font-weight:bold;
-                                       -fx-padding:8 16;-fx-background-radius:8;-fx-cursor:hand;"/>
+                                       -fx-padding:8 16;-fx-background-radius:8;-fx-cursor:hand;">
+                            <graphic>
+                                <FontIcon iconLiteral="fas-plus" iconSize="12" style="-fx-icon-color: white;"/>
+                            </graphic>
+                        </Button>
                     </HBox>
                     <Separator style="-fx-opacity:0.5;"/>
 
@@ -173,7 +191,7 @@
                         </columns>
                         <placeholder>
                             <VBox alignment="CENTER" spacing="8" style="-fx-padding:50;">
-                                <Label text="🏷" style="-fx-font-size:36px;"/>
+                                <FontIcon iconLiteral="fas-tags" iconSize="36" style="-fx-icon-color: #94A3B8;"/>
                                 <Label text="Aucune catégorie trouvée"
                                        style="-fx-font-size:14px;-fx-font-weight:bold;-fx-text-fill:#64748B;"/>
                                 <Label text="Modifiez les filtres ou ajoutez une catégorie."

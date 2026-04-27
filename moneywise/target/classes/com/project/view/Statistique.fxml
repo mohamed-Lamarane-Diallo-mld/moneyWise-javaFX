@@ -21,12 +21,12 @@
                      <HBox spacing="14" alignment="CENTER">
                             <Button text="PDF" onAction="#exportPDF" style="-fx-background-color:#EF4444; -fx-text-fill:white; -fx-font-size:13px; -fx-font-weight:bold; -fx-padding:10 20; -fx-background-radius:9; -fx-cursor:hand;">
                                    <graphic>
-                                          <FontIcon iconLiteral="fas-file-pdf" iconSize="14" style="-fx-icon-color: white;"/>
+                                          <FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon-white" iconSize="5"/>
                                    </graphic>
                             </Button>
                             <Button text="Excel" onAction="#exportExcel" style="-fx-background-color:#10B981; -fx-text-fill:white; -fx-font-size:13px; -fx-font-weight:bold; -fx-padding:10 20; -fx-background-radius:9; -fx-cursor:hand;">
                                    <graphic>
-                                          <FontIcon iconLiteral="fas-file-excel" iconSize="14" style="-fx-icon-color: white;"/>
+                                          <FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon-white" iconSize="5"/>
                                    </graphic>
                             </Button>
                      </HBox>
@@ -42,7 +42,6 @@
                                           <Label text="Visualisez l'évolution de vos finances sur la période choisie" styleClass="section-subtitle"/>
                                    </VBox>
                                    <HBox spacing="8" alignment="CENTER">
-                                          <FontIcon iconLiteral="fas-calendar-alt" iconSize="14" style="-fx-icon-color: #718096;"/>
                                           <Label text="Période :" style="-fx-font-size:12px; -fx-font-weight:bold; -fx-text-fill:#718096;"/>
                                           <Button fx:id="btnMois" text="Ce mois" onAction="#setPeriodeMois" style="-fx-background-color:#6C63FF; -fx-text-fill:white; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:7 16; -fx-background-radius:8; -fx-cursor:hand;"/>
                                           <Button fx:id="btnTrimestre" text="Trimestre" onAction="#setPeriodeTrimestre" style="-fx-background-color:#F1F5F9; -fx-text-fill:#64748B; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:7 16; -fx-background-radius:8; -fx-cursor:hand; -fx-border-color:#E2E8F0; -fx-border-radius:8;"/>
@@ -134,7 +133,7 @@
                                                         <Label text="Dépenses par catégorie" styleClass="section-title"/>
                                                         <Label text="Répartition des sorties sur la période" styleClass="section-subtitle"/>
                                                  </VBox>
-                                                 <FontIcon iconLiteral="fas-chart-pie" iconSize="18" style="-fx-icon-color: #6C63FF; -fx-opacity:0.7;"/>
+                                                 <!-- <FontIcon iconLiteral="fas-chart-pie" iconSize="18" style="-fx-icon-color: #6C63FF; -fx-opacity:0.7;"/> -->
                                           </HBox>
                                           <Separator style="-fx-opacity:0.4;"/>
                                           <PieChart fx:id="pieChart" prefHeight="300" labelsVisible="true" legendVisible="true" style="-fx-padding:10 0 10 0;"/>
@@ -146,7 +145,7 @@
                                                         <Label text="Entrées vs Sorties par mois" styleClass="section-title"/>
                                                         <Label text="Comparaison mensuelle sur l'année" styleClass="section-subtitle"/>
                                                  </VBox>
-                                                 <FontIcon iconLiteral="fas-chart-bar" iconSize="18" style="-fx-icon-color: #6C63FF; -fx-opacity:0.7;"/>
+                                                 <!-- <FontIcon iconLiteral="fas-chart-bar" iconSize="18" style="-fx-icon-color: #6C63FF; -fx-opacity:0.7;"/> -->
                                           </HBox>
                                           <Separator style="-fx-opacity:0.4;"/>
                                           <BarChart fx:id="barChart" prefHeight="300" animated="false" style="-fx-padding:10 0 10 0;">
@@ -188,7 +187,7 @@
                                                         </StackPane>
                                                         <VBox spacing="2" HBox.hgrow="ALWAYS">
                                                                <Label text="Total dépenses" styleClass="summary-label"/>
-                                                               <Label fx:id="analyseDepenses" text="0 FCFA" styleClass="summary-value summary-value-red"/>
+                                                               <Label fx:id="analyseDepenses" text="0 FCFA" styleClass="summary-value, summary-value-red"/>
                                                         </VBox>
                                                  </HBox>
                                                  <!-- Épargne nette -->
@@ -198,7 +197,7 @@
                                                         </StackPane>
                                                         <VBox spacing="2" HBox.hgrow="ALWAYS">
                                                                <Label text="Épargne nette" styleClass="summary-label"/>
-                                                               <Label fx:id="analyseEpargne" text="0 FCFA" styleClass="summary-value summary-value-purple"/>
+                                                               <Label fx:id="analyseEpargne" text="0 FCFA" styleClass="summary-value, summary-value-purple"/>
                                                         </VBox>
                                                  </HBox>
                                                  <!-- Taux d'épargne -->
@@ -220,12 +219,12 @@
                                                  <Label text="Exporter les données" styleClass="side-card-title" style="-fx-padding:0 0 6 0;"/>
                                                  <Button text="Exporter en PDF" maxWidth="Infinity" onAction="#exportPDF" style="-fx-background-color:#EF4444; -fx-text-fill:white; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:10 0; -fx-background-radius:8; -fx-cursor:hand;">
                                                         <graphic>
-                                                               <FontIcon iconLiteral="fas-file-pdf" iconSize="14" style="-fx-icon-color: white;"/>
+                                                               <FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon-white" iconSize="5"/>
                                                         </graphic>
                                                  </Button>
                                                  <Button text="Exporter en Excel" maxWidth="Infinity" onAction="#exportExcel" style="-fx-background-color:#10B981; -fx-text-fill:white; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:10 0; -fx-background-radius:8; -fx-cursor:hand;">
                                                         <graphic>
-                                                               <FontIcon iconLiteral="fas-file-excel" iconSize="14" style="-fx-icon-color: white;"/>
+                                                               <FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon-white" iconSize="5"/>
                                                         </graphic>
                                                  </Button>
                                           </VBox>
@@ -257,7 +256,7 @@
                                           </VBox>
                                           <!-- RAPPEL -->
                                           <VBox styleClass="alerte-widget" spacing="6">
-                                                 <FontIcon iconLiteral="fas-info-circle" iconSize="14" style="-fx-icon-color: #D97706;"/>
+                                                 <FontIcon iconLiteral="fas-info-circle" styleClass="kpi-icon" iconSize="14"/>
                                                  <Label text="Le saviez-vous ?" styleClass="alerte-widget-title"/>
                                                  <Label text="Un taux d'épargne supérieur à 20% est considéré comme sain. En dessous de 10%, pensez à revoir vos dépenses." styleClass="alerte-widget-text" wrapText="true"/>
                                           </VBox>
