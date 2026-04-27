@@ -168,3 +168,162 @@
     -fx-background-color: #219A52;
     -fx-effect: dropshadow(gaussian, rgba(39,174,96,0.3), 8, 0, 0, 2);
 }
+/* ============================================================
+   STYLES POUR LES ICÔNES
+   ============================================================ */
+
+/* Style des boîtes d'icônes KPI (rondes) */
+.kpi-icon-box {
+    -fx-min-width: 44px;
+    -fx-min-height: 44px;
+    -fx-max-width: 44px;
+    -fx-max-height: 44px;
+    -fx-background-radius: 22px;
+    -fx-alignment: center;
+}
+
+.kpi-icon-box-green {
+    -fx-background-color: #ECFDF5;
+}
+
+.kpi-icon-box-red {
+    -fx-background-color: #FEF2F2;
+}
+
+.kpi-icon-box-purple {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Icônes KPI */
+.kpi-icon {
+    -fx-icon-color: #059669;
+    -fx-icon-size: 20px;
+}
+
+.kpi-icon-white {
+    -fx-icon-color: white;
+    -fx-icon-size: 20px;
+}
+
+.kpi-icon-transaction {
+    -fx-icon-color: #6C63FF;
+    -fx-icon-size: 20px;
+}
+
+/* Style pour les icônes dans l'analyse rapide */
+.summary-icon-box {
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-background-radius: 20px;
+    -fx-alignment: center;
+}
+/* ============================================================
+   STYLES POUR LES ICÔNES EN CERCLES
+   ============================================================ */
+
+/* Style des boîtes d'icônes KPI (rondes) */
+.kpi-icon-box {
+    -fx-min-width: 44px;
+    -fx-min-height: 44px;
+    -fx-max-width: 44px;
+    -fx-max-height: 44px;
+    -fx-background-radius: 22px;
+    -fx-alignment: center;
+}
+
+.kpi-icon-box-green {
+    -fx-background-color: #ECFDF5;
+}
+
+.kpi-icon-box-red {
+    -fx-background-color: #FEF2F2;
+}
+
+.kpi-icon-box-purple {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Icônes KPI */
+.kpi-icon {
+    -fx-icon-color: #059669;
+    -fx-icon-size: 20px;
+}
+
+.kpi-icon-white {
+    -fx-icon-color: white;
+    -fx-icon-size: 20px;
+}
+
+.kpi-icon-transaction {
+    -fx-icon-color: #6C63FF;
+    -fx-icon-size: 20px;
+}
+
+/* Style pour les icônes dans l'analyse rapide */
+.summary-icon-box {
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-background-radius: 20px;
+    -fx-alignment: center;
+}
+
+/* ============================================================
+   STYLES POUR LES ICÔNES EN CERCLES
+   ============================================================ */
+
+/* Style des boîtes d'icônes KPI (rondes) */
+.kpi-icon-box {
+    -fx-min-width: 44px;
+    -fx-min-height: 44px;
+    -fx-max-width: 44px;
+    -fx-max-height: 44px;
+    -fx-background-radius: 22px;
+    -fx-alignment: center;
+}
+
+.kpi-icon-box-green {
+    -fx-background-color: #ECFDF5;
+}
+
+.kpi-icon-box-red {
+    -fx-background-color: #FEF2F2;
+}
+
+.kpi-icon-box-purple {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Icônes KPI */
+.kpi-icon {
+    -fx-icon-color: #059669;
+    -fx-icon-size: 20px;
+}
+
+.kpi-icon-white {
+    -fx-icon-color: white;
+    -fx-icon-size: 20px;
+}
+
+.kpi-icon-transaction {
+    -fx-icon-color: #6C63FF;
+    -fx-icon-size: 20px;
+}
+
+/* Style pour les icônes dans l'analyse rapide */
+.summary-icon-box {
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-background-radius: 20px;
+    -fx-alignment: center;
+}
+
+/* Style pour les boutons avec icônes */
+.button .graphic {
+    -fx-alignment: center;
+}

@@ -95,9 +95,15 @@
     -fx-background-color: #EFF6FF;
 }
 
+/* Style des icônes KPI - couleur plus foncée que le parent */
 .kpi-icon {
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
+    -fx-icon-color: #059669;  /* Vert plus foncé que #ECFDF5 */
+}
+.kpi-icon-box-red .kpi-icon {
+    -fx-icon-color: #DC2626;  /* Rouge plus foncé que #FEF2F2 */
+}
+.kpi-icon-white {
+    -fx-icon-color: rgba(255,255,255,0.9);
 }
 
 .kpi-label {
@@ -336,6 +342,7 @@
     -fx-background-radius: 12;
     -fx-padding: 14;
     -fx-spacing: 8;
+    -fx-alignment: CENTER_LEFT;
 }
 .conseil-badge {
     -fx-font-size: 10px;

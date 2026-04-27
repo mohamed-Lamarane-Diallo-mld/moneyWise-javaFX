@@ -10,86 +10,69 @@
       stylesheets="@../style/global.css, @../style/sidebar.css"
       prefWidth="240" minWidth="240">
 
-    <!-- ═══════════════════ LOGO ═══════════════════ -->
+    <!-- LOGO -->
     <VBox styleClass="sidebar-logo-zone" spacing="2">
         <Label text="Money Wise" styleClass="sidebar-logo-title"/>
         <Label text="Votre finances. Votre contrôle." styleClass="sidebar-logo-sub"/>
     </VBox>
 
-    <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+    <!-- NAVIGATION -->
     <VBox VBox.vgrow="ALWAYS" spacing="2" style="-fx-padding: 10 0;">
 
-        <!-- MENU -->
         <Label text="MENU" styleClass="sidebar-section-label"/>
 
-        <!-- Dashboard -->
         <HBox fx:id="navHome" styleClass="nav-item" onMouseClicked="#goToHome">
-            <Label text="" styleClass="nav-item-icon"/>
+            <Label fx:id="navHomeIcon" styleClass="nav-item-icon"/>
             <Label text="Dashboard" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <!-- Transactions -->
         <HBox fx:id="navTransaction" styleClass="nav-item" onMouseClicked="#goToTransaction">
-            <Label text="" styleClass="nav-item-icon"/>
+            <Label fx:id="navTransactionIcon" styleClass="nav-item-icon"/>
             <Label text="Transactions" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <!-- Statistiques -->
         <HBox fx:id="navStatistique" styleClass="nav-item" onMouseClicked="#goToStatistique">
-            <Label text="" styleClass="nav-item-icon"/>
+            <Label fx:id="navStatistiqueIcon" styleClass="nav-item-icon"/>
             <Label text="Statistiques" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <!-- SECTION ADMIN (visible seulement pour les administrateurs) -->
         <Label fx:id="adminSectionLabel" text="ADMINISTRATION" styleClass="sidebar-section-label" visible="false" managed="false"/>
 
-        <!-- Gestion des utilisateurs -->
         <HBox fx:id="navAdminUtilisateurs" styleClass="nav-item" onMouseClicked="#goToAdminUtilisateurs" visible="false" managed="false">
-            <Label text="" styleClass="nav-item-icon"/>
+            <Label fx:id="navAdminUtilisateursIcon" styleClass="nav-item-icon"/>
             <Label text="Utilisateurs" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <!-- Gestion des categories -->
         <HBox fx:id="navAdminCategories" styleClass="nav-item" onMouseClicked="#goToAdminCategories" visible="false" managed="false">
-            <Label text="" styleClass="nav-item-icon"/>
+            <Label fx:id="navAdminCategoriesIcon" styleClass="nav-item-icon"/>
             <Label text="Categories" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <!-- Journal d'activite -->
         <HBox fx:id="navAdminLogs" styleClass="nav-item" onMouseClicked="#goToAdminLogs" visible="false" managed="false">
-            <Label text="" styleClass="nav-item-icon"/>
+            <Label fx:id="navAdminLogsIcon" styleClass="nav-item-icon"/>
             <Label text="Journal" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <!-- COMPTE -->
         <Label text="COMPTE" styleClass="sidebar-section-label"/>
 
-        <!-- Profil -->
         <HBox fx:id="navProfil" styleClass="nav-item" onMouseClicked="#goToProfil">
-            <Label text="" styleClass="nav-item-icon"/>
+            <Label fx:id="navProfilIcon" styleClass="nav-item-icon"/>
             <Label text="Mon profil" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <!-- Alertes avec badge -->
         <HBox fx:id="navAlertes" styleClass="nav-item" onMouseClicked="#goToAlertes">
-            <Label text="" styleClass="nav-item-icon"/>
+            <Label fx:id="navAlertesIcon" styleClass="nav-item-icon"/>
             <Label text="Alertes" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
             <Label fx:id="alerteBadge" text="0" styleClass="nav-badge" visible="false" managed="false"/>
         </HBox>
 
     </VBox>
 
-    <!-- ═══════════════════ USER ZONE ═══════════════════ -->
+    <!-- USER ZONE -->
     <HBox styleClass="sidebar-user-zone" spacing="10" alignment="CENTER_LEFT">
-
-        <!-- Avatar initiales -->
         <StackPane styleClass="sidebar-user-avatar">
             <Label fx:id="avatarLabel" text="?" styleClass="sidebar-user-avatar-label"/>
         </StackPane>
-
-        <!-- Déconnexion -->
         <Button text="⏻ Déconnexion" styleClass="btn-logout" onAction="#handleLogout"/>
-
     </HBox>
 </VBox>
-

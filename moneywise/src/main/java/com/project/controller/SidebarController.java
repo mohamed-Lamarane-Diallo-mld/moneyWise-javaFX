@@ -9,6 +9,9 @@ import com.project.model.Utilisateur;
 import com.project.utils.NavigationHelper;
 import com.project.utils.SessionManager;
 
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -27,17 +30,27 @@ public class SidebarController implements Initializable {
     @FXML private HBox navProfil;
     @FXML private HBox navAlertes;
     
+    // Labels des icônes
+    @FXML private Label navHomeIcon;
+    @FXML private Label navTransactionIcon;
+    @FXML private Label navStatistiqueIcon;
+    @FXML private Label navProfilIcon;
+    @FXML private Label navAlertesIcon;
+    
     // Navigation items admin
     @FXML private Label adminSectionLabel;
     @FXML private HBox navAdminUtilisateurs;
     @FXML private HBox navAdminCategories;
     @FXML private HBox navAdminLogs;
     
+    // Labels des icônes admin
+    @FXML private Label navAdminUtilisateursIcon;
+    @FXML private Label navAdminCategoriesIcon;
+    @FXML private Label navAdminLogsIcon;
+    
     // User info
     @FXML private Label alerteBadge;
     @FXML private Label avatarLabel;
-    // @FXML private Label userNameLabel;
-    // @FXML private Label userEmailLabel;
 
     private final AlerteDAO alerteDAO = new AlerteDAO();
     private final JournalDAO journalDAO = new JournalDAO();
@@ -47,9 +60,39 @@ public class SidebarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         isAdmin = SessionManager.isAdmin();
         
+        // Ajouter les icônes Ikonli
+        ajouterIcones();
+        
         chargerInfosUser();
         chargerBadgeAlertes();
         afficherMenusSelonRole();
+    }
+    
+    /**
+     * Ajoute les icônes FontAwesome à chaque élément du menu
+     */
+    private void ajouterIcones() {
+        // Menu principal
+        setIcon(navHomeIcon, FontAwesomeSolid.HOME);
+        setIcon(navTransactionIcon, FontAwesomeSolid.EXCHANGE_ALT);
+        setIcon(navStatistiqueIcon, FontAwesomeSolid.CHART_LINE);
+        setIcon(navProfilIcon, FontAwesomeSolid.USER_CIRCLE);
+        setIcon(navAlertesIcon, FontAwesomeSolid.BELL);
+        
+        // Menu admin
+        setIcon(navAdminUtilisateursIcon, FontAwesomeSolid.USERS);
+        setIcon(navAdminCategoriesIcon, FontAwesomeSolid.TAGS);
+        setIcon(navAdminLogsIcon, FontAwesomeSolid.HISTORY);
+    }
+    
+    private void setIcon(Label label, FontAwesomeSolid icon) {
+        if (label != null) {
+            FontIcon fontIcon = new FontIcon(icon);
+            fontIcon.setIconSize(18);
+            fontIcon.getStyleClass().add("nav-item-icon");
+            label.setGraphic(fontIcon);
+            label.setText(""); // Supprime le texte par défaut
+        }
     }
     
     /**
@@ -73,9 +116,6 @@ public class SidebarController implements Initializable {
             return;
         }
         Utilisateur user = SessionManager.getUtilisateur();
-
-        // userNameLabel.setText(user.getNom());
-        // userEmailLabel.setText(user.getEmail());
 
         String[] parts = user.getNom().trim().split(" ");
         String initiales = parts.length >= 2
