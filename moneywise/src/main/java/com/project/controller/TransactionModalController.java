@@ -10,7 +10,6 @@ import com.project.dao.CategorieDAO;
 import com.project.dao.JournalDAO;
 import com.project.dao.TransactionDAO;
 import com.project.enums.TypeTransaction;
-import com.project.model.Budget;
 import com.project.model.Categorie;
 import com.project.model.Transaction;
 import com.project.model.Utilisateur;
@@ -30,24 +29,15 @@ import javafx.stage.Stage;
 
 public class TransactionModalController implements Initializable {
 
-    @FXML
-    private Label modalTitle;
-    @FXML
-    private Button btnEntree;
-    @FXML
-    private Button btnSortie;
-    @FXML
-    private TextField montantField;
-    @FXML
-    private ComboBox<Categorie> categorieCombo;
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private TextField descriptionField;
-    @FXML
-    private Label errorLabel;
-    @FXML
-    private Button saveBtn;
+    @FXML private Label modalTitle;
+    @FXML private Button btnEntree;
+    @FXML private Button btnSortie;
+    @FXML private TextField montantField;
+    @FXML private ComboBox<Categorie> categorieCombo;
+    @FXML private DatePicker datePicker;
+    @FXML private TextField descriptionField;
+    @FXML private Label errorLabel;
+    @FXML private Button saveBtn;
 
     private final TransactionDAO transactionDAO = new TransactionDAO();
     private final CategorieDAO categorieDAO = new CategorieDAO();
@@ -56,6 +46,7 @@ public class TransactionModalController implements Initializable {
 
     private Transaction transactionAModifier = null;
     private TransactionController parentController;
+    private UsersTransactionsController adminParentController;
     private TypeTransaction typeSelectionne = TypeTransaction.SORTIE;
 
     @Override
@@ -65,148 +56,83 @@ public class TransactionModalController implements Initializable {
         selectSortie();
     }
 
-    public void setParentController(TransactionController ctrl) {
-        this.parentController = ctrl;
-    }
+    public void setParentController(TransactionController ctrl) { this.parentController = ctrl; }
+    public void setParentControllerForAdmin(UsersTransactionsController ctrl) { this.adminParentController = ctrl; }
 
     public void setTransaction(Transaction t) {
         this.transactionAModifier = t;
-        if (t == null)
-            return;
-
+        if (t == null) return;
         modalTitle.setText("Modifier la transaction");
         saveBtn.setText("Enregistrer les modifications");
         montantField.setText(String.valueOf(t.getMontant()));
         datePicker.setValue(t.getDateTransaction());
-        descriptionField.setText(
-                t.getDescription() != null ? t.getDescription() : "");
-
-        if (t.getType() == TypeTransaction.ENTREE)
-            selectEntree();
-        else
-            selectSortie();
-
+        descriptionField.setText(t.getDescription() != null ? t.getDescription() : "");
+        if (t.getType() == TypeTransaction.ENTREE) selectEntree();
+        else selectSortie();
         categorieCombo.getItems().stream()
                 .filter(c -> c != null && c.getId() == t.getCategorieId())
                 .findFirst()
                 .ifPresent(c -> categorieCombo.getSelectionModel().select(c));
     }
 
-    // ─────────────────────────────────────────
-    // TOGGLE TYPE
-    // ─────────────────────────────────────────
-    @FXML
-    private void selectEntree() {
+    @FXML private void selectEntree() {
         typeSelectionne = TypeTransaction.ENTREE;
         btnEntree.getStyleClass().add("toggle-entree-active");
         btnSortie.getStyleClass().remove("toggle-sortie-active");
     }
 
-    @FXML
-    private void selectSortie() {
+    @FXML private void selectSortie() {
         typeSelectionne = TypeTransaction.SORTIE;
         btnSortie.getStyleClass().add("toggle-sortie-active");
         btnEntree.getStyleClass().remove("toggle-entree-active");
     }
 
-    // ─────────────────────────────────────────
-    // CATÉGORIES
-    // ─────────────────────────────────────────
     private void chargerCategories() {
         Utilisateur user = SessionManager.getUtilisateur();
-        if (user == null)
-            return;
-
+        if (user == null) return;
         List<Categorie> cats = categorieDAO.findByUtilisateur(user.getId());
         categorieCombo.setItems(FXCollections.observableArrayList(cats));
-
         categorieCombo.setCellFactory(lv -> new ListCell<>() {
-            @Override
-            protected void updateItem(Categorie item, boolean empty) {
+            @Override protected void updateItem(Categorie item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? "" : item.getNom());
             }
         });
         categorieCombo.setButtonCell(new ListCell<>() {
-            @Override
-            protected void updateItem(Categorie item, boolean empty) {
+            @Override protected void updateItem(Categorie item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null
-                        ? "Choisir une catégorie"
-                        : item.getNom());
+                setText(empty || item == null ? "Choisir une catégorie" : item.getNom());
             }
         });
     }
 
-    // ─────────────────────────────────────────
-    // SAUVEGARDER
-    // ─────────────────────────────────────────
     @FXML
     private void handleSave() {
         hideError();
-
-        // ── Validation montant ──
         String montantStr = montantField.getText().trim();
-        if (montantStr.isEmpty()) {
-            showError("Le montant est obligatoire.");
-            return;
-        }
-
+        if (montantStr.isEmpty()) { showError("Le montant est obligatoire."); return; }
         double montant;
-        try {
-            montant = Double.parseDouble(montantStr.replace(",", "."));
-            if (montant <= 0)
-                throw new NumberFormatException();
-        } catch (NumberFormatException e) {
-            showError("Montant invalide. Entrez un nombre positif.");
-            return;
-        }
-
-        // ── Validation catégorie et date ──
-        if (categorieCombo.getValue() == null) {
-            showError("Veuillez choisir une catégorie.");
-            return;
-        }
-        if (datePicker.getValue() == null) {
-            showError("Veuillez choisir une date.");
-            return;
-        }
+        try { montant = Double.parseDouble(montantStr.replace(",", ".")); if (montant <= 0) throw new NumberFormatException(); }
+        catch (NumberFormatException e) { showError("Montant invalide. Entrez un nombre positif."); return; }
+        if (categorieCombo.getValue() == null) { showError("Veuillez choisir une catégorie."); return; }
+        if (datePicker.getValue() == null) { showError("Veuillez choisir une date."); return; }
 
         Utilisateur user = SessionManager.getUtilisateur();
-        if (user == null)
-            return;
+        if (user == null) return;
 
-        // ── VÉRIFICATION : interdire toute transaction dans un mois futur ────
-        // Règle : la date de la transaction ne peut pas être dans un mois
-        // strictement postérieur au mois courant (le mois courant est autorisé).
-        // Cette règle s'applique aux ENTRÉES comme aux SORTIES.
         LocalDate dateTx = datePicker.getValue();
         LocalDate aujourdhui = LocalDate.now();
+        boolean estDansMoisFutur = dateTx.getYear() > aujourdhui.getYear() || (dateTx.getYear() == aujourdhui.getYear() && dateTx.getMonthValue() > aujourdhui.getMonthValue());
+        if (estDansMoisFutur) { showError("Impossible d'enregistrer une transaction sur un mois futur."); return; }
 
-        boolean estDansMoisFutur = dateTx.getYear() > aujourdhui.getYear()
-                || (dateTx.getYear() == aujourdhui.getYear()
-                        && dateTx.getMonthValue() > aujourdhui.getMonthValue());
-
-        if (estDansMoisFutur) {
-            showError("Impossible d'enregistrer une transaction sur un mois futur.");
-            return;
-        }
-        // ─────────────────────────────────────────────────────────────────────
-
-        // ── Vérification solde insuffisant (SORTIE uniquement) ──
         if (typeSelectionne == TypeTransaction.SORTIE) {
             double soldeActuel = transactionDAO.getSoldeTotal(user.getId());
             double soldeDisponible = soldeActuel;
-
-            if (transactionAModifier != null
-                    && transactionAModifier.getType() == TypeTransaction.SORTIE) {
+            if (transactionAModifier != null && transactionAModifier.getType() == TypeTransaction.SORTIE) {
                 soldeDisponible += transactionAModifier.getMontant();
             }
-
             if (montant > soldeDisponible) {
-                showError(String.format(
-                        "Solde insuffisant ! Disponible : %,.0f FCFA — Demandé : %,.0f FCFA",
-                        soldeDisponible, montant));
+                showError(String.format("Solde insuffisant ! Disponible : %,.0f FCFA — Demandé : %,.0f FCFA", soldeDisponible, montant));
                 AlerteHelper.soldeInsuffisant(soldeDisponible, montant);
                 return;
             }
@@ -215,78 +141,43 @@ public class TransactionModalController implements Initializable {
         saveBtn.setDisable(true);
 
         if (transactionAModifier == null) {
-            // ── AJOUT ──
-            Transaction t = new Transaction(
-                    montant, typeSelectionne,
-                    datePicker.getValue(),
-                    descriptionField.getText().trim(),
-                    user.getId(),
-                    categorieCombo.getValue().getId());
-
+            Transaction t = new Transaction(montant, typeSelectionne, datePicker.getValue(), descriptionField.getText().trim(), user.getId(), categorieCombo.getValue().getId());
             boolean ok = transactionDAO.ajouter(t);
             if (ok) {
-                journalDAO.log(user.getId(),
-                        JournalDAO.ACTION_AJOUT_TRANSACTION,
-                        typeSelectionne.name() + " : " + montant + " FCFA");
-
+                journalDAO.log(user.getId(), JournalDAO.ACTION_AJOUT_TRANSACTION, typeSelectionne.name() + " : " + montant + " FCFA");
                 AlerteHelper.verifierEtNotifier(user);
-
                 fermerModal();
                 if (parentController != null) {
                     parentController.chargerTransactions();
                     parentController.rafraichirBudgets();
                     parentController.rafraichirBadgeAlertes();
+                } else if (adminParentController != null) {
+                    adminParentController.rafraichirDonnees();
                 }
-            } else {
-                showError("Erreur lors de l'enregistrement.");
-                saveBtn.setDisable(false);
-            }
-
+            } else { showError("Erreur lors de l'enregistrement."); saveBtn.setDisable(false); }
         } else {
-            // ── MODIFICATION ──
             transactionAModifier.setMontant(montant);
             transactionAModifier.setType(typeSelectionne);
             transactionAModifier.setDateTransaction(datePicker.getValue());
             transactionAModifier.setDescription(descriptionField.getText().trim());
             transactionAModifier.setCategorieId(categorieCombo.getValue().getId());
-
             boolean ok = transactionDAO.modifier(transactionAModifier);
             if (ok) {
                 AlerteHelper.verifierEtNotifier(user);
-
                 fermerModal();
                 if (parentController != null) {
                     parentController.chargerTransactions();
                     parentController.rafraichirBudgets();
                     parentController.rafraichirBadgeAlertes();
+                } else if (adminParentController != null) {
+                    adminParentController.rafraichirDonnees();
                 }
-            } else {
-                showError("Erreur lors de la modification.");
-                saveBtn.setDisable(false);
-            }
+            } else { showError("Erreur lors de la modification."); saveBtn.setDisable(false); }
         }
     }
 
-    // ─────────────────────────────────────────
-    // ANNULER
-    // ─────────────────────────────────────────
-    @FXML
-    private void handleCancel() {
-        fermerModal();
-    }
-
-    private void fermerModal() {
-        ((Stage) saveBtn.getScene().getWindow()).close();
-    }
-
-    private void showError(String msg) {
-        errorLabel.setText(msg);
-        errorLabel.setVisible(true);
-        errorLabel.setManaged(true);
-    }
-
-    private void hideError() {
-        errorLabel.setVisible(false);
-        errorLabel.setManaged(false);
-    }
+    @FXML private void handleCancel() { fermerModal(); }
+    private void fermerModal() { ((Stage) saveBtn.getScene().getWindow()).close(); }
+    private void showError(String msg) { errorLabel.setText(msg); errorLabel.setVisible(true); errorLabel.setManaged(true); }
+    private void hideError() { errorLabel.setVisible(false); errorLabel.setManaged(false); }
 }

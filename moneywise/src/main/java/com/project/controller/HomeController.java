@@ -85,8 +85,8 @@ public class HomeController implements Initializable {
         int uid = SessionManager.getUserId();
         headerDate.setText(DateHelper.formaterComplet(LocalDate.now()));
         if (uid != -1)
-            headerUser.setText("Bonjour, "
-                + SessionManager.getUtilisateur().getNom().split(" ")[0]);
+            headerUser.setText("Bonjour "
+                + SessionManager.getUtilisateur().getNom().split(" ")[0] + " !");
     }
 
     // ─────────────────────────────────────────

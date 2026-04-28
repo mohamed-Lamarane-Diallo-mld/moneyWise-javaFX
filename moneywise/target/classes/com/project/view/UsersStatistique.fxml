@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.UsersStatistiqueController"
+      styleClass="statistique-root"
+      stylesheets="@../style/global.css, @../style/sidebar.css,
+                   @../style/home.css, @../style/statistique.css"
+      maxWidth="Infinity" maxHeight="Infinity">
+       
+    <fx:include fx:id="sidebar" source="Sidebar.fxml"/>
+    
+    <VBox HBox.hgrow="ALWAYS">
+        <!-- HEADER -->
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="0">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label fx:id="headerUser" text="Statistiques globales" styleClass="header-title"/>
+                <Label fx:id="headerDate" text="" styleClass="header-date"/>
+            </VBox>
+            <HBox spacing="14" alignment="CENTER">
+                <Button text="PDF" onAction="#exportPDF" style="-fx-background-color:#EF4444; -fx-text-fill:white; -fx-font-size:13px; -fx-font-weight:bold; -fx-padding:10 20; -fx-background-radius:9; -fx-cursor:hand;">
+                    <graphic><FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon-white" iconSize="5"/></graphic>
+                </Button>
+                <Button text="Excel" onAction="#exportExcel" style="-fx-background-color:#10B981; -fx-text-fill:white; -fx-font-size:13px; -fx-font-weight:bold; -fx-padding:10 20; -fx-background-radius:9; -fx-cursor:hand;">
+                    <graphic><FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon-white" iconSize="5"/></graphic>
+                </Button>
+            </HBox>
+        </HBox>
+        
+        <!-- Ligne décorative -->
+        <Region prefHeight="2" style="-fx-background-color:linear-gradient(to right, #6C63FF 0%, #2ECC71 50%, transparent 100%); -fx-opacity:0.5;"/>
+        
+        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" styleClass="scroll-pane">
+            <VBox styleClass="home-content" spacing="22">
+                
+                <!-- TITRE + PERIODE -->
+                <HBox alignment="CENTER_LEFT" spacing="0">
+                    <VBox HBox.hgrow="ALWAYS" spacing="2">
+                        <Label text="Analyse financière globale" styleClass="section-title"/>
+                        <Label text="Visualisez l'évolution des finances de tous les utilisateurs sur la période choisie" styleClass="section-subtitle"/>
+                    </VBox>
+                    <HBox spacing="8" alignment="CENTER">
+                        <Label text="Période :" style="-fx-font-size:12px; -fx-font-weight:bold; -fx-text-fill:#718096;"/>
+                        <Button fx:id="btnMois" text="Ce mois" onAction="#setPeriodeMois" style="-fx-background-color:#6C63FF; -fx-text-fill:white; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:7 16; -fx-background-radius:8; -fx-cursor:hand;"/>
+                        <Button fx:id="btnTrimestre" text="Trimestre" onAction="#setPeriodeTrimestre" style="-fx-background-color:#F1F5F9; -fx-text-fill:#64748B; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:7 16; -fx-background-radius:8; -fx-cursor:hand; -fx-border-color:#E2E8F0; -fx-border-radius:8;"/>
+                        <Button fx:id="btnAnnee" text="Cette année" onAction="#setPeriodeAnnee" style="-fx-background-color:#F1F5F9; -fx-text-fill:#64748B; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:7 16; -fx-background-radius:8; -fx-cursor:hand; -fx-border-color:#E2E8F0; -fx-border-radius:8;"/>
+                    </HBox>
+                </HBox>
+                
+                <!-- KPI CARDS -->
+                <HBox spacing="16">
+                    <!-- REVENUS -->
+                    <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="↑" styleClass="kpi-badge-green"/>
+                                    <Label text="REVENUS GLOBAUX" styleClass="kpi-label"/>
+                                </HBox>
+                                <Label fx:id="summaryRevenus" text="0 FCFA" styleClass="kpi-value, kpi-value-green"/>
+                                <Label fx:id="pieSubtitle" text="période sélectionnée" styleClass="kpi-evolution"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
+                                <FontIcon iconLiteral="fas-arrow-up" styleClass="kpi-icon" iconSize="20"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region styleClass="kpi-bar-green" maxWidth="56"/>
+                    </VBox>
+                    
+                    <!-- DÉPENSES -->
+                    <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="↓" styleClass="kpi-badge-red"/>
+                                    <Label text="DÉPENSES GLOBALES" styleClass="kpi-label"/>
+                                </HBox>
+                                <Label fx:id="summaryDepenses" text="0 FCFA" styleClass="kpi-value, kpi-value-red"/>
+                                <Label text="période sélectionnée" styleClass="kpi-evolution"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
+                                <FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon" iconSize="20"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region styleClass="kpi-bar-red" maxWidth="56"/>
+                    </VBox>
+                    
+                    <!-- ÉPARGNE -->
+                    <VBox styleClass="kpi-card-purple" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="◈" styleClass="kpi-badge-white"/>
+                                    <Label text="ÉPARGNE GLOBALE" styleClass="kpi-label-white"/>
+                                </HBox>
+                                <Label fx:id="summaryEpargne" text="0 FCFA" styleClass="kpi-value, kpi-value-white"/>
+                                <Label text="revenus - dépenses" styleClass="kpi-evolution-white"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
+                                <FontIcon iconLiteral="fas-piggy-bank" styleClass="kpi-icon-white" iconSize="20"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region styleClass="kpi-bar-white" maxWidth="56"/>
+                    </VBox>
+                    
+                    <!-- TRANSACTIONS -->
+                    <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="#" styleClass="kpi-badge-green"/>
+                                    <Label text="TRANSACTIONS" styleClass="kpi-label"/>
+                                </HBox>
+                                <Label fx:id="summaryNbTransactions" text="0" style="-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:#6C63FF;"/>
+                                <Label fx:id="barSubtitle" text="sur la période" styleClass="kpi-evolution"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box" style="-fx-background-color:#ECFDF5; -fx-background-radius:22px;">
+                                <FontIcon iconLiteral="fas-exchange-alt" styleClass="kpi-icon-transaction" iconSize="20"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region style="-fx-background-color:#6C63FF; -fx-background-radius:2; -fx-pref-height:3px;" maxWidth="56"/>
+                    </VBox>
+                </HBox>
+                
+                <!-- GRAPHIQUES -->
+                <HBox spacing="20">
+                    <!-- CAMEMBERT -->
+                    <VBox styleClass="table-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" style="-fx-padding:16 20 12 20;">
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Dépenses par catégorie" styleClass="section-title"/>
+                                <Label text="Répartition des sorties de tous les utilisateurs" styleClass="section-subtitle"/>
+                            </VBox>
+                        </HBox>
+                        <Separator style="-fx-opacity:0.4;"/>
+                        <PieChart fx:id="pieChart" prefHeight="300" labelsVisible="true" legendVisible="true" style="-fx-padding:10 0 10 0;"/>
+                    </VBox>
+                    
+                    <!-- BARRES -->
+                    <VBox styleClass="table-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" style="-fx-padding:16 20 12 20;">
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Entrées vs Sorties par mois" styleClass="section-title"/>
+                                <Label text="Comparaison mensuelle globale sur l'année" styleClass="section-subtitle"/>
+                            </VBox>
+                        </HBox>
+                        <Separator style="-fx-opacity:0.4;"/>
+                        <BarChart fx:id="barChart" prefHeight="300" animated="false" style="-fx-padding:10 0 10 0;">
+                            <xAxis><CategoryAxis/></xAxis>
+                            <yAxis><NumberAxis/></yAxis>
+                        </BarChart>
+                    </VBox>
+                </HBox>
+                
+                <!-- ANALYSE RAPIDE + PANEL DROIT -->
+                <HBox spacing="20" alignment="TOP_LEFT">
+                    <!-- ANALYSE RAPIDE -->
+                    <VBox styleClass="table-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" style="-fx-padding:16 20 14 20;">
+                            <VBox HBox.hgrow="ALWAYS" spacing="2">
+                                <Label text="Analyse rapide" styleClass="section-title"/>
+                                <Label text="Indicateurs clés globaux de la période" styleClass="section-subtitle"/>
+                            </VBox>
+                        </HBox>
+                        <Separator style="-fx-opacity:0.5;"/>
+                        <VBox style="-fx-padding:16 20;" spacing="0">
+                            <HBox styleClass="summary-row" alignment="CENTER_LEFT" spacing="14">
+                                <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
+                                    <FontIcon iconLiteral="fas-arrow-up" styleClass="kpi-icon" iconSize="20"/>
+                                </StackPane>
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Total revenus globaux" styleClass="summary-label"/>
+                                    <Label fx:id="analyseRevenus" text="0 FCFA" styleClass="summary-value summary-value-green"/>
+                                </VBox>
+                            </HBox>
+                            <HBox styleClass="summary-row" alignment="CENTER_LEFT" spacing="14">
+                                <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
+                                    <FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon" iconSize="20"/>
+                                </StackPane>
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Total dépenses globales" styleClass="summary-label"/>
+                                    <Label fx:id="analyseDepenses" text="0 FCFA" styleClass="summary-value, summary-value-red"/>
+                                </VBox>
+                            </HBox>
+                            <HBox styleClass="summary-row" alignment="CENTER_LEFT" spacing="14">
+                                <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple, summary-value-purple">
+                                    <FontIcon iconLiteral="fas-piggy-bank" styleClass="kpi-icon-purple" iconSize="20"/>
+                                </StackPane>
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Épargne nette globale" styleClass="summary-label"/>
+                                    <Label fx:id="analyseEpargne" text="0 FCFA" styleClass="summary-value, summary-value-purple"/>
+                                </VBox>
+                            </HBox>
+                            <HBox style="-fx-padding:6 0 0 0;" alignment="CENTER_LEFT" spacing="14">
+                                <StackPane styleClass="kpi-icon-box" style="-fx-background-color:#ECFDF5; -fx-background-radius:22px;">
+                                    <FontIcon iconLiteral="fas-exchange-alt" styleClass="kpi-icon-transaction" iconSize="20"/>
+                                </StackPane>
+                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Taux d'épargne global" styleClass="summary-label"/>
+                                    <Label fx:id="analyseTauxEpargne" text="0,0" style="-fx-font-size:13px; -fx-font-weight:bold; -fx-text-fill:#D97706;"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                    
+                    <!-- PANEL DROIT -->
+                    <VBox spacing="14" prefWidth="300" minWidth="300" maxWidth="300">
+                        <!-- EXPORTS -->
+                        <VBox styleClass="side-card" spacing="10">
+                            <Label text="Exporter les données globales" styleClass="side-card-title" style="-fx-padding:0 0 6 0;"/>
+                            <Button text="Exporter en PDF" maxWidth="Infinity" onAction="#exportPDF" style="-fx-background-color:#EF4444; -fx-text-fill:white; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:10 0; -fx-background-radius:8; -fx-cursor:hand;">
+                                <graphic><FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon-white" iconSize="5"/></graphic>
+                            </Button>
+                            <Button text="Exporter en Excel" maxWidth="Infinity" onAction="#exportExcel" style="-fx-background-color:#10B981; -fx-text-fill:white; -fx-font-size:12px; -fx-font-weight:bold; -fx-padding:10 0; -fx-background-radius:8; -fx-cursor:hand;">
+                                <graphic><FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon-white" iconSize="5"/></graphic>
+                            </Button>
+                        </VBox>
+                        
+                        <!-- CONSEIL -->
+                        <VBox styleClass="conseil-card" spacing="8">
+                            <FontIcon iconLiteral="fas-lightbulb" iconSize="16" style="-fx-icon-color: rgba(255,255,255,0.7);"/>
+                            <Label text="Conseil" styleClass="conseil-badge"/>
+                            <Label text="En tant qu'administrateur, vous avez une vue d'ensemble sur les finances de tous les utilisateurs. Identifiez les tendances globales pour améliorer la plateforme." styleClass="conseil-text" wrapText="true"/>
+                        </VBox>
+                        
+                        <!-- LÉGENDE -->
+                        <VBox styleClass="side-card" spacing="12">
+                            <Label text="Légende des graphiques" styleClass="side-card-title" style="-fx-padding:0 0 6 0;"/>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Region style="-fx-background-color:#6C63FF; -fx-background-radius:3; -fx-min-width:14px; -fx-min-height:14px;"/>
+                                <Label text="Entrées globales" style="-fx-font-size:12px; -fx-font-weight:bold; -fx-text-fill:#334155;"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Region style="-fx-background-color:#10B981; -fx-background-radius:3; -fx-min-width:14px; -fx-min-height:14px;"/>
+                                <Label text="Sorties globales" style="-fx-font-size:12px; -fx-font-weight:bold; -fx-text-fill:#334155;"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Region style="-fx-background-color:#EF4444; -fx-background-radius:3; -fx-min-width:14px; -fx-min-height:14px;"/>
+                                <Label text="Dépenses par catégorie" style="-fx-font-size:12px; -fx-font-weight:bold; -fx-text-fill:#334155;"/>
+                            </HBox>
+                        </VBox>
+                        
+                        <!-- RAPPEL -->
+                        <VBox styleClass="alerte-widget" spacing="6">
+                            <FontIcon iconLiteral="fas-info-circle" styleClass="kpi-icon" iconSize="14"/>
+                            <Label text="Le saviez-vous ?" styleClass="alerte-widget-title"/>
+                            <Label text="Cette vue globale vous permet de suivre la santé financière collective de tous les utilisateurs de la plateforme." styleClass="alerte-widget-text" wrapText="true"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</HBox>

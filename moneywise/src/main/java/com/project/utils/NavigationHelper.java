@@ -12,17 +12,13 @@ import javafx.stage.Stage;
 
 public class NavigationHelper {
 
-    // Navigation principale (remplace la scène courante)
     public static void navigateTo(String fxmlPath) throws IOException {
         App.navigateTo(fxmlPath);
     }
 
-    // Ouvre une fenêtre modale
     public static void openModal(String fxmlPath, String titre) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                NavigationHelper.class.getResource(fxmlPath + ".fxml"));
+        FXMLLoader loader = new FXMLLoader(NavigationHelper.class.getResource(fxmlPath + ".fxml"));
         Parent root = loader.load();
-
         Stage modal = new Stage();
         modal.setTitle(titre);
         modal.initModality(Modality.APPLICATION_MODAL);
@@ -31,7 +27,6 @@ public class NavigationHelper {
         modal.showAndWait();
     }
 
-    // Chemins FXML
     public static final String LOGIN = "/com/project/view/Login";
     public static final String INSCRIPTION = "/com/project/view/Inscription";
     public static final String HOME = "/com/project/view/Home";
@@ -41,9 +36,9 @@ public class NavigationHelper {
     public static final String MODAL_TRANS = "/com/project/view/TransactionModal";
     public static final String ALERTES = "/com/project/view/Alertes";
     public static final String RECUPERATION = "/com/project/view/RecuperationCompte";
-
-    // Routes Admin (pages exclusives)
     public static final String ADMIN_UTILISATEURS = "/com/project/view/AdminUtilisateurs";
     public static final String ADMIN_CATEGORIES = "/com/project/view/AdminCategories";
     public static final String ADMIN_LOGS = "/com/project/view/AdminLogs";
+    public static final String ADMIN_TRANSACTIONS = "/com/project/view/UsersTransactions";
+    public static final String ADMIN_STATISTIQUES = "/com/project/view/UsersStatistique";  // NOUVEAU
 }

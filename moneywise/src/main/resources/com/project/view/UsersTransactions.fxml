@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.controller.UsersTransactionsController"
+      styleClass="transaction-root"
+      stylesheets="@../style/global.css, @../style/sidebar.css, @../style/home.css, @../style/transaction.css"
+      maxWidth="Infinity" maxHeight="Infinity">
+
+    <fx:include fx:id="sidebar" source="Sidebar.fxml"/>
+
+    <VBox HBox.hgrow="ALWAYS">
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="0">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label fx:id="headerUser" text="Toutes les transactions" styleClass="header-title"/>
+                <Label fx:id="headerDate" text="" styleClass="header-date"/>
+            </VBox>
+        </HBox>
+
+        <Region prefHeight="2" style="-fx-background-color:linear-gradient(to right, #6C63FF 0%, #2ECC71 50%, transparent 100%); -fx-opacity:0.5;"/>
+
+        <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" styleClass="scroll-pane">
+            <VBox styleClass="home-content" spacing="22">
+                <VBox spacing="2">
+                    <Label text="Toutes les transactions" styleClass="section-title"/>
+                    <Label text="Vue d'ensemble des transactions de tous les utilisateurs" styleClass="section-subtitle"/>
+                </VBox>
+
+                <HBox spacing="16">
+                    <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="#" styleClass="kpi-badge-green"/>
+                                    <Label text="TOTAL TRANSACTIONS" styleClass="kpi-label"/>
+                                </HBox>
+                                <Label fx:id="totalTransactionsLabel" text="0" style="-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:#6C63FF;"/>
+                                <Label text="toutes transactions" styleClass="kpi-evolution"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box" style="-fx-background-color:#ECFDF5; -fx-background-radius:22px;">
+                                <FontIcon iconLiteral="fas-exchange-alt" styleClass="kpi-icon-transaction" iconSize="20"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region style="-fx-background-color:#6C63FF; -fx-background-radius:2; -fx-pref-height:2px;" maxWidth="56"/>
+                    </VBox>
+
+                    <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="↑" styleClass="kpi-badge-green"/>
+                                    <Label text="TOTAL ENTRÉES" styleClass="kpi-label"/>
+                                </HBox>
+                                <Label fx:id="totalEntreesLabel" text="0 FCFA" styleClass="kpi-value, kpi-value-green"/>
+                                <Label text="toutes entrées" styleClass="kpi-evolution"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-green">
+                                <FontIcon iconLiteral="fas-arrow-up" styleClass="kpi-icon" iconSize="20"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region styleClass="kpi-bar-green" maxWidth="56"/>
+                    </VBox>
+
+                    <VBox styleClass="kpi-card" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="↓" styleClass="kpi-badge-red"/>
+                                    <Label text="TOTAL SORTIES" styleClass="kpi-label"/>
+                                </HBox>
+                                <Label fx:id="totalSortiesLabel" text="0 FCFA" styleClass="kpi-value, kpi-value-red"/>
+                                <Label text="toutes sorties" styleClass="kpi-evolution"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-red">
+                                <FontIcon iconLiteral="fas-arrow-down" styleClass="kpi-icon" iconSize="20"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region styleClass="kpi-bar-red" maxWidth="56"/>
+                    </VBox>
+
+                    <VBox styleClass="kpi-card-purple" HBox.hgrow="ALWAYS" spacing="0">
+                        <HBox alignment="CENTER_LEFT" spacing="0">
+                            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="◈" styleClass="kpi-badge-white"/>
+                                    <Label text="SOLDE GLOBAL" styleClass="kpi-label-white"/>
+                                </HBox>
+                                <Label fx:id="soldeGlobalLabel" text="0 FCFA" styleClass="kpi-value, kpi-value-white"/>
+                                <Label text="entrées - sorties" styleClass="kpi-evolution-white"/>
+                            </VBox>
+                            <StackPane styleClass="kpi-icon-box, kpi-icon-box-purple">
+                                <FontIcon iconLiteral="fas-chart-line" styleClass="kpi-icon-white" iconSize="20"/>
+                            </StackPane>
+                        </HBox>
+                        <Region prefHeight="14"/>
+                        <Region styleClass="kpi-bar-white" maxWidth="56"/>
+                    </VBox>
+                </HBox>
+
+                <VBox styleClass="table-card" spacing="0">
+                    <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
+                        <FontIcon iconLiteral="fas-chart-bar" styleClass="filter-icon" iconSize="14"/>
+                        <Label text="  Évolution des transactions par mois" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <Separator style="-fx-opacity:0.4;"/>
+                    <BarChart fx:id="chartTransactionsParMois" title="Entrées vs Sorties par mois" style="-fx-padding:10;" prefHeight="300" VBox.vgrow="NEVER">
+                        <xAxis><CategoryAxis fx:id="xAxis" label="Mois"/></xAxis>
+                        <yAxis><NumberAxis fx:id="yAxis" label="Montant (FCFA)"/></yAxis>
+                    </BarChart>
+                </VBox>
+
+                <VBox styleClass="table-card" spacing="0">
+                    <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
+                        <FontIcon iconLiteral="fas-filter" styleClass="filter-icon" iconSize="14"/>
+                        <Label text="  Filtrer les transactions" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+                        <Button text="✕ Réinitialiser" styleClass="btn-voir-tout" style="-fx-font-size:11px; -fx-padding:5 12;" onAction="#onResetFilters"/>
+                    </HBox>
+                    <Separator style="-fx-opacity:0.4;"/>
+                    <HBox style="-fx-padding:12 18;" spacing="10" alignment="CENTER_LEFT">
+                        <HBox alignment="CENTER_LEFT" spacing="0" style="-fx-background-color:#F7FAFC; -fx-border-color:#E2E8F0; -fx-border-radius:8; -fx-background-radius:8;">
+                            <FontIcon iconLiteral="fas-search" styleClass="search-icon" iconSize="12"/>
+                            <TextField fx:id="searchField" promptText="Rechercher..." style="-fx-background-color:transparent; -fx-border-color:transparent; -fx-padding:7 10 7 5; -fx-font-size:12px;" prefWidth="180"/>
+                        </HBox>
+                        <ComboBox fx:id="filterType" promptText="Type" styleClass="filter-combo" prefWidth="110"/>
+                        <ComboBox fx:id="filterUtilisateur" promptText="Utilisateur" styleClass="filter-combo" prefWidth="170"/>
+                        <DatePicker fx:id="filterDateDebut" promptText="Date début" styleClass="filter-date"/>
+                        <DatePicker fx:id="filterDateFin" promptText="Date fin" styleClass="filter-date"/>
+                    </HBox>
+                </VBox>
+
+                <VBox styleClass="table-card">
+                    <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
+                        <VBox HBox.hgrow="ALWAYS" spacing="2">
+                            <Label text="Liste des transactions" styleClass="section-title"/>
+                            <Label fx:id="countLabel" text="0 transaction(s)" styleClass="section-subtitle"/>
+                        </VBox>
+                    </HBox>
+                    <Separator style="-fx-opacity:0.5;"/>
+                    <TableView fx:id="transactionsTable" styleClass="table-view" prefHeight="450" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colDate" text="DATE" prefWidth="100"/>
+                            <TableColumn fx:id="colDescription" text="DESCRIPTION" prefWidth="200"/>
+                            <TableColumn fx:id="colCategorie" text="CATÉGORIE" prefWidth="120"/>
+                            <TableColumn fx:id="colUtilisateur" text="UTILISATEUR" prefWidth="140"/>
+                            <TableColumn fx:id="colType" text="TYPE" prefWidth="80"/>
+                            <TableColumn fx:id="colMontant" text="MONTANT" prefWidth="120"/>
+                            <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="150"/>
+                        </columns>
+                    </TableView>
+                    <HBox alignment="CENTER" spacing="8" style="-fx-padding:10 18; -fx-background-color:#FAFBFF; -fx-border-color:#F0F0F0 transparent transparent transparent;">
+                        <Label fx:id="paginationInfo" text="" style="-fx-font-size:11px; -fx-text-fill:#718096;" HBox.hgrow="ALWAYS"/>
+                        <HBox spacing="5" alignment="CENTER">
+                            <Button fx:id="btnPremierePage" text="«" styleClass="btn-voir-tout" style="-fx-min-width:30px; -fx-font-weight:bold;"/>
+                            <Button fx:id="btnPagePrev" text="‹ Préc." styleClass="btn-voir-tout"/>
+                            <HBox fx:id="pageNumbersBox" spacing="4" alignment="CENTER"/>
+                            <Button fx:id="btnPageNext" text="Suiv. ›" styleClass="btn-voir-tout"/>
+                            <Button fx:id="btnDernierePage" text="»" styleClass="btn-voir-tout" style="-fx-min-width:30px; -fx-font-weight:bold;"/>
+                        </HBox>
+                        <HBox spacing="6" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                            <Label text="Par page :" style="-fx-font-size:11px; -fx-text-fill:#718096;"/>
+                            <ComboBox fx:id="pageSizeCombo" styleClass="filter-combo" prefWidth="62" onAction="#onPageSizeChanged"/>
+                        </HBox>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</HBox>

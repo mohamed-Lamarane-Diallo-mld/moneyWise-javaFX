@@ -92,7 +92,7 @@ public class ProfilController implements Initializable {
         int uid = SessionManager.getUserId();
         if (uid != -1) {
             String prenom = SessionManager.getUtilisateur().getNom().split(" ")[0];
-            headerUser.setText("Bonjour, " + prenom);
+            headerUser.setText("Bonjour " + prenom + " !");
             if (badgeInscription != null) {
                 Utilisateur user = SessionManager.getUtilisateur();
                 if (user.getDateInscription() != null) {

@@ -8,17 +8,16 @@
       fx:id="sidebarRoot"
       styleClass="sidebar"
       stylesheets="@../style/global.css, @../style/sidebar.css"
-      prefWidth="240" minWidth="240">
+      prefWidth="240" minWidth="240" maxWidth="240">
 
-    <!-- LOGO -->
     <VBox styleClass="sidebar-logo-zone" spacing="2">
         <Label text="Money Wise" styleClass="sidebar-logo-title"/>
         <Label text="Votre finances. Votre contrôle." styleClass="sidebar-logo-sub"/>
     </VBox>
 
-    <!-- NAVIGATION -->
-    <VBox VBox.vgrow="ALWAYS" spacing="2" style="-fx-padding: 10 0;">
+    <VBox VBox.vgrow="ALWAYS" spacing="0" style="-fx-padding: 8 0;">
         <Label text="MENU" styleClass="sidebar-section-label"/>
+        
         <HBox fx:id="navHome" styleClass="nav-item" onMouseClicked="#goToHome">
             <Label fx:id="navHomeIcon" styleClass="nav-item-icon"/>
             <Label text="Dashboard" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
@@ -43,12 +42,22 @@
 
         <HBox fx:id="navAdminCategories" styleClass="nav-item" onMouseClicked="#goToAdminCategories" visible="false" managed="false">
             <Label fx:id="navAdminCategoriesIcon" styleClass="nav-item-icon"/>
-            <Label text="Categories" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+            <Label text="Catégories" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <HBox fx:id="navAdminLogs" styleClass="nav-item" onMouseClicked="#goToAdminLogs" visible="false" managed="false">
             <Label fx:id="navAdminLogsIcon" styleClass="nav-item-icon"/>
             <Label text="Journal" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <HBox fx:id="navAdminTransactions" styleClass="nav-item" onMouseClicked="#goToAdminTransactions" visible="false" managed="false">
+            <Label fx:id="navAdminTransactionsIcon" styleClass="nav-item-icon"/>
+            <Label text="Toutes transac." styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <HBox fx:id="navAdminStatistiques" styleClass="nav-item" onMouseClicked="#goToAdminStatistiques" visible="false" managed="false">
+            <Label fx:id="navAdminStatistiquesIcon" styleClass="nav-item-icon"/>
+            <Label text="Toutes stat." styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
         </HBox>
 
         <Label text="COMPTE" styleClass="sidebar-section-label"/>
@@ -63,10 +72,8 @@
             <Label text="Alertes" styleClass="nav-item-label" HBox.hgrow="ALWAYS"/>
             <Label fx:id="alerteBadge" text="0" styleClass="nav-badge" visible="false" managed="false"/>
         </HBox>
-
     </VBox>
 
-    <!-- USER ZONE -->
     <HBox styleClass="sidebar-user-zone" spacing="10" alignment="CENTER_LEFT">
         <StackPane styleClass="sidebar-user-avatar">
             <Label fx:id="avatarLabel" text="?" styleClass="sidebar-user-avatar-label"/>

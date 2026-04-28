@@ -16,9 +16,9 @@ public class App extends Application {
     private static Stage primaryStage;
 
     public static final double MIN_WIDTH = 900;
-    public static final double MIN_HEIGHT = 600;
+    public static final double MIN_HEIGHT = 650;
     public static final double INIT_WIDTH = 1200;
-    public static final double INIT_HEIGHT = 750;
+    public static final double INIT_HEIGHT = 650;
 
     @Override
     public void start(Stage stage) throws IOException {

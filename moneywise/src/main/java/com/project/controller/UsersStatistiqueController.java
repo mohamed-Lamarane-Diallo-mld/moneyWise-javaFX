@@ -24,10 +24,12 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 
-public class StatistiqueController implements Initializable {
+public class UsersStatistiqueController implements Initializable {
 
     // ── Header ──
     @FXML private Label headerDate;
@@ -71,10 +73,10 @@ public class StatistiqueController implements Initializable {
         currentUserId = SessionManager.getUserId();
 
         chargerHeader();
-        chargerDonneesPersonnelles();
+        chargerDonnees();
 
         if (sidebarController != null)
-            sidebarController.setActiveItem("statistique");
+            sidebarController.setActiveItem("adminStatistiques");
         ResponsiveHelper.bind(this::onResize);
     }
 
@@ -86,27 +88,27 @@ public class StatistiqueController implements Initializable {
 
     private void chargerHeader() {
         headerDate.setText(DateHelper.formaterComplet(LocalDate.now()));
-        Utilisateur user = SessionManager.getUtilisateur();
-        String nom = user != null ? user.getNom().split(" ")[0] : "";
-        headerUser.setText("Bonjour " + nom + " !");
+        String nom = SessionManager.getUtilisateur() != null
+            ? SessionManager.getUtilisateur().getNom().split(" ")[0] : "";
+        headerUser.setText("Statistiques globales");
     }
 
     @FXML private void setPeriodeMois() {
         periodeActive = "mois";
         updatePeriodeBtns(btnMois);
-        chargerDonneesPersonnelles();
+        chargerDonnees();
     }
 
     @FXML private void setPeriodeTrimestre() {
         periodeActive = "trimestre";
         updatePeriodeBtns(btnTrimestre);
-        chargerDonneesPersonnelles();
+        chargerDonnees();
     }
 
     @FXML private void setPeriodeAnnee() {
         periodeActive = "annee";
         updatePeriodeBtns(btnAnnee);
-        chargerDonneesPersonnelles();
+        chargerDonnees();
     }
 
     private void updatePeriodeBtns(Button actif) {
@@ -131,20 +133,15 @@ public class StatistiqueController implements Initializable {
         return DateHelper.finMoisCourant();
     }
 
-    // ─────────────────────────────────────────
-    // DONNÉES PERSONNELLES (pour l'utilisateur connecté)
-    // ─────────────────────────────────────────
-    private void chargerDonneesPersonnelles() {
-        if (currentUserId == -1) return;
-
-        chargerResumePersonnel();
-        chargerPieChartPersonnel();
-        chargerBarChartPersonnel();
+    private void chargerDonnees() {
+        chargerResumeGlobal();
+        chargerPieChartGlobal();
+        chargerBarChartGlobal();
     }
 
-    private void chargerResumePersonnel() {
-        var transactions = transactionDAO.rechercher(
-            currentUserId, null, null, getDateDebut(), getDateFin(), null);
+    private void chargerResumeGlobal() {
+        var transactions = transactionDAO.rechercherGlobal(
+            null, null, getDateDebut(), getDateFin(), null);
 
         double totalEntrees = 0, totalSorties = 0;
         for (var t : transactions) {
@@ -174,17 +171,18 @@ public class StatistiqueController implements Initializable {
             analyseTauxEpargne.setStyle(tauxEpargne >= 20 ? "-fx-text-fill:#D97706;" : "-fx-text-fill:#EF4444;");
         }
 
+        String suffixe = " (Global)";
         String labelPeriode = switch (periodeActive) {
-            case "trimestre" -> "3 derniers mois";
-            case "annee"     -> "Cette année";
-            default          -> "Ce mois — " + DateHelper.nomMoisCourant();
+            case "trimestre" -> "3 derniers mois" + suffixe;
+            case "annee"     -> "Cette année" + suffixe;
+            default          -> "Ce mois — " + DateHelper.nomMoisCourant() + suffixe;
         };
         if (pieSubtitle != null) pieSubtitle.setText(labelPeriode);
-        if (barSubtitle != null) barSubtitle.setText("Année " + DateHelper.anneeCourante());
+        if (barSubtitle != null) barSubtitle.setText("Année " + DateHelper.anneeCourante() + suffixe);
     }
 
-    private void chargerPieChartPersonnel() {
-        List<Object[]> data = transactionDAO.getDepensesParCategorie(currentUserId);
+    private void chargerPieChartGlobal() {
+        List<Object[]> data = transactionDAO.getDepensesParCategorieGlobal(getDateDebut(), getDateFin());
         pieChart.getData().clear();
         if (data.isEmpty()) {
             pieChart.setData(FXCollections.observableArrayList(new PieChart.Data("Aucune dépense", 1)));
@@ -199,8 +197,8 @@ public class StatistiqueController implements Initializable {
         pieChart.setLabelsVisible(true);
     }
 
-    private void chargerBarChartPersonnel() {
-        List<Object[]> data = transactionDAO.getEntreesSortiesParMois(currentUserId, DateHelper.anneeCourante());
+    private void chargerBarChartGlobal() {
+        List<Object[]> data = transactionDAO.getEntreesSortiesParMoisGlobal(DateHelper.anneeCourante());
         barChart.getData().clear();
 
         XYChart.Series<String, Number> serieE = new XYChart.Series<>();
@@ -226,21 +224,18 @@ public class StatistiqueController implements Initializable {
         barChart.setAnimated(false);
     }
 
-    // ─────────────────────────────────────────
-    // EXPORT PDF (personnel)
-    // ─────────────────────────────────────────
     @FXML
     private void exportPDF() {
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Enregistrer le rapport PDF");
-        chooser.setInitialFileName("MoneyWise_rapport_" + LocalDate.now() + ".pdf");
+        chooser.setTitle("Enregistrer le rapport PDF global");
+        chooser.setInitialFileName("MoneyWise_rapport_global_" + LocalDate.now() + ".pdf");
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
 
         File fichier = chooser.showSaveDialog(null);
         if (fichier == null) return;
 
         try {
-            genererPDFPersonnel(fichier);
+            genererPDFGlobal(fichier);
             new Alert(Alert.AlertType.INFORMATION, "PDF exporté avec succès !\n" + fichier.getAbsolutePath()).show();
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Erreur lors de l'export PDF : " + e.getMessage()).show();
@@ -250,24 +245,23 @@ public class StatistiqueController implements Initializable {
     @FXML
     private void exportExcel() {
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Enregistrer le fichier Excel");
-        chooser.setInitialFileName("MoneyWise_transactions_" + LocalDate.now() + ".xlsx");
+        chooser.setTitle("Enregistrer le fichier Excel global");
+        chooser.setInitialFileName("MoneyWise_transactions_global_" + LocalDate.now() + ".xlsx");
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel", "*.xlsx"));
 
         File fichier = chooser.showSaveDialog(null);
         if (fichier == null) return;
 
         try {
-            genererExcelPersonnel(fichier);
+            genererExcelGlobal(fichier);
             new Alert(Alert.AlertType.INFORMATION, "Excel exporté avec succès !\n" + fichier.getAbsolutePath()).show();
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Erreur lors de l'export Excel : " + e.getMessage()).show();
         }
     }
 
-    private void genererPDFPersonnel(File fichier) throws Exception {
-        var transactions = transactionDAO.rechercher(currentUserId, null, null, getDateDebut(), getDateFin(), null);
-        Utilisateur user = SessionManager.getUtilisateur();
+    private void genererPDFGlobal(File fichier) throws Exception {
+        var transactions = transactionDAO.rechercherGlobal(null, null, getDateDebut(), getDateFin(), null);
 
         try (var doc = new org.apache.pdfbox.pdmodel.PDDocument()) {
             var page = new org.apache.pdfbox.pdmodel.PDPage(org.apache.pdfbox.pdmodel.common.PDRectangle.A4);
@@ -282,7 +276,7 @@ public class StatistiqueController implements Initializable {
 
                 stream.beginText(); stream.setFont(fontBold, 20);
                 stream.newLineAtOffset(50, 780);
-                stream.showText("MoneyWise - Rapport financier");
+                stream.showText("MoneyWise - Rapport Global");
                 stream.endText();
 
                 stream.beginText(); stream.setFont(fontNormal, 11);
@@ -292,15 +286,15 @@ public class StatistiqueController implements Initializable {
 
                 stream.beginText(); stream.setFont(fontNormal, 11);
                 stream.newLineAtOffset(50, 740);
-                stream.showText("Utilisateur : " + user.getNom() + " (" + user.getEmail() + ")");
+                stream.showText("Rapport global — Tous les utilisateurs");
                 stream.endText();
 
                 stream.moveTo(50, 730); stream.lineTo(545, 730); stream.stroke();
 
-                int[] xCols = {50, 130, 300, 400, 460};
-                String[] heads = {"DATE", "DESCRIPTION", "CATÉGORIE", "TYPE", "MONTANT"};
+                int[] xCols = {50, 130, 260, 360, 430, 500};
+                String[] heads = {"DATE", "UTILISATEUR", "CATÉGORIE", "TYPE", "MONTANT"};
                 for (int i = 0; i < heads.length; i++) {
-                    stream.beginText(); stream.setFont(fontBold, 10);
+                    stream.beginText(); stream.setFont(fontBold, 9);
                     stream.newLineAtOffset(xCols[i], 715);
                     stream.showText(heads[i]); stream.endText();
                 }
@@ -311,17 +305,17 @@ public class StatistiqueController implements Initializable {
                     if (y < 60) break;
                     String[] vals = {
                         t.getDateTransaction().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                        truncate(t.getDescription() != null ? t.getDescription() : "-", 22),
-                        truncate(t.getCategorieNom() != null ? t.getCategorieNom() : "-", 14),
+                        truncate(t.getUtilisateurNom() != null ? t.getUtilisateurNom() : "-", 15),
+                        truncate(t.getCategorieNom() != null ? t.getCategorieNom() : "-", 12),
                         t.getType().getLibelle(),
                         NF.format(t.getMontant()) + " F"
                     };
                     for (int i = 0; i < vals.length; i++) {
-                        stream.beginText(); stream.setFont(fontNormal, 9);
+                        stream.beginText(); stream.setFont(fontNormal, 8);
                         stream.newLineAtOffset(xCols[i], y);
                         stream.showText(vals[i]); stream.endText();
                     }
-                    y -= 16;
+                    y -= 14;
                 }
 
                 stream.moveTo(50, y - 6); stream.lineTo(545, y - 6); stream.stroke();
@@ -348,11 +342,11 @@ public class StatistiqueController implements Initializable {
         }
     }
 
-    private void genererExcelPersonnel(File fichier) throws Exception {
-        var transactions = transactionDAO.rechercher(currentUserId, null, null, getDateDebut(), getDateFin(), null);
+    private void genererExcelGlobal(File fichier) throws Exception {
+        var transactions = transactionDAO.rechercherGlobal(null, null, getDateDebut(), getDateFin(), null);
 
         try (var workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook()) {
-            var sheet = workbook.createSheet("Transactions");
+            var sheet = workbook.createSheet("Transactions Globales");
 
             var hStyle = workbook.createCellStyle();
             var hFont = workbook.createFont();
@@ -361,7 +355,7 @@ public class StatistiqueController implements Initializable {
             hStyle.setFont(hFont);
 
             var headerRow = sheet.createRow(0);
-            String[] cols = {"Date", "Description", "Catégorie", "Type", "Montant (FCFA)"};
+            String[] cols = {"Date", "Utilisateur", "Catégorie", "Type", "Montant (FCFA)"};
             for (int i = 0; i < cols.length; i++) {
                 var cell = headerRow.createCell(i);
                 cell.setCellValue(cols[i]);
@@ -373,7 +367,7 @@ public class StatistiqueController implements Initializable {
             for (var t : transactions) {
                 var row = sheet.createRow(rowNum++);
                 row.createCell(0).setCellValue(t.getDateTransaction().toString());
-                row.createCell(1).setCellValue(t.getDescription() != null ? t.getDescription() : "");
+                row.createCell(1).setCellValue(t.getUtilisateurNom() != null ? t.getUtilisateurNom() : "");
                 row.createCell(2).setCellValue(t.getCategorieNom() != null ? t.getCategorieNom() : "");
                 row.createCell(3).setCellValue(t.getType().getLibelle());
                 row.createCell(4).setCellValue(t.getMontant());
