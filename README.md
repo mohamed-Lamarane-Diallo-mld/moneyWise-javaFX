@@ -1,6 +1,3 @@
-Voici le README.md mis à jour avec tous les nouveaux fichiers et fonctionnalités :
-
-```markdown
 # MoneyWise - Application de Gestion Financière
 
 **MoneyWise** est une application JavaFX complète de gestion financière personnelle. Elle permet aux utilisateurs de gérer leurs transactions, budgets, catégories, alertes et exporter leurs données.
@@ -29,9 +26,9 @@ Voici le README.md mis à jour avec tous les nouveaux fichiers et fonctionnalit�
 - **Gestion des budgets** avec alertes de dépassement
 - **Gestion des catégories** de dépenses/revenus
 - **Système d'alertes** personnalisées
-- **Statistiques et rapports** graphiques (personnels et globaux)
+- **Statistiques et rapports** graphiques
 - **Gestion des utilisateurs** (Admin et Utilisateur)
-- **Export de données** (PDF, Excel)
+- **Export de données** (PDF, Excel, etc.)
 - **Journalisation des activités** (Logs)
 - **Questions de sécurité** pour récupération de compte
 
@@ -50,8 +47,6 @@ Voici le README.md mis à jour avec tous les nouveaux fichiers et fonctionnalit�
 - Catégoriser les transactions (revenus/dépenses)
 - Filtrer par date, catégorie, montant
 - Vue détaillée des transactions
-- Transactions personnelles pour chaque utilisateur
-- Vue globale pour l'administrateur
 
 ### Budget et Alertes
 - Définir des budgets par catégorie
@@ -60,24 +55,21 @@ Voici le README.md mis à jour avec tous les nouveaux fichiers et fonctionnalit�
 - Historique des alertes
 
 ### Statistiques
-- Graphiques des dépenses par catégorie (Camembert)
-- Évolution temporelle des transactions (Graphique à barres)
+- Graphiques des dépenses par catégorie
+- Évolution temporelle des transactions
 - Résumés mensuels/annuels
 - Comparaisons budgétaires
-- Statistiques personnelles pour tous les utilisateurs
-- Statistiques globales pour l'administrateur
 
 ### Administration
-- Gestion des utilisateurs (activation/désactivation/suppression)
+- Gestion des utilisateurs
 - Gestion des catégories système
 - Visualisation des logs d'activité
-- **Vue globale de toutes les transactions** (admin uniquement)
-- **Statistiques globales** (admin uniquement)
+- Statistiques globales
 
 ### Export
 - Export en PDF
 - Export en Excel
-- Rapports formatés (personnels et globaux)
+- Rapports formatés
 
 ---
 
@@ -90,8 +82,6 @@ Voici le README.md mis à jour avec tous les nouveaux fichiers et fonctionnalit�
 - **Gestion des Projets** : Maven
 - **Sécurité** : BCrypt (hashage des mots de passe)
 - **PDF** : PDFBox 3.0.1
-- **Excel** : Apache POI
-- **Icônes** : Ikonli FontAwesome5
 - **Connecteur DB** : MySQL Connector J 8.3.0
 
 ### Architecture MVC
@@ -138,11 +128,11 @@ moneyWise-javaFX/
         │   │   │   ├── ProfilController.java             # Profil utilisateur
         │   │   │   ├── RecuperationCompteController.java # Récupération de compte
         │   │   │   ├── SidebarController.java            # Barre de navigation latérale
-        │   │   │   ├── StatistiqueController.java        # Graphiques et statistiques (personnel)
-        │   │   │   ├── TransactionController.java        # Gestion des transactions (personnel)
+        │   │   │   ├── StatistiqueController.java        # Graphiques et statistiques
+        │   │   │   ├── TransactionController.java        # Gestion des transactions
         │   │   │   ├── TransactionModalController.java   # Modal pour transactions
-        │   │   │   ├── UsersTransactionsController.java  # Vue globale des transactions (Admin)
-        │   │   │   └── UsersStatistiqueController.java   # Statistiques globales (Admin)
+        │   │   │   ├── UsersStatistiqueController.java   # Statistiques utilisateurs (Admin)
+        │   │   │   └── UsersTransactionsController.java  # Transactions utilisateurs (Admin)
         │   │   │
         │   │   ├── dao/                                  # Data Access Objects (Base de Données)
         │   │   │   ├── DatabaseConnection.java           # Connexion MySQL
@@ -156,29 +146,31 @@ moneyWise-javaFX/
         │   │   │   └── UtilisateurDAO.java               # CRUD Utilisateurs
         │   │   │
         │   │   ├── enums/                                # Énumérations
-        │   │   │   ├── FormatExport.java                 # Formats d'export (PDF, EXCEL)
+        │   │   │   ├── FormatExport.java                 # Formats d'export (PDF, EXCEL, etc.)
         │   │   │   ├── TypeAlerte.java                   # Types d'alertes
-        │   │   │   └── TypeTransaction.java              # Types de transactions (Entrée, Sortie)
+        │   │   │   └── TypeTransaction.java              # Types de transactions (Revenu, Dépense)
         │   │   │
         │   │   ├── model/                                # Modèles métier
-        │   │   │   ├── Alerte.java                       # Alerte
-        │   │   │   ├── Budget.java                       # Budget
-        │   │   │   ├── Categorie.java                    # Catégorie
-        │   │   │   ├── Journal.java                      # Journal d'activité
-        │   │   │   ├── QuestionSecurite.java             # Question de sécurité
-        │   │   │   ├── Transaction.java                  # Transaction
-        │   │   │   └── Utilisateur.java                  # Utilisateur
+        │   │   │   ├── Administrateur.java               # Entité administrateur
+        │   │   │   ├── Alerte.java                      # Entité alerte
+        │   │   │   ├── Budget.java                      # Entité budget
+        │   │   │   ├── Categorie.java                   # Entité catégorie
+        │   │   │   ├── Export.java                      # Entité export
+        │   │   │   ├── JournalActivite.java             # Entité journal d'activité
+        │   │   │   ├── QuestionSecurite.java            # Entité question de sécurité
+        │   │   │   ├── Transaction.java                 # Entité transaction
+        │   │   │   └── Utilisateur.java                 # Entité utilisateur
         │   │   │
         │   │   └── utils/                                # Utilitaires
-        │   │       ├── AlerteHelper.java                 # Gestion des alertes
-        │   │       ├── DateHelper.java                   # Manipulation des dates
-        │   │       ├── NavigationHelper.java             # Navigation entre les vues
-        │   │       ├── ResponsiveHelper.java             # Gestion responsive
-        │   │       └── SessionManager.java               # Gestion de session
+        │   │       ├── AlerteHelper.java                 # Fonctions utilitaires pour les alertes
+        │   │       ├── DateHelper.java                   # Fonctions utilitaires pour les dates
+        │   │       ├── LoaderOverlay.java                # Gestion des overlays de chargement
+        │   │       ├── NavigationHelper.java             # Navigation entre vues
+        │   │       ├── ResponsiveHelper.java             # Adaptation responsive de l'UI
+        │   │       └── SessionManager.java               # Gestion de session utilisateur
         │   │
         │   └── resources/com/project/
         │       ├── fonts/                                # Polices de caractères
-        │       │   └── DejaVuSans.ttf                    # Police principale
         │       ├── images/                               # Ressources images (icônes, logos)
         │       ├── style/                                # Feuilles CSS
         │       │   ├── global.css                        # Styles globaux
@@ -204,13 +196,17 @@ moneyWise-javaFX/
         │           ├── Profil.fxml                       # Vue Profil
         │           ├── RecuperationCompte.fxml           # Vue Récupération
         │           ├── Sidebar.fxml                      # Vue Barre latérale
-        │           ├── Statistique.fxml                  # Vue Statistiques (personnel)
-        │           ├── Transaction.fxml                  # Vue Transactions (personnel)
+        │           ├── Statistique.fxml                  # Vue Statistiques
+        │           ├── Transaction.fxml                  # Vue Transactions
         │           ├── TransactionModal.fxml             # Modal Transactions
-        │           ├── UsersTransactions.fxml            # Vue globale transactions (Admin)
-        │           └── UsersStatistique.fxml             # Vue globale statistiques (Admin)
+        │           ├── UsersStatistique.fxml             # Vue Statistiques utilisateurs (Admin)
+        │           └── UsersTransactions.fxml            # Vue Transactions utilisateurs (Admin)
         │
         └── target/                                       # Output Maven (compilé)
+            ├── classes/                                  # Classes compilées
+            ├── maven-archiver/                           # Métadonnées Maven
+            ├── maven-status/                             # Status de compilation
+            └── test-classes/                             # Classes de test compilées
 
 ```
 
@@ -261,29 +257,6 @@ moneyWise-javaFX/
     <groupId>org.apache.pdfbox</groupId>
     <artifactId>pdfbox</artifactId>
     <version>3.0.1</version>
-</dependency>
-```
-
-### Export Excel
-```xml
-<dependency>
-    <groupId>org.apache.poi</groupId>
-    <artifactId>poi-ooxml</artifactId>
-    <version>5.2.5</version>
-</dependency>
-```
-
-### Icônes
-```xml
-<dependency>
-    <groupId>org.kordamp.ikonli</groupId>
-    <artifactId>ikonli-javafx</artifactId>
-    <version>12.3.1</version>
-</dependency>
-<dependency>
-    <groupId>org.kordamp.ikonli</groupId>
-    <artifactId>ikonli-fontawesome5-pack</artifactId>
-    <version>12.3.1</version>
 </dependency>
 ```
 
@@ -349,42 +322,34 @@ ou via l'IDE :
 
 2. **Accès existant** : Connectez-vous avec vos identifiants
    - Email et mot de passe
-   - Mot de passe oublié ? Utilisez la récupération par questions de sécurité
+   - Ouvlie du mot de passe ? Utilisez la récupération par questions de sécurité
 
 ### Gestion des Transactions
-- **Vue Transactions** : Consultez l'historique de vos transactions
-- **Ajouter** : Cliquez sur "Nouvelle Transaction" → Sélectionnez le type → Confirmez
+- **Vue Transactions** : Consultez l'historique complet
+- **Ajouter** : Cliquez sur "Nouvelle Transaction" → Selectionnez type → Confirmez
 - **Modifier** : Cliquez sur une transaction → Modifiez → Sauvegardez
 - **Supprimer** : Sélectionnez → Supprimez (confirmation requise)
-- **Filtres** : Recherchez par date, catégorie, type, ou mot-clé
 
 ### Budgets
 - **Ajouter un budget** : Catégorie + Limite mensuelle
 - **Alertes** : Recevez des notifications si le budget est dépassé
 - **Historique** : Consultez les budgets passés
-- **Suivi** : Visualisez la progression des budgets avec des barres colorées
 
 ### Statistiques
-- **Graphique camembert** : Visualisez vos dépenses par catégorie
-- **Graphique à barres** : Évolution mensuelle des entrées/sorties
-- **Périodes** : Consultez les statistiques par mois, trimestre ou année
-- **Analyse rapide** : Indicateurs clés (revenus, dépenses, épargne, taux d'épargne)
-- **Export** : Générez des rapports PDF ou Excel
+- **Graphiques** : Visualisez vos dépenses par catégorie
+- **Tendances** : Évolution mensuelle/annuelle
+- **Rapports** : Résumés détaillés
 
 ### Administration (Utilisateur Admin)
-L'administrateur a accès à des fonctionnalités supplémentaires dans le menu "ADMINISTRATION" :
-
-- **Utilisateurs** : Activer/Désactiver/Supprimer des comptes utilisateurs
-- **Catégories** : Ajouter/Modifier/Supprimer des catégories système
-- **Journal** : Consulter l'historique des activités de tous les utilisateurs
-- **Toutes transactions** : Vue globale de toutes les transactions du système
-- **Toutes statistiques** : Statistiques globales sur l'ensemble des utilisateurs
+- **Gérer utilisateurs** : Activer/Désactiver/Supprimer
+- **Catégories système** : Ajouter/Modifier/Supprimer catégories
+- **Logs** : Consulter l'historique des activités
+- **Statistiques globales** : Vue d'ensemble du système
 
 ### Export
-- Sélectionnez la période (mois/trimestre/année)
-- Choisissez le format (PDF ou Excel)
-- Téléchargez le fichier généré
-- L'admin peut exporter des rapports personnels ou globaux
+- Sélectionnez la plage de dates
+- Choisissez le format (PDF, Excel, etc.)
+- Téléchargez le fichier
 
 ---
 
@@ -429,46 +394,28 @@ mvn install                    # Télécharger et installer dépendances
 
 ### `DatabaseConnection.java`
 - Gère la connexion MySQL
-- Connexion unique partagée (Singleton)
+- Pool de connexions (si configuré)
 - Méthodes utilitaires d'accès DB
 
 ### Controllers
-- **TransactionController** : Gère les transactions personnelles de l'utilisateur
-- **UsersTransactionsController** : Vue admin de toutes les transactions
-- **StatistiqueController** : Statistiques personnelles
-- **UsersStatistiqueController** : Statistiques globales (admin)
-- **SidebarController** : Navigation latérale dynamique selon le rôle
+- Chaque contrôleur gère une vue FXML
+- Liaison automatique via annotations `@FXML`
+- Logique métier séparation du UI
 
 ### DAOs (Data Access Objects)
 - Encapsulent l'accès à la base de données
 - Méthodes CRUD standardisées
 - Requêtes SQL optimisées
-- Méthodes spécifiques pour les vues admin (recherche globale)
-
-### Utilitaires
-- **SessionManager** : Gère la session utilisateur (ID, rôle, données)
-- **NavigationHelper** : Centralise la navigation entre les vues
-- **AlerteHelper** : Gère les alertes et notifications
-- **DateHelper** : Manipulation des dates et périodes
 
 ### Énumérations
-- **TypeTransaction** : ENTRÉE, SORTIE
-- **TypeAlerte** : EMAIL, SYSTÈME, PUSH
-- **FormatExport** : PDF, EXCEL
+- **TypeTransaction** : REVENU, DÉPENSE
+- **TypeAlerte** : EMAIL, SYSTÈME, PUSH, etc.
+- **FormatExport** : PDF, EXCEL, CSV, etc.
 
 ### Ressources CSS
 - Styles globaux centralisés dans `global.css`
-- Styles spécifiques par vue
+- Styles spécifiques par vue (modal.css, sidebar.css, etc.)
 - Thème cohérent et responsive
-
----
-
-## Structure des Rôles
-
-| Rôle | Pages accessibles |
-|------|-------------------|
-| **Utilisateur normal** | Dashboard, Transactions, Statistiques, Profil, Alertes |
-| **Administrateur** | Toutes les pages utilisateur + Utilisateurs, Catégories, Journal, Toutes transactions, Toutes statistiques |
 
 ---
 
@@ -489,10 +436,6 @@ mvn install                    # Télécharger et installer dépendances
 - Vérifier le chemin de chargement dans les contrôleurs
 - Nettoyer et recompiler : `mvn clean compile`
 
-### La sidebar déborde
-- Réduire la hauteur de la fenêtre ou agrandir l'écran
-- La sidebar est optimisée pour une hauteur minimale de 650px
-
 ---
 
 ## Notes de Développement
@@ -502,7 +445,6 @@ mvn install                    # Télécharger et installer dépendances
 - **Sécurité** : Tous les mots de passe sont hashés avec BCrypt
 - **Logs** : Activités enregistrées dans la base de données
 - **UI** : Responsive, conçue pour 1200x750 minimum 900x600
-- **Séparation des rôles** : Les vues admin sont séparées des vues utilisateur
 
 ---
 
@@ -522,29 +464,3 @@ Pour contribuer ou signaler un bug, veuillez créer une issue ou pull request.
 ---
 
 **Dernière mise à jour** : Avril 2026
-```
-
-## Résumé des modifications du README :
-
-1. **Ajout des nouveaux contrôleurs** :
-   - `UsersTransactionsController.java`
-   - `UsersStatistiqueController.java`
-
-2. **Ajout des nouvelles vues FXML** :
-   - `UsersTransactions.fxml`
-   - `UsersStatistique.fxml`
-
-3. **Ajout des dépendances** :
-   - Apache POI pour Excel
-   - Ikonli pour les icônes
-
-4. **Mise à jour des fonctionnalités** :
-   - Transactions personnelles vs globales
-   - Statistiques personnelles vs globales
-   - Structure des rôles (admin vs utilisateur)
-
-5. **Ajout du modèle de données** :
-   - Liste complète des entités
-
-6. **Ajout des utilitaires** :
-   - SessionManager, NavigationHelper, etc.
