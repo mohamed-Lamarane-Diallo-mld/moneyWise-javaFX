@@ -192,6 +192,30 @@ public class TransactionDAO {
         return 0;
     }
 
+    public double getTotalEntreesGlobal() {
+        String sql = "SELECT COALESCE(SUM(montant), 0) FROM transaction WHERE type = 'ENTREE'";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getDouble(1);
+        } catch (SQLException e) {
+            System.err.println("Erreur getTotalEntreesGlobal : " + e.getMessage());
+        }
+        return 0;
+    }
+
+    public double getTotalSortiesGlobal() {
+        String sql = "SELECT COALESCE(SUM(montant), 0) FROM transaction WHERE type = 'SORTIE'";
+        try (PreparedStatement ps = getConn().prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getDouble(1);
+        } catch (SQLException e) {
+            System.err.println("Erreur getTotalSortiesGlobal : " + e.getMessage());
+        }
+        return 0;
+    }
+
     public List<Transaction> rechercherGlobal(String type, Integer categorieId, LocalDate dateDebut, LocalDate dateFin,
             String motCle) {
         List<Transaction> transactions = new ArrayList<>();

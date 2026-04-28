@@ -131,10 +131,8 @@
                     <VBox styleClass="table-card" spacing="0" HBox.hgrow="ALWAYS" prefHeight="340" maxHeight="340" minHeight="340">
                         <HBox styleClass="table-header-zone" alignment="CENTER_LEFT">
                             <VBox HBox.hgrow="ALWAYS" spacing="2">
-                                <Label text="Budgets" 
-                                       styleClass="section-title"/>
-                                <Label text="Suivi de vos plafonds"
-                                       styleClass="section-subtitle"/>
+                                <Label text="Budgets" styleClass="section-title"/>
+                                <Label text="Suivi de vos plafonds" styleClass="section-subtitle"/>
                             </VBox>
                             <Button text="＋ Ajouter" styleClass="btn-voir-tout" onAction="#openModalAjouterBudget"/>
                         </HBox>
@@ -202,7 +200,6 @@
                         <ComboBox fx:id="filterCategorie" promptText="Catégorie" styleClass="filter-combo" prefWidth="140" onAction="#onFilterChanged"/>
                         <DatePicker fx:id="filterDateDebut" promptText="Date début" styleClass="filter-date" onAction="#onFilterChanged"/>
                         <DatePicker fx:id="filterDateFin" promptText="Date fin" styleClass="filter-date" onAction="#onFilterChanged"/>
-                        <ComboBox fx:id="filterUtilisateur" promptText="Tous les utilisateurs" styleClass="filter-combo" prefWidth="170" visible="false" onAction="#onFilterChanged"/>
                     </HBox>
                 </VBox>
 
@@ -221,7 +218,6 @@
                             <TableColumn fx:id="colDate" text="DATE" prefWidth="100"/>
                             <TableColumn fx:id="colDescription" text="DESCRIPTION" prefWidth="200"/>
                             <TableColumn fx:id="colCategorie" text="CATÉGORIE" prefWidth="120"/>
-                            <TableColumn fx:id="colUtilisateur" text="UTILISATEUR" prefWidth="140" visible="false"/>
                             <TableColumn fx:id="colType" text="TYPE" prefWidth="80"/>
                             <TableColumn fx:id="colMontant" text="MONTANT" prefWidth="120"/>
                             <TableColumn fx:id="colActions" text="ACTIONS" prefWidth="150"/>

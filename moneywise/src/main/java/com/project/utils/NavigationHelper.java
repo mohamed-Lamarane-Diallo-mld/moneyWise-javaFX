@@ -46,4 +46,5 @@ public class NavigationHelper {
     public static final String ADMIN_UTILISATEURS = "/com/project/view/AdminUtilisateurs";
     public static final String ADMIN_CATEGORIES = "/com/project/view/AdminCategories";
     public static final String ADMIN_LOGS = "/com/project/view/AdminLogs";
+    public static final String ADMIN_TRANSACTIONS = "/com/project/view/AdminTransactions";
 }

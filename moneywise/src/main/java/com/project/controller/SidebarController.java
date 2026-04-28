@@ -41,11 +41,13 @@ public class SidebarController implements Initializable {
     @FXML private Label adminSectionLabel;
     @FXML private HBox navAdminUtilisateurs;
     @FXML private HBox navAdminCategories;
+    @FXML private HBox navAdminTransactions;
     @FXML private HBox navAdminLogs;
     
     // Labels des icônes admin
     @FXML private Label navAdminUtilisateursIcon;
     @FXML private Label navAdminCategoriesIcon;
+    @FXML private Label navAdminTransactionsIcon;
     @FXML private Label navAdminLogsIcon;
     
     // User info
@@ -82,6 +84,7 @@ public class SidebarController implements Initializable {
         // Menu admin
         setIcon(navAdminUtilisateursIcon, FontAwesomeSolid.USERS);
         setIcon(navAdminCategoriesIcon, FontAwesomeSolid.TAGS);
+        setIcon(navAdminTransactionsIcon, FontAwesomeSolid.EXCHANGE_ALT);
         setIcon(navAdminLogsIcon, FontAwesomeSolid.HISTORY);
     }
     
@@ -91,7 +94,7 @@ public class SidebarController implements Initializable {
             fontIcon.setIconSize(18);
             fontIcon.getStyleClass().add("nav-item-icon");
             label.setGraphic(fontIcon);
-            label.setText(""); // Supprime le texte par défaut
+            label.setText("");
         }
     }
     
@@ -107,6 +110,8 @@ public class SidebarController implements Initializable {
         navAdminUtilisateurs.setManaged(visible);
         navAdminCategories.setVisible(visible);
         navAdminCategories.setManaged(visible);
+        navAdminTransactions.setVisible(visible);
+        navAdminTransactions.setManaged(visible);
         navAdminLogs.setVisible(visible);
         navAdminLogs.setManaged(visible);
     }
@@ -156,6 +161,7 @@ public class SidebarController implements Initializable {
         // Reset menus admin
         navAdminUtilisateurs.getStyleClass().removeAll("nav-item-active");
         navAdminCategories.getStyleClass().removeAll("nav-item-active");
+        navAdminTransactions.getStyleClass().removeAll("nav-item-active");
         navAdminLogs.getStyleClass().removeAll("nav-item-active");
 
         switch (page) {
@@ -166,6 +172,7 @@ public class SidebarController implements Initializable {
             case "alertes" -> navAlertes.getStyleClass().add("nav-item-active");
             case "adminUtilisateurs" -> navAdminUtilisateurs.getStyleClass().add("nav-item-active");
             case "adminCategories" -> navAdminCategories.getStyleClass().add("nav-item-active");
+            case "adminTransactions" -> navAdminTransactions.getStyleClass().add("nav-item-active");
             case "adminLogs" -> navAdminLogs.getStyleClass().add("nav-item-active");
         }
     }
@@ -236,6 +243,15 @@ public class SidebarController implements Initializable {
     private void goToAdminCategories(MouseEvent e) {
         try {
             NavigationHelper.navigateTo(NavigationHelper.ADMIN_CATEGORIES);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void goToAdminTransactions(MouseEvent e) {
+        try {
+            NavigationHelper.navigateTo(NavigationHelper.ADMIN_TRANSACTIONS);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
