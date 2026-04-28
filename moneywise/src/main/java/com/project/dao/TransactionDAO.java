@@ -408,6 +408,7 @@ public class TransactionDAO {
                         rs.getDouble("entrees"),
                         rs.getDouble("sorties") });
         } catch (SQLException e) {
+            
             e.printStackTrace();
         }
         return data;
